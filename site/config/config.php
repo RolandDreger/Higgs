@@ -1,5 +1,5 @@
-﻿<?php
+<?php
 
-	return [
-		'debug'  => false
-	];
+return [
+  'debug' => false
+];
