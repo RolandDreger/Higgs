@@ -1,0 +1,15 @@
+Title: Default
+
+sections:
+  info_section:
+    type: fields
+    fields:
+      info_text:
+        type: text
+        label:
+          en: Info
+          de: Info
+        help:
+          en: Additional information about user
+          de: Zusätzliche Informationen über Benutzer:in
+        width: 1/2
