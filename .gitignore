@@ -3,5 +3,5 @@ higgs.code-workspace
 composer.lock
 kirby/
 public/media/
-storage/
+storage/*/
 vendor/
