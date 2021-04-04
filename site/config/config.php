@@ -1,5 +1,6 @@
 <?php
 
 return [
-  'debug' => false
+  'debug' => false,
+	'languages' => true
 ];
