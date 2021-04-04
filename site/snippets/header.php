@@ -9,5 +9,4 @@
 	</head>
 	<body>
 		<header class="header">
-			<a class="logo" href="<?= $site->url(); ?>"><?= $site->title(); ?></a>
 		</header>
