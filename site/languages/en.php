@@ -9,7 +9,12 @@ return [
     ],
     'name' => 'English',
     'translations' => [
-
+			'change' => 'Change',
+			'confirm' => 'OK',
+			'copy' => 'Copy',
+			'create' => 'Create',
+			'cancel' => 'Cancel',
+			'continue' => 'Continue'
     ],
     'url' => NULL
 ];

@@ -9,7 +9,12 @@ return [
     ],
     'name' => 'Deutsch',
     'translations' => [
-
+			'change' => 'Ändern',
+			'confirm' => 'OK',
+			'copy' => 'Kopieren',
+			'create' => 'Erstellen',
+			'cancel' => 'Abbrechen',
+			'continue' => 'Weiter'
     ],
     'url' => NULL
 ];
