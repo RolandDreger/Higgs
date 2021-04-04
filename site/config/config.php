@@ -2,5 +2,6 @@
 
 return [
   'debug' => false,
-	'languages' => true
+	'languages' => true,
+	'date.handler' => 'strftime'
 ];
