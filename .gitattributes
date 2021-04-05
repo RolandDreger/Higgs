@@ -1,0 +1,6 @@
+# Git
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# Composer
+composer.json export-ignore
