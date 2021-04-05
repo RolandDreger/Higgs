@@ -2,6 +2,7 @@
 higgs.code-workspace
 composer.lock
 kirby/
+content/**/.lock
 public/media/
 storage/*/
 vendor/
