@@ -16,5 +16,11 @@ return [
 			'cancel' => 'Abbrechen',
 			'continue' => 'Weiter'
     ],
+		'slug' => [
+			'ß' => 'sz',
+			'ä' => 'ae',
+			'ö' => 'oe',
+			'ü' => 'ue'
+		],
     'url' => NULL
 ];
