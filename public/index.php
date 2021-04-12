@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../vendor/autoload.php';
+include '../vendor/autoload.php';
 
 $kirby = new Kirby([
 	'roots' => [
@@ -11,6 +11,7 @@ $kirby = new Kirby([
 		'storage'  => $storage = $base . '/storage',
 		'accounts' => $storage . '/accounts',
 		'cache'    => $storage . '/cache',
+		'log'      => $storage . '/log',
 		'sessions' => $storage . '/sessions'
 	]
 ]);
