@@ -1,0 +1,1 @@
+<script src="<?= url('/assets/js/script.js'); ?>" type="module"></script>

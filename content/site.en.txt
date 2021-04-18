@@ -1,3 +1,21 @@
 Title: Higgs
+
 ----
-Twitter: roland_dreger
+
+Description: Simple web-based editorial system with Kirby, pageJS and saxonJS.
+
+----
+
+Twittersite: @roland_dreger
+
+----
+
+Twittercreator: @roland_dreger
+
+----
+
+Twittercard: summary_large_image
+
+----
+
+OpengraphImage: opengraph.jpg
