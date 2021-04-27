@@ -14,5 +14,5 @@ node_modules/
 # Kirby
 kirby/
 content/**/.lock
-public/media/
+public/media
 storage/*/
