@@ -2,7 +2,7 @@ Title: Higgs
 
 ----
 
-Description: Simple web-based editorial system with Kirby, pageJS and saxonJS.
+Description: Simple web-based editorial system build on top of Kirby CMS with pageJS and saxonJS.
 
 ----
 
