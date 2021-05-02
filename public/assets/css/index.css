@@ -46,3 +46,25 @@ html {
 	font-family: sans-serif;
 	font-size: 100%;
 }
+
+
+body {
+	font-family: sans-serif;
+	padding: 10%;
+	text-align: center;
+	line-height: 1.5em;
+}
+
+a {
+	color: inherit;
+}
+
+a:hover,
+a:focus {
+	color: #000;
+}
+
+p {
+	max-width: 30em;
+	margin: 0 auto;
+}
