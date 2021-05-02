@@ -1,0 +1,15 @@
+{
+	"name": "higgs/epub-module",
+	"description": "Kirby Plugin for generating ePubs",
+	"type": "kirby-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Roland Dreger",
+			"email": "roland.dreger@a1.net"
+		}
+	],
+	"require": {
+		"getkirby/composer-installer": "^1.1"
+	}
+}
