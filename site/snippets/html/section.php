@@ -1,6 +1,6 @@
-<section epub:type="bodymatter chapter" role="doc-chapter">
+<section>
 	<header>
-		<h1 epub:type="title"><?= $section->title(); ?></h1>
+		<h1><?= $section->title(); ?></h1>
 	</header>
 	<?php if($section->text()->isNotEmpty()): ?>
 		<p><?= esc($section->text(), 'html'); ?></p>

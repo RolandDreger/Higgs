@@ -81,12 +81,15 @@ p {
 }
 
 #site-logo svg path {
-	fill: rgb(50, 50, 50);
+	fill: rgb(0, 180, 150);
 }
 
 @media (prefers-color-scheme: dark) {
 	body {
 		color: #fff;
-		background-color: #000;
+		background-color: rgb(50, 50, 50);;
+	}
+	#site-logo svg path {
+		fill: rgb(0, 180, 150);
 	}
 }
