@@ -2,7 +2,7 @@ Title: Main Title
 
 ----
 
-Text:
+Documenttext:
 
 # Essay 
 # on the 
@@ -13,3 +13,11 @@ Third edition.
 London: 
 John Churchill & Sons, Net Burlington Street. 
 UDCCCLXV.
+
+----
+
+Documenttype: main title
+
+----
+
+Documentpart: title pages

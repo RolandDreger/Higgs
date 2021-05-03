@@ -2,7 +2,7 @@ Title: Advertisement To The Reader
 
 ----
 
-Text:
+Documenttext:
 
 # Advertisement To The Reader. 
 This Essay was one among several, on subjects connected with the study of the Climate of this country, which were presented by the Author to a Philosophical Society, of which he was a Member, and at its instance published. The following Note, attached by the Editor of the *Philosophical Magazine* to the first of these publications, will explain the nature of the Association here mentioned. 
@@ -10,3 +10,11 @@ This Essay was one among several, on subjects connected with the study of the Cl
 During several years, while it continued in activity, the Author was a regular assistant at the meetings, and a contributor to the archives of this little Association; the proceedings of which, and the discussions arising out of questions moved by each member in his turn, were productive of no small intellectual benefit to the members. 
 The Essay on Clouds has been since, in various ways, reprinted and abridged, and is to be found in several Cyclopædias and periodical publications; but the author has not, until now, thought fit to replace the small, and long since dispersed. Edition of it, originally printed separately for his use. 
 *London, 23d Fifth Month, 1832.*
+
+----
+
+Documenttype: 
+
+----
+
+Documentpart: front matter

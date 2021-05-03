@@ -1,0 +1,14 @@
+title: Projects
+
+sections:
+  higgsProjects:
+    headline: " "
+    type: pages
+    layout: cards
+    status: all
+    limit: 20
+    size: small
+    image:
+      ratio: 1/1
+      cover: true
+    create: 'Project'

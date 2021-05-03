@@ -1,0 +1,15 @@
+{
+	"name": "higgs/panel-module",
+	"description": "Kirby Plugin for panel helper methods",
+	"type": "kirby-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Roland Dreger",
+			"email": "roland.dreger@a1.net"
+		}
+	],
+	"require": {
+		"getkirby/composer-installer": "^1.1"
+	}
+}

@@ -6,7 +6,7 @@
 		<main class="main">
 			<h1><?= $site->title(); ?></h1>
 			<?php foreach($page->children() as $child): ?>
-				<p><?= $child->title(); ?></p>
+				<p><a href="<?= $child->url(); ?>"><?= $child->title(); ?></a></p>
 			<?php endforeach; ?>
 		</main>
 		<?php snippet('html/footer'); ?>

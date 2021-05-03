@@ -2,7 +2,7 @@
 	<header>
 		<h1 epub:type="title"><?= $section->title(); ?></h1>
 	</header>
-	<?php if($section->text()->isNotEmpty()): ?>
-		<p><?= esc($section->text(), 'html'); ?></p>
+	<?php if($section->documentText()->isNotEmpty()): ?>
+		<p><?= esc($section->documentText(), 'html'); ?></p>
 	<?php endif; ?>
 </section>

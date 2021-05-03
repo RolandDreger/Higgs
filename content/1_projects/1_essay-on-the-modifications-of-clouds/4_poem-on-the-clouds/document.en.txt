@@ -2,7 +2,7 @@ Title: Poem On The Clouds
 
 ----
 
-Text:
+Documenttext:
 
 # Poem On The Clouds,
 ## By Goethe.
@@ -75,3 +75,11 @@ Der Erde thätig-leidendes Geschick! —
 Doch mit dem Bilde hebet euren Blick: 
 Die Rede geht herab, denn sie beschreibt; 
 Der Geist will aufwärts, wo er ewig bleibt.
+
+----
+
+Documenttype: 
+
+----
+
+Documentpart: front matter

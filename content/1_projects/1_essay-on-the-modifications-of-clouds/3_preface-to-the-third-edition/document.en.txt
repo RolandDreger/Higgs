@@ -2,7 +2,7 @@ Title: Preface To The Third Edition
 
 ----
 
-Text:
+Documenttext:
 
 # Preface To The Third Edition.
 
@@ -30,3 +30,11 @@ Tottenham, November, 1864.
 † The landscapes were by Mr. Kenyon. No. 2 is not by the same hand, haying been purchased as a good example of a Stratus doud, to complete the set
 †† Two instances in very different styles of art will suffice, viz.: the beautifully engraved illustrations of Cirri, &c., by J. C. Armytage, in vol. v. of Ruskin’s “Modem Painters,” and the stereoscopic photographs of Mr. Wilson, of Aberdeen. 
 ††† Goethe’s Sämmtliche Werke, voI. xl. p. 311, &c., Cotta’s Edit. 1840. We may refer the reader who wishes for any biographical information respecting the Author to his letter to Goethe, in p. 342, &c.
+
+----
+
+Documenttype: 
+
+----
+
+Documentpart: front matter

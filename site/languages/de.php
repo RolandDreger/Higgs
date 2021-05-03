@@ -9,12 +9,13 @@ return [
     ],
     'name' => 'Deutsch',
     'translations' => [
-			'change' => 'Ändern',
-			'confirm' => 'OK',
-			'copy' => 'Kopieren',
-			'create' => 'Erstellen',
-			'cancel' => 'Abbrechen',
-			'continue' => 'Weiter'
+			'title pages' => 'Titelei',
+			'front matter' => 'Vorspann',
+			'body matter' => 'Hauptteil',
+			'back matter' => 'Nachspann',
+			'main title' => 'Haupttitel',
+			'table of contents' => 'Inhaltsverzeichnis',
+			'impress' => 'Impressum'
     ],
 		'slug' => [
 			'ß' => 'sz',

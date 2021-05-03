@@ -4,7 +4,7 @@
 	<body>
 		<?php snippet('html/header'); ?>
 		<main class="main">
-			<?php foreach($page->children() as $section): ?>
+			<?php foreach($page->children()->published() as $section): ?>
 				<?php snippet('html/section', ['section' => $section]); ?>
 			<?php endforeach; ?>
 		</main>
