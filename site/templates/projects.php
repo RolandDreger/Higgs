@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php snippet('html/content-type'); ?>
 <html lang="<?= $kirby->language()->locale(LC_ALL); ?>">
 	<?php snippet('html/head'); ?>
 	<body>
