@@ -41,8 +41,12 @@ columns:
         headline:
           en: "Cover Image"
           de: "Titelbild"
-        layout: list
+        layout: cards
         max: 1
+        size: small
+        image:
+          ratio: 1/1
+          cover: false
         template: cover-image
       projectFiles:
         type: files
