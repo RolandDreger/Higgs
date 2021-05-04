@@ -4,7 +4,7 @@
 	<body>
 		<?php snippet('html/header'); ?>
 		<main class="main">
-			<?php snippet('html/section', ['section' => $page]); ?>
+			<?php snippet('html/section', ['targetPage' => $page]); ?>
 		</main>
 		<?php snippet('html/footer'); ?>
 		<?php snippet('html/script'); ?>

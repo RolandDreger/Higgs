@@ -4,8 +4,8 @@
 	<body>
 		<?php snippet('html/header'); ?>
 		<main class="main">
-			<?php foreach($page->children()->published() as $section): ?>
-				<?php snippet('html/section', ['section' => $section]); ?>
+			<?php foreach($page->children()->published() as $publishedPage): ?>
+				<?php snippet('html/section', ['targetPage' => $publishedPage]); ?>
 			<?php endforeach; ?>
 		</main>
 		<?php snippet('html/footer'); ?>

@@ -1,8 +1,8 @@
 <section>
 	<header>
-		<h1><a href="<?= $section->url(); ?>"><?= $section->title(); ?></a></h1>
+		<h1><a href="<?= $targetPage->url(); ?>"><?= $targetPage->title(); ?></a></h1>
 	</header>
-	<?php if($section->documentText()->isNotEmpty()): ?>
-		<p><?= esc($section->documentText(), 'html'); ?></p>
+	<?php if($targetPage->documentText()->isNotEmpty()): ?>
+		<p><?= esc($targetPage->documentText(), 'html'); ?></p>
 	<?php endif; ?>
 </section>

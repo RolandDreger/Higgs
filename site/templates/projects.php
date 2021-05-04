@@ -5,6 +5,7 @@
 		<?php snippet('html/header'); ?>
 		<main class="main">
 			<h1><?= $site->title(); ?></h1>
+			<h2>Projects</h2>
 			<?php foreach($page->children() as $child): ?>
 				<p><a href="<?= $child->url(); ?>"><?= $child->title(); ?></a></p>
 			<?php endforeach; ?>
