@@ -66,6 +66,7 @@ a:focus {
 
 h1 {
 	font-size: 5rem;
+	line-height: 1.1;
 }
 
 p {
@@ -81,7 +82,7 @@ p {
 }
 
 #site-logo svg path {
-	fill: rgb(0, 180, 150);
+	fill: rgb(0, 0, 0);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -90,6 +91,6 @@ p {
 		background-color: rgb(50, 50, 50);;
 	}
 	#site-logo svg path {
-		fill: rgb(0, 180, 150);
+		fill: rgb(255, 255, 255);
 	}
 }
