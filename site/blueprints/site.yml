@@ -49,12 +49,8 @@ columns:
       #   text: "{{ page.title }}"
       #   create: 'Projects'
       siteFiles:
+        type: files
         headline:
           en: "Files"
           de: "Dateien"
-        type: files
         layout: list
-        size: tiny
-        image:
-          ratio: 1/1
-          cover: true
