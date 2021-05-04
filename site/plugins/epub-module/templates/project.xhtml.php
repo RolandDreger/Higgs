@@ -2,16 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en" lang="en">
 	<?php snippet('epub/head'); ?>
 	<body>
-
 		<!-- Linear Content -->
-		<?php foreach($page->children()->listed() as $linearSection): ?>
-			<?php snippet('epub/section', ['section' => $linearSection]); ?>
+		<?php foreach($listedChildPages as $listedPage): ?>
+			<?php snippet('epub/section', ['targetPage' => $listedPage]); ?>
 		<?php endforeach; ?>
-		
 		<!-- Non-linear Content-->
-		<?php foreach($page->children()->unlisted() as $nonLinearSection): ?>
-			<?php snippet('epub/section'); ?>
+		<?php foreach($unlistedChildPages as $unlistedPage): ?>
+			<?php snippet('epub/section', ['targetPage' => $unlistedPage]); ?>
 		<?php endforeach; ?>
-
 	</body>
 </html>

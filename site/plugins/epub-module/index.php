@@ -1,11 +1,5 @@
 <?php
 
-/* 
-	load([
-		'higgs\\epub-module\epub-class' => 'scr/EPubClass.php' muss dann auch in composer.json eingtragen werden
-	]);
-*/
-
 Kirby::plugin('higgs/epub-module', [
 	
 	'options' => [
@@ -25,6 +19,10 @@ Kirby::plugin('higgs/epub-module', [
 		'projects.xhtml' => __DIR__ . '/templates/projects.xhtml.php',
 		'project.xhtml' => __DIR__ . '/templates/project.xhtml.php',
 		'document.xhtml' => __DIR__ . '/templates/document.xhtml.php'
+	],
+
+	'controllers' => [
+		'project' => require __DIR__ . '/controllers/project.php'
 	]
 
 ]);
