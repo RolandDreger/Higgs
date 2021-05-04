@@ -1,8 +1,0 @@
-title: File
-
-fields: 
-  alt:
-    type: text
-    label:
-      en: "Alternative Text"
-      de: "Alternativtext"

@@ -1,9 +1,16 @@
-title: File
+title: Cover
+
+accept: 
+  mine: image/png, image/jpeg 
+  # image/*
+  # orientation: portrait
+  # minwidth: 1200
+  # maxwidth: 3400
 
 columns: 
   - width: 2/3
     fields: 
-      fileDesc:
+      coverDesc:
         type: textarea
         label:
           en: "Description"
@@ -15,12 +22,12 @@ columns:
           de: "Alternativtext"
   - width: 1/3
     fields:
-      fileAuthor:
+      coverAuthor:
         type: text
         label:
           en: Author
           de: Autor:in
-      fileCopyright:
+      coverCopyright:
         type: text
         label:
           en: Copyright

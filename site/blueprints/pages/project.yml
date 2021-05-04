@@ -41,16 +41,20 @@ columns:
         headline:
           en: "Cover Image"
           de: "Titelbild"
+        text: "{{ file.filename }} ({{ file.dimensions }})"
+        info: "ALT: {{ file.alt }}"
         layout: cards
         max: 1
         size: small
         image:
           ratio: 1/1
           cover: false
-        template: cover-image
+        template: cover
       projectFiles:
         type: files
         headline:
           en: "Project Files"
           de: "Projektdateien"
+        info: "{{ file.dimensions }}"
         layout: list
+        template: default

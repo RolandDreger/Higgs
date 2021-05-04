@@ -1,8 +1,27 @@
 title: Default
 
-fields:
-  alt:
-    type: text
-    label:
-      en: "Alternative Text"
-      de: "Alternativtext"
+columns: 
+  - width: 2/3
+    fields: 
+      desc:
+        type: textarea
+        label:
+          en: "Description"
+          de: "Beschreibung"
+      alt:
+        type: text
+        label:
+          en: "Alternative Text"
+          de: "Alternativtext"
+  - width: 1/3
+    fields:
+      author:
+        type: text
+        label:
+          en: Author
+          de: Autor:in
+      copyright:
+        type: text
+        label:
+          en: Copyright
+          de: Copyright
