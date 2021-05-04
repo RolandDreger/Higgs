@@ -1,4 +1,4 @@
-Filedesc: 
+Coverdesc: 
 
 ----
 
@@ -6,8 +6,12 @@ Alt: Forms assumed by clouds when gathering for a thunderstorm.
 
 ----
 
-Author: E.M. Wilhams lith. M. & N. Hanhart imp
+Coverauthor: 
 
 ----
 
-Copyright:
+Covercopyright: 
+
+----
+
+Template: cover
