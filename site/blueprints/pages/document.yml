@@ -16,6 +16,31 @@ columns:
       documentInfo:
         type: fields
         fields:
+          documentPart:
+            # Translations from languages files
+            type: select
+            label: 
+              en: "Part"
+              de: "Teil"
+            default: 'body matter'
+            required: true
+            options:
+              - value: 'title pages'
+                text:
+                  en: "Title Pages"
+                  de: "Titelei"
+              - value: 'front matter' 
+                text:
+                  en: "Front Matter"
+                  de: "Vorspann"
+              - value: 'body matter'
+                text:
+                  en: "Body Matter"
+                  de: "Hauptteil"
+              - value: 'back matter'
+                text:
+                  en: "Back Matter"
+                  de: "Nachspann"
           documentType:
             # Translations from languages files
             type: select
@@ -35,30 +60,9 @@ columns:
                 text:
                   en: "Impress"
                   de: "Impressum"
-          documentPart:
-            # Translations from languages files
-            type: select
-            label: 
-              en: "Part"
-              de: "Teil"
-            default: 'body matter'
-            options:
-              - value: 'title pages'
-                text:
-                  en: "Title Pages"
-                  de: "Titelei"
-              - value: 'front matter' 
-                text:
-                  en: "Front Matter"
-                  de: "Vorspann"
-              - value: 'body matter'
-                text:
-                  en: "Body Matter"
-                  de: "Hauptteil"
-              - value: 'back matter'
-                text:
-                  en: "Back Matter"
-                  de: "Nachspann"
+            help: 
+              en: Landmarks in ePubs
+              de: Landmarks in ePubs
       documentFiles:
         headline: Files
         type: files
