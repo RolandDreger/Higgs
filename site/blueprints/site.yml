@@ -1,5 +1,60 @@
 title: Site
-preset: pages
-unlisted: true
 
-#info field
+columns:
+  - width: 2/3
+    sections:
+      siteListedPages:
+        headline: 
+          en: "Dashboard"
+          de: "Übersicht"
+        type: pages
+        status: listed
+        min: 1
+        layout: cards
+        size: small
+        image: 
+          ratio: 3/2
+          cover: false
+          back: white
+          query: site.image
+        text: "{{ page.title }}"
+  - width: 1/3
+    sections:
+      siteInfo:
+        type: fields
+        fields: 
+          siteInfo:
+            type: info
+            label: 
+              en: "Info"
+              de: "Info"
+            text:
+              en: "Simple web-based editorial system built on top of Kirby with pageJS and saxonJS modules."
+              de: "Einfacher web-basiertes Editorialstytem aufbauend auf Kirbe mit pageJS und saxonJS Modulen."
+      siteUnlistedPages:
+        headline: 
+          en: "Pages"
+          de: "Seiten"
+        type: pages
+        layout: list
+        status: unlisted
+        text: "{{ page.title }}"
+      # siteDraftPages:
+      #   headline: 
+      #     en: "Drafts"
+      #     de: "Entwürfe"
+      #   type: pages
+      #   layout: list
+      #   status: drafts
+      #   text: "{{ page.title }}"
+      #   create: 'Projects'
+      siteFiles:
+        headline:
+          en: "Files"
+          de: "Dateien"
+        type: files
+        layout: list
+        size: tiny
+        image:
+          ratio: 1/1
+          cover: true

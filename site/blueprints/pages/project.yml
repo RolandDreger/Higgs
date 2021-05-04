@@ -1,41 +1,38 @@
-title: Project Page
+title: Project
 
-sections:
-  projectDescription:
-    type: fields
-    fields: 
+columns:
+  - width: 2/3
+    sections:
+      projectPublishedDocuments:
+        type: pages
+        headline: 
+          en: "Tabel of Content"
+          de: "Inhalt"
+        layout: list
+        status: published
+        text: "{{ page.title }}"
+        info: "{{ page.documentPart.translate().upper() }}"
+        create: 'Document'
+      projectDraftDocuments:
+        headline: 
+          en: "Drafts"
+          de: "Entwürfe"
+        type: pages
+        layout: list
+        status: drafts
+        text: "{{ page.title }}"
+        info: "{{ page.documentPart.translate().upper() }}"
+        create: 'Document'
+  - width: 1/3
+    sections:
       projectDescription:
-        type: textarea
-        label: 
-          en: "Description"
-          de: "Beschreibung"
-        width: 2/3
-        help:
-          en: "Short description of the project."
-          de: "Kurze Beschreibung des Projekts."
-  projectPublishedDocuments:
-    type: pages
-    headline: 
-      en: "Tabel of Content"
-      de: "Inhalt"
-    layout: list
-    status: published
-    text: "{{ page.title }}"
-    info: "{{ page.documentPart.translate().upper() }}"
-    image:
-      ratio: 1/1
-      cover: true
-    create: 'Document Page'
-  projectDraftDocuments:
-    headline: 
-      en: "Drafts"
-      de: "Entwürfe"
-    type: pages
-    layout: list
-    status: drafts
-    text: "{{ page.title }}"
-    info: "{{ page.documentPart.translate().upper() }}"
-    image:
-      ratio: 1/1
-      cover: true
-    create: 'Document Page'
+        type: fields
+        fields: 
+          projectDescription:
+            type: textarea
+            label: 
+              en: "Description"
+              de: "Beschreibung"
+            help:
+              en: "Short description of the project."
+              de: "Kurze Beschreibung des Projekts."
