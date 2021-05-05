@@ -44,8 +44,22 @@ columns:
               value: "{{ arrayItem.value }}"
               text: "{{ arrayItem.value.translate() }}"
             help: 
-              en: e.g. for landmarks in ePubs
-              de: z.B. für Landmarks in ePubs
+              en: for landmarks and epub:type attribute in ePubs
+              de: z.B. für Landmarks und epub:type-Attribut in ePubs
+          documentRole:
+            # Translations from languages files
+            type: select
+            label: 
+              en: Role
+              de: Rolle
+            options: query
+            query: 
+              fetch: site.siteDocumentTypes.split
+              value: "{{ arrayItem.value }}"
+              text: "{{ arrayItem.value.translate() }}"
+            help: 
+              en: e.g. for role attribute in ePubs
+              de: z.B. für role-Atribite in ePubs
       documentFiles:
         headline: Files
         type: files

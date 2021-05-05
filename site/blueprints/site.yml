@@ -96,8 +96,56 @@ columns:
               - "index"
               - "credits"              
             help:
-              en: e.g. for landmarks in ePubs
-              de: z.B. für Landmarks in ePubs
+              en: e.g. for landmarks and epub:type attribute in ePubs
+              de: z.B. für Landmarks und epub:type-Attribut in ePubs
+          siteDocumentRoles:
+            label: 
+              en: Document Roles
+              de: Dokumenrollen
+            type: tags
+            options:
+              # Frontmatter
+              - "cover"
+              - "titlepage"
+              - "halftitlepage"
+              - "maintitle"
+              - "copyright-page"
+              - "imprint"
+              - "imprimatur"
+              - "contributors"
+              - "colophon"
+              - "other-credits"
+              - "errata"
+              - "revision-history"
+              - "dedication"
+              - "epigraph"
+              - "toc"
+              - "foreword"
+              - "preface"
+              - "acknowledgments"
+              - "introduction"
+              - "prologe"
+              - "preamble"
+              # Bodymatter
+              - "part"
+              - "division"
+              - "chapter"
+              - "chapter-subchapter"
+              - "volume"
+              # Backmatter
+              - "epilogue"
+              - "afterword"
+              - "conclusion"
+              - "appendix"
+              - "glossary"
+              - "loi"
+              - "lot"
+              - "bibliography"
+              - "index"
+              - "credits"              
+            help:
+              en: e.g. for role attribute in ePubs
+              de: z.B. für role-Atribite in ePubs
   - width: 1/3
     sections:
       siteUnlistedPages:

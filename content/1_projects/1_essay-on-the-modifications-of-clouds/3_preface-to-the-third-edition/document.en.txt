@@ -37,4 +37,8 @@ Documentpart: frontmatter
 
 ----
 
-Documenttype: 
+Documenttype: preface
+
+----
+
+Documentrole: preface

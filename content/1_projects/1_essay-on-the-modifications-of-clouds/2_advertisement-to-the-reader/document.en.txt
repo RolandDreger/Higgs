@@ -17,4 +17,8 @@ Documentpart: frontmatter
 
 ----
 
-Documenttype: 
+Documenttype: prologe
+
+----
+
+Documentrole: prologe
