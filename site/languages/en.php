@@ -9,13 +9,13 @@ return [
     ],
     'name' => 'English',
     'translations' => [
-			'title pages' => 'Title Pages',
-			'front matter' => 'Front Matter',
-			'body matter' => 'Body Matter',
-			'back matter' => 'Back Matter',
-			'main title' => 'Main Title',
-			'table of contents' => 'Table of Contents',
-			'impress' => 'Impress'
+			'titlepages' => 'Title Pages',
+			'frontmatter' => 'Front Matter',
+			'bodymatter' => 'Body Matter',
+			'backmatter' => 'Back Matter',
+			'maintitle' => 'Main Title',
+			'toc' => 'Table of Contents',
+			'imprint' => 'Imprint'
     ],
     'url' => NULL
 ];

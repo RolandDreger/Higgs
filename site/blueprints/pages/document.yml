@@ -56,9 +56,9 @@ columns:
                 text: 
                   en: "Table of Contents"
                   de: "Inhaltsverzeichnis"
-              - value: 'impress'
+              - value: 'imprint'
                 text:
-                  en: "Impress"
+                  en: "Imprint"
                   de: "Impressum"
             help: 
               en: Landmarks in ePubs

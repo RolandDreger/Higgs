@@ -1,12 +1,12 @@
 title: Site
 
 columns:
-  - width: 2/3
+  - width: 1/3
     sections:
       siteListedPages:
         headline: 
-          en: "Dashboard"
-          de: "Übersicht"
+          en: "Project Overview"
+          de: "Projektübersicht"
         type: pages
         status: listed
         min: 1
@@ -31,6 +31,75 @@ columns:
             text:
               en: "Simple web-based editorial system built on top of Kirby with pageJS and saxonJS modules."
               de: "Einfacher web-basiertes Editorialstytem aufbauend auf Kirbe mit pageJS und saxonJS Modulen."
+          siteOptions:
+            type: headline
+            label: 
+              en: Options
+              de: Optionen
+            numbered: false
+          siteDocumentParts:
+            label: 
+              en: Document Parts
+              de: Dokumenteile
+            type: tags
+            options:
+              - "title pages"
+              - "front matter"
+              - "body matter"
+              - "back matter"
+            help:
+              en: e.g. for parsX transformation
+              de: z.B. für parsX-Transformation
+          siteDocumentTypes:
+            label: 
+              en: Document Types
+              de: Dokumenarten
+            type: tags
+            options:
+              # Frontmatter
+              - "cover"
+              - "titlepage"
+              - "halftitlepage"
+              - "maintitle"
+              - "copyright-page"
+              - "imprint"
+              - "imprimatur"
+              - "contributors"
+              - "colophon"
+              - "other-credits"
+              - "errata"
+              - "revision-history"
+              - "dedication"
+              - "epigraph"
+              - "toc"
+              - "foreword"
+              - "preface"
+              - "acknowledgments"
+              - "introduction"
+              - "prologe"
+              - "preamble"
+              # Bodymatter
+              - "part"
+              - "division"
+              - "chapter"
+              - "chapter-subchapter"
+              - "volume"
+              # Backmatter
+              - "epilogue"
+              - "afterword"
+              - "conclusion"
+              - "appendix"
+              - "glossary"
+              - "loi"
+              - "lot"
+              - "bibliography"
+              - "index"
+              - "credits"              
+            help:
+              en: e.g. for landmarks in ePubs
+              de: z.B. für Landmarks in ePubs
+  - width: 1/3
+    sections:
       siteUnlistedPages:
         headline: 
           en: "Pages"
@@ -39,15 +108,15 @@ columns:
         layout: list
         status: unlisted
         text: "{{ page.title }}"
-      # siteDraftPages:
-      #   headline: 
-      #     en: "Drafts"
-      #     de: "Entwürfe"
-      #   type: pages
-      #   layout: list
-      #   status: drafts
-      #   text: "{{ page.title }}"
-      #   create: 'Projects'
+      siteDraftPages:
+        headline: 
+          en: "Drafts"
+          de: "Entwürfe"
+        type: pages
+        layout: list
+        status: drafts
+        text: "{{ page.title }}"
+        create: 'Projects'
       siteFiles:
         type: files
         headline:
