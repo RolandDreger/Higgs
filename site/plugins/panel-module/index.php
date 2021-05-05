@@ -8,7 +8,12 @@ Kirby::plugin('higgs/panel-module', [
 	*/
 	'fieldMethods' => [
 		'translate' => function ($field) {
-			$field->value = t($field->value);
+			
+			$value = $field->value;
+			if(is_string($value)) {
+				$field->value = t($value);
+			} 
+			
       return $field;
 		}
 	]
