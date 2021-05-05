@@ -78,8 +78,8 @@ Der Geist will aufwärts, wo er ewig bleibt.
 
 ----
 
-Documenttype: 
+Documentpart: frontmatter
 
 ----
 
-Documentpart: front matter
+Documenttype: 

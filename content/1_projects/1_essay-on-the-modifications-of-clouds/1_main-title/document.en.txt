@@ -16,8 +16,8 @@ UDCCCLXV.
 
 ----
 
-Documenttype: main title
+Documentpart: titlepages
 
 ----
 
-Documentpart: title pages
+Documenttype: maintitle

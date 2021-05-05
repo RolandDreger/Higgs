@@ -13,8 +13,8 @@ The Essay on Clouds has been since, in various ways, reprinted and abridged, and
 
 ----
 
-Documenttype: 
+Documentpart: frontmatter
 
 ----
 
-Documentpart: front matter
+Documenttype: 
