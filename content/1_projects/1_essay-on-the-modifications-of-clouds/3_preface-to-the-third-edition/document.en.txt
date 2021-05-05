@@ -4,8 +4,6 @@ Title: Preface To The Third Edition
 
 Documenttext:
 
-# Preface To The Third Edition.
-
 It has been, for some years past, impossible to obtain the *Essay on the Modifications of the Clouds* in its separate form, the last edition, published in 1832, having been long exhausted. It appeared therefore desirable to bring out a new one. For, although the other scientific works by the same Author continue to be of value, this small treatise cannot but possess the highest interest of any, as it embodies that part of his labours which gave him so high a place among Meteorologists.
 
 From the time when this nomenclature was first suggested (about 1803), it has been universally adopted by scientific men, and, indeed, by all writers.
