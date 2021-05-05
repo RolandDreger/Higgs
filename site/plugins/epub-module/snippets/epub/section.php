@@ -1,4 +1,7 @@
-<section epub:type="bodymatter chapter" role="doc-chapter">
+<section 
+	epub:type="<?= trim($targetPage->documentPart() . ' ' . $targetPage->documentRole()); ?>" 
+	role="<?= $targetPage->documentRole(); ?>"
+>
 	<header>
 		<h1 epub:type="title"><?= $targetPage->title(); ?></h1>
 	</header>
