@@ -16,7 +16,7 @@ UDCCCLXV.
 
 ----
 
-Documentpart: frontmatter
+Documentpart: titlepages
 
 ----
 
