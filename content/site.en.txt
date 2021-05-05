@@ -2,11 +2,11 @@ Title: Higgs
 
 ----
 
-Sitedocumentparts: title pages, front matter, body matter, back matter
+Sitedocumentparts: titlepages, frontmatter, bodymatter, backmatter
 
 ----
 
-Sitedocumenttypes: cover, titlepage, halftitlepage, maintitle, copyright-page, imprint, imprimatur, contributors, colophon, other-credits, errata, revision-history, dedication, epigraph, toc, foreword, preface, acknowledgments, introduction, prologe, preamble, part, division, chapter, chapter-subchapter, volume, epilogue, afterword, conclusion, appendix, glossary, loi, lot, bibliography, index, credits   
+Sitedocumenttypes: cover, titlepage, halftitlepage, maintitle, copyright-page, imprint, imprimatur, contributors, colophon, other-credits, errata, revision-history, dedication, epigraph, toc, foreword, preface, acknowledgments, introduction, prologe, preamble, part, division, chapter, chapter-subchapter, volume, epilogue, afterword, conclusion, appendix, glossary, loi, lot, bibliography, index, credits
 
 ----
 

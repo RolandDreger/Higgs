@@ -22,47 +22,30 @@ columns:
             label: 
               en: "Part"
               de: "Teil"
-            default: 'body matter'
+            default: 'bodymatter'
             required: true
-            options:
-              - value: 'title pages'
-                text:
-                  en: "Title Pages"
-                  de: "Titelei"
-              - value: 'front matter' 
-                text:
-                  en: "Front Matter"
-                  de: "Vorspann"
-              - value: 'body matter'
-                text:
-                  en: "Body Matter"
-                  de: "Hauptteil"
-              - value: 'back matter'
-                text:
-                  en: "Back Matter"
-                  de: "Nachspann"
+            options: query
+            query: 
+              fetch: site.siteDocumentParts.split
+              value: "{{ arrayItem.value }}"
+              text: "{{ arrayItem.value.translate() }}"
+            help: 
+              en: e.g. for parsX export
+              de: z.B. für parsX-Export
           documentType:
             # Translations from languages files
             type: select
             label: 
               en: Type
               de: Typ
-            options:
-              - value: 'main title'
-                text: 
-                  en: "Main Title"
-                  de: "Haupttitel"
-              - value: 'table of contents'
-                text: 
-                  en: "Table of Contents"
-                  de: "Inhaltsverzeichnis"
-              - value: 'imprint'
-                text:
-                  en: "Imprint"
-                  de: "Impressum"
+            options: query
+            query: 
+              fetch: site.siteDocumentTypes.split
+              value: "{{ arrayItem.value }}"
+              text: "{{ arrayItem.value.translate() }}"
             help: 
-              en: Landmarks in ePubs
-              de: Landmarks in ePubs
+              en: e.g. for landmarks in ePubs
+              de: z.B. für Landmarks in ePubs
       documentFiles:
         headline: Files
         type: files

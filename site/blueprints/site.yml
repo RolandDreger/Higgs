@@ -43,13 +43,13 @@ columns:
               de: Dokumenteile
             type: tags
             options:
-              - "title pages"
-              - "front matter"
-              - "body matter"
-              - "back matter"
+              - "titlepages"
+              - "frontmatter"
+              - "bodymatter"
+              - "backmatter"
             help:
-              en: e.g. for parsX transformation
-              de: z.B. für parsX-Transformation
+              en: e.g. for parsX export
+              de: z.B. für parsX-Export
           siteDocumentTypes:
             label: 
               en: Document Types
