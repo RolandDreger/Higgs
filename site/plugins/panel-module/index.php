@@ -10,8 +10,20 @@ Kirby::plugin('higgs/panel-module', [
 		'translate' => function ($field) {
 			
 			$value = $field->value;
+
 			if(is_string($value)) {
-				$field->value = t($value);
+				/* Check: Comma separated string? */
+				if(preg_match('/[,;]/', $value, $matches)) {
+					$separator = $matches[0];
+					$valueArray = explode($separator, $value);
+					$resultArray = [];
+					foreach($valueArray as $curValue) {
+						array_push($resultArray, t(trim($curValue), $value));
+					}
+					$field->value = implode($separator, $resultArray);
+				} else {
+					$field->value = t($value, $value);
+				}
 			} 
 			
       return $field;
