@@ -10,6 +10,10 @@ Sitedocumenttypes: cover, titlepage, halftitlepage, maintitle, copyright-page, i
 
 ----
 
+Sitedocumentroles: cover, titlepage, halftitlepage, maintitle, copyright-page, imprint, imprimatur, contributors, colophon, other-credits, errata, revision-history, dedication, epigraph, toc, foreword, preface, acknowledgments, introduction, prologe, preamble, part, division, chapter, chapter-subchapter, volume, epilogue, afterword, conclusion, appendix, glossary, loi, lot, bibliography, index, credits
+
+----
+
 Description: Simple web-based editorial system build on top of Kirby CMS with pageJS and saxonJS.
 
 ----
