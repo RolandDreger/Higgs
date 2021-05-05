@@ -1,5 +1,9 @@
 title: Projects
 
+options:
+  changeStatus: false
+  changeSlug: false
+
 sections:
   higgsProjects:
     headline: " "
@@ -8,7 +12,8 @@ sections:
     status: all
     limit: 20
     size: small
-    image:
+    image: 
       ratio: 1/1
       cover: true
+      query: page.images.findBy("template", "cover")
     create: 'Project'

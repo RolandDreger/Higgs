@@ -5,8 +5,8 @@ columns:
     sections:
       siteListedPages:
         headline: 
-          en: "Project Overview"
-          de: "Projektübersicht"
+          en: "Library"
+          de: "Bibliothek"
         type: pages
         status: listed
         min: 1
