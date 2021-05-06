@@ -17,8 +17,8 @@ Documentpart: titlepages
 
 ----
 
-Documenttype: maintitle
+Documenttype: titlepage
 
 ----
 
-Documentrole: maintitle
+Documentrole: titlepage
