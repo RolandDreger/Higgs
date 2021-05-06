@@ -44,7 +44,7 @@ columns:
               value: "{{ arrayItem.value }}"
               text: "{{ arrayItem.value.translate() }}"
             help: 
-              en: for landmarks and epub:type attribute in ePubs
+              en: e.g. for landmarks and epub:type attribute in ePubs
               de: z.B. für Landmarks und epub:type-Attribut in ePubs
           documentRole:
             # Translations from languages files
