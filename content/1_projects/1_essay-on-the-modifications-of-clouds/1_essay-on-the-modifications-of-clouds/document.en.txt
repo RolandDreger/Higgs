@@ -4,12 +4,49 @@ Title: Essay on the Modifications of Clouds
 
 Documenttext:
 
-## By Luke Howard, F.R.S., &c. 
-[First published 1803] 
-Third edition. 
-London: 
-John Churchill & Sons, Net Burlington Street. 
-UDCCCLXV.
+[
+    {
+        "content": {
+            "level": "h2",
+            "text": "By Luke Howard, F.R.S., &amp;c."
+        },
+        "id": "45a92efd-86b8-4cf4-a643-b41a2fb49935",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>[First published 1803]</p>"
+        },
+        "id": "8d5f6fe4-9c66-464e-b1c9-34346b9b4adf",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Third edition.</p>"
+        },
+        "id": "ea205377-8e20-4eb5-86a7-f75221f6fd17",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>London: John Churchill &amp; Sons, Net Burlington Street.</p>"
+        },
+        "id": "37866425-5785-4a30-a91f-20da835ac5ed",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>UDCCCLXV.</p>"
+        },
+        "id": "b6dfef48-b245-41af-9c86-0ff033fc0b16",
+        "isHidden": false,
+        "type": "text"
+    }
+]
 
 ----
 

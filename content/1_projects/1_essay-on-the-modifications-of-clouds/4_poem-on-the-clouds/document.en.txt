@@ -4,76 +4,125 @@ Title: Poem On The Clouds
 
 Documenttext:
 
-## By Goethe.
-
-Wenn Gottheit Camarupa, hoch und hehr, 
-Durch Lüfte schwankend wandelt leicht und schwer, 
-Des Schleiers Falten sammelt, sie zerstreut, 
-Am Wechsel der Gestalten sich erfreut, 
-Jetzt starr sich hält, dann schwindet wie ein Traum – 
-Da staunen wir, und trau’n dem Auge kaum.
-
-Nun regt sich kühn des eignen Bildens Kraft 
-Die Unbestimmtes zu Bestimmtem schafft; 
-Da droht ein Leu, dort wogt ein Elephant, 
-Kameeles Hals, zum Drachen umgewandt; 
-Ein Heer zieht an, doch triumphirt es nicht. 
-Da es die Macht am steilen Felsen bricht; 
-Der treuste Wolkenbote selbst zerstiebt. 
-Eh’ er die Fern’ erreicht, wohin man liebt.
-
-Er aber, Howard, giebt mit reinem Sinn 
-Uns neuer Lehre herrlichsten Gewinn: 
-Was sich nicht halten, nicht erreichen lasst, 
-Er fasst es an, er halt zuerst es fest;
-
-Bestimmt das Unbestimmte, schränkt es ein, 
-Benennt es treffend! — Sei die Ehre Dein! 
-Wie Streife steigt, sich ballt, zerflattert, fällt, 
-Erinnre dankbar Deiner sich die Welt. 
-
-Stratus.
-
-Wenn von dem stillen Wasserspiegel-Plan 
-Ein Nebel hebt den flachen Teppich an, 
-Der Mond, dem Wallen des Erscheins vereint, 
-Als ein Gespenst Gespenster bildend scheint, 
-Dann sind wir alle, das gestehn wir nur, 
-Erquickt’, erfreute Kinder, o Natur!
-
-Dann hebt sich’s wohl am Berge, sammlend breit 
-An Streife Streifen, so umdüstert’s weit 
-Die Mittelhöhe, beidem gleich geneigt, 
-Ob’s fallend wässert, oder luftig steigt.
-
-Cumulus. 
-
-Und wenn darauf zu höh’rer Atmosphäre 
-Der tüchtige Gehalt berufen wäre, 
-Steht Wolke hoch, zum herrlichsten geballt, 
-Verkündet, festgebildet, Machtgewalt, 
-Und was Ihr fürchtet und auch wohl erlebt, 
-Wie’s oben drohet, so es unten bebt.
-
-Cirrus. 
-
-Doch immer hoher steigt der edle Drang! 
-Erlösung ist ein himmlisch leichter Zwang. 
-Ein Aufgehäuftes, flockig löst sich’s auf, 
-Wie Schäflein trippelnd, leicht gekämmt zu Hauf — 
-So fliesst zuletzt was unten leicht entstand, 
-Dem Vater oben still in Schoos und Hand.
-
-Nimbus.
-
-Nun lasst auch niederwärts, durch Erdgewalt 
-Herabgezogen was sich hoch geballt, 
-In Donnerwettem wüthend sich ergehn, 
-Heerschaaren gleich entrollen und verwehn! — 
-Der Erde thätig-leidendes Geschick! — 
-Doch mit dem Bilde hebet euren Blick: 
-Die Rede geht herab, denn sie beschreibt; 
-Der Geist will aufwärts, wo er ewig bleibt.
+[
+    {
+        "content": {
+            "level": "h2",
+            "text": "By Goethe."
+        },
+        "id": "7771f94c-b1d3-4831-80b8-d64ac79e8225",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>Wenn Gottheit Camarupa, hoch und hehr, <br>Durch Lüfte schwankend wandelt leicht und schwer, <br>Des Schleiers Falten sammelt, sie zerstreut, <br>Am Wechsel der Gestalten sich erfreut, <br>Jetzt starr sich hält, dann schwindet wie ein Traum – <br>Da staunen wir, und trau’n dem Auge kaum.</p>"
+        },
+        "id": "6dfbac07-e586-4769-ad1a-ecfe5c99552e",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Nun regt sich kühn des eignen Bildens Kraft <br>Die Unbestimmtes zu Bestimmtem schafft; <br>Da droht ein Leu, dort wogt ein Elephant, <br>Kameeles Hals, zum Drachen umgewandt; <br>Ein Heer zieht an, doch triumphirt es nicht. <br>Da es die Macht am steilen Felsen bricht; <br>Der treuste Wolkenbote selbst zerstiebt. <br>Eh’ er die Fern’ erreicht, wohin man liebt.</p>"
+        },
+        "id": "de607cb6-0f8d-418a-93c1-dd3cbeef42ce",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Er aber, Howard, giebt mit reinem Sinn <br>Uns neuer Lehre herrlichsten Gewinn: <br>Was sich nicht halten, nicht erreichen lasst, <br>Er fasst es an, er halt zuerst es fest;</p>"
+        },
+        "id": "4f1a8f40-d65c-417c-b0a7-35fce398a1e1",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Bestimmt das Unbestimmte, schränkt es ein, <br>Benennt es treffend! — Sei die Ehre Dein! <br>Wie Streife steigt, sich ballt, zerflattert, fällt, <br>Erinnre dankbar Deiner sich die Welt.</p>"
+        },
+        "id": "a668b77b-8f6d-4945-b47f-6c3f26685572",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h3",
+            "text": "Stratus."
+        },
+        "id": "928124f9-4d0e-4386-bd16-ef7504c10613",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>Wenn von dem stillen Wasserspiegel-Plan <br>Ein Nebel hebt den flachen Teppich an, <br>Der Mond, dem Wallen des Erscheins vereint, <br>Als ein Gespenst Gespenster bildend scheint, <br>Dann sind wir alle, das gestehn wir nur, <br>Erquickt’, erfreute Kinder, o Natur!</p>"
+        },
+        "id": "b012ae3b-b389-4ce7-b3f6-6930f17b1789",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Dann hebt sich’s wohl am Berge, sammlend breit <br>An Streife Streifen, so umdüstert’s weit <br>Die Mittelhöhe, beidem gleich geneigt, <br>Ob’s fallend wässert, oder luftig steigt.</p>"
+        },
+        "id": "54d28dc7-b6a8-499b-b67d-5461dffefefe",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h3",
+            "text": "Cumulus."
+        },
+        "id": "584ad0e9-8a7e-480a-8048-d0a035298c4a",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>Und wenn darauf zu höh’rer Atmosphäre <br>Der tüchtige Gehalt berufen wäre, <br>Steht Wolke hoch, zum herrlichsten geballt, <br>Verkündet, festgebildet, Machtgewalt, <br>Und was Ihr fürchtet und auch wohl erlebt, <br>Wie’s oben drohet, so es unten bebt.</p>"
+        },
+        "id": "864c21ac-8b69-461b-a228-ebeba8fba1ed",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h3",
+            "text": "Cirrus."
+        },
+        "id": "74d85bf5-2803-488e-b20c-022e6813c31d",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>Doch immer hoher steigt der edle Drang! <br>Erlösung ist ein himmlisch leichter Zwang. <br>Ein Aufgehäuftes, flockig löst sich’s auf, <br>Wie Schäflein trippelnd, leicht gekämmt zu Hauf — <br>So fliesst zuletzt was unten leicht entstand, <br>Dem Vater oben still in Schoos und Hand.</p>"
+        },
+        "id": "9b5dafff-4d92-43df-82da-499b0b9cbcb4",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h3",
+            "text": "Nimbus."
+        },
+        "id": "e37fb419-bdc8-4eb1-b024-e9df09f5e35c",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>Nun lasst auch niederwärts, durch Erdgewalt <br>Herabgezogen was sich hoch geballt, <br>In Donnerwettem wüthend sich ergehn, <br>Heerschaaren gleich entrollen und verwehn! — <br>Der Erde thätig-leidendes Geschick! — <br>Doch mit dem Bilde hebet euren Blick: <br>Die Rede geht herab, denn sie beschreibt; <br>Der Geist will aufwärts, wo er ewig bleibt.</p>"
+        },
+        "id": "4d72ffdf-9d55-4e31-b2e2-f92d38f279da",
+        "isHidden": false,
+        "type": "text"
+    }
+]
 
 ----
 
