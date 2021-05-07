@@ -13,9 +13,7 @@
 
 <section <?= Xml::attr(['epub:type' => $epupType, 'role' => $docRole]); ?>>
 	<header>
-		<h1 epub:type="title"><?= $docTitle; ?></h1>
+		<?= $docTitle->toXhtml('text', 'h1', ['epub:type' => 'title']); ?>
 	</header>
-	<?php if($docText->isNotEmpty()): ?>
-		<?= markdown($docText, 'html'); ?>
-	<?php endif; ?>
+	<?= $docText->toXhtml('blocks'); ?>
 </section>
