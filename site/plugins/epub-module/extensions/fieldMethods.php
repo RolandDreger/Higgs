@@ -76,10 +76,15 @@ return [
 		}
 		
 		$saveXMLValue = '';
-		foreach($bodyNode->childNodes as $node) {
-			$saveXMLValue .= $xmlDoc->saveXML($node);
-		}
 		
+		foreach($bodyNode->childNodes as $node) {
+			$saveXMLResult = $xmlDoc->saveXML($node);
+			if(!is_string($saveXMLResult)) {
+				continue;
+			}
+			$saveXMLValue .= $saveXMLResult;
+		}
+
 		$field->value = $saveXMLValue;
 		
 		return $field;
