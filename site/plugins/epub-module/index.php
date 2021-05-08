@@ -7,9 +7,9 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'snippets' => [
-		'epub/content-type' => __DIR__ . '/snippets/epub/content-type.php',
-		'epub/head' => __DIR__ . '/snippets/epub/head.php',
-		'epub/section' => __DIR__ . '/snippets/epub/section.php'
+		'xhtml/content-type' => __DIR__ . '/snippets/content-type.php',
+		'xhtml/head' => __DIR__ . '/snippets/head.php',
+		'xhtml/section' => __DIR__ . '/snippets/section.php'
 	],
 	
 	'templates' => [
