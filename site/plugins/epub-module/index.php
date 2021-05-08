@@ -22,11 +22,10 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'controllers' => [
-		'project' => require __DIR__ . '/controllers/project.php'
+		'project' => include __DIR__ . '/controllers/project.php'
 	],
 
-	'fieldMethods' => [
-		'toXhtml' => require __DIR__ . '/fields/methods/toXhtml.php'
-	]
+	/* Extensions */
+	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php'
 
 ]);
