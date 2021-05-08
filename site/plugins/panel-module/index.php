@@ -2,7 +2,6 @@
 
 Kirby::plugin('higgs/panel-module', [
 
-	
 	'fieldMethods' => [
 
 		/* 
@@ -37,5 +36,4 @@ Kirby::plugin('higgs/panel-module', [
       return $field;
 		}
 	]
-
 ]);
