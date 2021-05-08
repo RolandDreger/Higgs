@@ -2,11 +2,13 @@
 
 Kirby::plugin('higgs/panel-module', [
 
-	/* 
-		Translate field values with options in language files
-		e.g. site/language/en.php
-	*/
+	
 	'fieldMethods' => [
+
+		/* 
+			Translate field values with options in language files
+			e.g. site/language/en.php
+		*/
 		'translate' => function ($field) {
 			
 			$value = $field->value();
