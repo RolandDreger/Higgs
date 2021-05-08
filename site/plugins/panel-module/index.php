@@ -9,7 +9,7 @@ Kirby::plugin('higgs/panel-module', [
 	'fieldMethods' => [
 		'translate' => function ($field) {
 			
-			$value = $field->value;
+			$value = $field->value();
 
 			if(is_string($value)) {
 				/* Check: Comma separated string? */
