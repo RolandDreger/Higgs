@@ -50,13 +50,16 @@ return [
 		$xmlDoc->substituteEntities = TRUE;
 		$xmlDoc->strictErrorChecking = FALSE;
 	
-		/* Enables libxml errors handling */
+		/* 
+			Enables libxml errors handling  
+			(HTML5 elements – e.g. main, footer, ... – trigger error messages)
+		*/
 		$internalErrorsOptionValue = libxml_use_internal_errors();
 		if($internalErrorsOptionValue === false) {
 				libxml_use_internal_errors(true);
 		}
 		
-		$xmlDoc->loadHTML($value, LIBXML_NOEMPTYTAG);
+		$xmlDoc->loadHTML($value);
 	
 		$errors = libxml_get_errors();
 		libxml_clear_errors();
@@ -78,7 +81,14 @@ return [
 		$saveXMLValue = '';
 		
 		foreach($bodyNode->childNodes as $node) {
-			$saveXMLResult = $xmlDoc->saveXML($node);
+			/* 
+				Options: 
+				LIBXML_NOEMPTYTAG		Expand empty tags (e.g. <br/> to <br></br>)
+				LIBXML_NSCLEAN			Remove excess namespace declarations
+				LIBXML_NOXMLDECL		Drop the XML declaration when saving a document
+				(Options separator is a »|«.)
+			*/
+			$saveXMLResult = $xmlDoc->saveXML($node, LIBXML_NSCLEAN);
 			if(!is_string($saveXMLResult)) {
 				continue;
 			}
