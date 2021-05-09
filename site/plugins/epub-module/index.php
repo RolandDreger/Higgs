@@ -1,5 +1,10 @@
 <?php
 
+load([
+	'Higgs\\Epub\\XhtmlParser' => 'lib/xhtmlParser.php'
+], __DIR__);
+
+
 Kirby::plugin('higgs/epub-module', [
 	
 	'options' => [

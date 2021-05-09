@@ -16,6 +16,14 @@ Documenttext:
     },
     {
         "content": {
+            "text": ""
+        },
+        "id": "9f560979-870e-4054-9fea-920e7eb70905",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
             "level": "h2",
             "text": "By Luke Howard, F.R.S., &amp;c."
         },
