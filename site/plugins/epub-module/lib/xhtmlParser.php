@@ -1,10 +1,12 @@
 <?php
 
 /**
- * Options for saveXML:
+ * Usage:
+ * $parser = new Higgs\Epub\XhtmlParser(LIBXML_NSCLEAN);
+ * $xhtml	= $parser->getXhtmlString($html);
+ * 
+ * Options for saveXML (otpional):
  * LIBXML_NOEMPTYTAG		Expand empty tags (e.g. <br/> to <br></br>)
- * LIBXML_NSCLEAN			Remove excess namespace declarations
- * LIBXML_NOXMLDECL		Drop the XML declaration when saving a document
  * (Option separator: | )
  */ 
 
@@ -13,16 +15,14 @@ namespace Higgs\Epub;
 use DOMImplementation;
 use DOMDocument;
 
+
 class XhtmlParser {
 
-	private $saveXMLOptions = LIBXML_NSCLEAN;
-
+	private $saveXMLOptions;
 	public $errors = [];
 	
-	public function __construct($saveXMLOptions = null) {
-		if(!empty($saveXMLOptions)) {
-			$this->saveXMLOptions = $saveXMLOptions;
-		}
+	public function __construct($options = 0) {
+		$this->saveXMLOptions = $options;
 	}
 
 	protected function getBodyNode($htmDocument) {
