@@ -7,15 +7,6 @@ Documenttext:
 [
     {
         "content": {
-            "text": "Hier ist mein Zitat",
-            "citation": "Roland Dreger"
-        },
-        "id": "6d909f07-6fd9-4dfc-875d-0dd726394323",
-        "isHidden": false,
-        "type": "quote"
-    },
-    {
-        "content": {
             "level": "h2",
             "text": "By Luke Howard, F.R.S., &amp;c."
         },

@@ -1,0 +1,79 @@
+Title: Essay
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "level": "h2",
+            "text": "ETC."
+        },
+        "id": "f826527e-1adc-41e2-8a57-70d78538bade",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "On the Modifications of Clouds, and on the Principles of their Production, Suspension, and Destruction; being the Substance of an Essay read before the Askesian Society in the Session ",
+            "citation": "1802—3."
+        },
+        "id": "38b4b112-1c81-42d6-b43c-f1f6dc223f1b",
+        "isHidden": false,
+        "type": "quote"
+    },
+    {
+        "content": {
+            "text": "<p><strong>Since</strong> the increased attention which has been given to Meteorology, the study of the various appearances of water suspended in the Atmosphere is become an interesting and even necessary branch of that pursuit. </p><p>If Clouds were the mere result of the condensation of Vapour in the masses of atmosphere which they occupy, if their variations were produced by the movements of the atmosphere alone, then indeed might the study of them be deemed an useless pursuit of shadows, an attempt to describe forms which, being the sport of winds, must be ever varying, and therefore not to be defined. </p><p>But however the erroneous admission of this opinion may have operated to prevent attention to them, the case is not so with Clouds. They are subject to certain distinct modifications, produced by the general causes which effect all the variations of the Atmosphere: they are conmionly as good visible indications of the operation of these causes as is the countenance of the state of a person's mind or body. </p><p>It is the frequent observation of the countenance of the sky, and of its connexion with the present and ensuing phsenomena, that constitutes the ancient and popular Meteorology. The want of this branch of knowledge renders the predictions of the Philosopher (who in attending only to his instruments may be said to examine only the pulse of the atmosphere) less generally successfiil than those of the weatherwise Mariner or Husbandman. </p><p>With the latter, the dependence of their labours on the state of the atmosphere, and the direction of its Currents, creates a necessity of frequent observation, which in its turn produces experience. </p><p>But as this experience is usually consigned only to the memory of the possessor, in a confused mass of sunple aphorisms, the skill resulting from it is in a manner incommunicable; for, however valuable these links when in connexion with the rest of the Chain, they often serve, when taken singly, only to mislead; and the power of connecting them, and of forming a judgment upon occasion from them, resides only in the mind before which their relations have passed, though perhaps imperceptibly, in review. In order to enable the Meteorologist to apply the key of Analysis to the experience of others, as well as to record his own with brevity and precision, it may perhaps be allowable to introduce a Methodical nomenclature, applicable to the various forms of suspended water, or, in other words, to the Modifications of <em>Cloud</em>.</p><p>By modification is to be understood simply the Structure or manner of aggregation, not the precise form or magnitude, which indeed varies every moment in most Clouds. The principal Modifications are commonly as distinguishable from each other as a Tree from a Hill, or the latter from a Lake; although Clouds in the same modification, considered with respect to each other, have often only the common resemblances which exist among trees, hills, or lakes, taken generally.</p><p>The Nomenclature is drawn from the Latin. The reasons for having recourse to a dead language for Terms to be adopted by the learned of different nations are obvious. If it should be asked why the <em>Greek</em> was not preferred, after the example of Chemistry, the author answers, that the objects being to be defined by visible characters, as in Natural history, it was desirable that the Terms should at once convey the idea of these, and render a frequent recourse to definitions needless to such as understand the literal sense, which many more would, it is concluded, in Latin than in Greek words. </p><p>There are three simple and distinct Modifications, in any one of which the aggregate of minute drops called a Cloud <em>may be formed, increase to its greatest extenty and finally decrease and disappear.</em> </p><p>But the same Aggregate which has been formed in one Modification, upon a change in the attendant circumstances may pass into another:</p><p>Or it may continue for a considerable time in an intermediate state, partaking of the characters of two Modifications ; and it may also disappear in this stage, or return to the first Modification. </p><p>Lastly, aggregates separately formed in different modifications may unite and pass into one exhibiting different characters in different parts, or a portion of a simple Aggregate may pass into another modification without separating from the remainder of the mass. </p><p>Hence, together with the simple, it becomes necessary to admit intermediate and compound Modifications; and to impose names on such of them as are worthy of notice. </p><p>The simple Modifications are thus named and defined: </p>"
+        },
+        "id": "f171ece9-b086-451b-a77f-1c80cf498af4",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>1. <strong>Cirrus.</strong> <em>Def. Nubes cirrata tenuissima, quæ undique crescat.</em></p><p>Parallel, flexuous, or diverging fibres, extensible by increase in any or in all directions.</p>"
+        },
+        "id": "18593665-4492-46ba-9884-1ccaec618ee0",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>2. <strong>Cumulus.</strong> <em>Def. Nubes cumulata, densa, sursum crescens.</em></p><p>Convex or conical heaps, increasing upward from a horizontal base.</p>"
+        },
+        "id": "c933ae61-e3f0-45c1-b4d5-4c2d76effade",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>3. <strong>Stratus.</strong> Def. Nubea strata, aqua modo expansa, deorsum crescens. </p><p>A widely extended, continuous, horizontal sheet, increasing from below upward.* </p><p>* This application of the Latin word <em>stratus</em> is a little forced. But the substantive <em>stratum</em> did not agree in its termination with the other two, and is besides already used in a different sense even on this subject, e.g. <em>a stratum of clouds;</em> yet it was desirable to keep the derivation from the verb <em>sterno</em>, as its significations agree so well with the circumstances of this Cloud.</p><p>The intermediate Modifications which require to be noticed are: </p><p>4. <strong>Cirro-cumulus.</strong> <em>Def. Nubeculæ densiores subrotund</em>æ<em> et quasi in agmine appositæ. </em></p><p>Small, well defined roundish masses, in close horizontal arrangement or contact. </p><p>5. <strong>Cirro-stratus.</strong> <em>Def. Nubes extænuata subconcava vel undulata. Nubeculæ hujusmodi appositæ.</em> </p><p>Horizontal or slightly inclined masses attenuated towards a part or the whole of their circumference, bent downward, or undulated; separate, or in groups consisting of small clouds having these characters. </p><p>The compound Modifications are : </p><p>6. <strong>Cumulo-stratus.</strong> <em>Def. Nubes densa, basim planam undique supercrescens, vel cujus moles longinqua videtur partim plana partim cumulata. </em></p><p>The Cirro-stratus blended with the Cumulus, and either appearing intermixed with the heaps of the latter <em>or superadding a wide-spread structure to its base.</em> </p><p>7. <strong>Cumulo-cirro-stratus</strong> <em>vel</em> <strong>Nimbus.</strong> <em>Def. Nubes vel nubium congeries</em> [superné cirrata] <em>pluvium effundens.</em> </p><p>The Rain cloud. A cloud, or system of clouds from which rain is falling. It is a horizontal sheet, above which the Cirrus spreads, while the Cumulus enters it laterally and from beneath.</p>"
+        },
+        "id": "30b88c80-8bb8-4914-b2c4-b6a094f4f082",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h2",
+            "text": "Of the Cirrus."
+        },
+        "id": "3464c989-0480-40cb-b07c-0d22057345f8",
+        "isHidden": false,
+        "type": "heading"
+    }
+]
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

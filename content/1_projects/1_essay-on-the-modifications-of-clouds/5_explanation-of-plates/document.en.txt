@@ -1,0 +1,122 @@
+Title: Explanation of plates
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "level": "h2",
+            "text": "Frontispinece"
+        },
+        "id": "f3464d9d-e569-4ae4-9238-f44deb42ac31",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>A <strong>sky</strong> full of specimens of the peculiar forms assumed by the clouds when gathering for a <em>Thunderstorm</em>. (The dense clouds in front, though characteristic as <em>forms</em>, are not enough shrouded in a gloomy distance.) The <em>Nimbus</em> behind, on the left, is better placed, and shows crossed, as is at times the case, by a dense <em>Cirro-stratus</em>. The <em>Cirro-cumulus</em>, next above, is highly characteristic in its structure; and the large, dense <em>Cirrus</em> above belongs equally to approaching Thunder.</p><p>L. H.</p><p>March, 1849</p>"
+        },
+        "id": "ba4798bf-8fc2-4334-8863-746cbe2cec32",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h2",
+            "text": "No. 1. — Opposite Page 5."
+        },
+        "id": "2f1ede61-ed9b-4bc8-a425-0f9639d021fa",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>In the blue sky, at top, the <em>Cirrus</em>, in some of its fair-weather shapes (but much too near the eye in position). The <em>feather</em> on the left is a rare, but genuine, variety of the cloud. </p><p>Above the horizon are some large <em>Cumulus</em> clouds, receiving on their tops a subsiding Cirro-stratus: the manner in which these modifications unite upon occasion to form, ultimately, Cumulo-stratus. </p><p>L. H. </p><p>March, 1849.</p>"
+        },
+        "id": "fe52e4b3-45d0-41f0-b153-8f6cb4ef0351",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h2",
+            "text": "No. 2.— Opposite Page 7."
+        },
+        "id": "c9a7deb6-e1a1-4e59-b2c6-a1a5fd0d12a7",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>This picture presents, mixed with the objects common to a landscape, the commencement of a Stratus, or evening mist, creeping, as it rises, through the valley, to become shortly a dense body of cloud, resting with a level surface on the ground like a lake of water; and possibly, on the morrow, covering the country with a <em>Fog</em>. Above, in the blue sky, are features of <em>Cirrus</em>. </p><p>L. H. </p><p>March,1849.</p>"
+        },
+        "id": "c619f2f3-ef42-45cd-8c7e-3d5212bf0bdc",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h2",
+            "text": "No. 3.— Opposite Page 8."
+        },
+        "id": "3a6735f4-b5a1-4887-a289-c49a5b346256",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>In the foreground of this Landscape by Kenyon (that is, of the sky part) is a <em>Cumulus</em> just breaking up in a fine summer´s evening, the more distant spot to the left showing the little of the cloud that remained when a hasty sketch of it had been made. Next above, and actually at the greatest elevation of the three, is a <em>Cirrus</em>; at the top of the picture, a fine Cirro-cumulus. </p><p>L. H. </p><p>March, 1849.</p>"
+        },
+        "id": "2b9a9a24-85f3-417d-956c-3653491b62c6",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h2",
+            "text": "No. 4. — Opposite Page 10."
+        },
+        "id": "da5a804a-b316-435e-be58-5b2117802c44",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>This is a fine specimen of the Modification Cumulo-stratus, illustrating the manner in which it is occasionally produced by <em>inosculation</em>, or the mutual attraction of a <em>Cumulus</em> and a <em>Cirro-stratus</em>. These elements of the compound appear also in the group <em>separate</em>. </p><p>Above, in the blue sky, are Cirri tending to the change which makes them <em>Cirro-cumulus.</em> </p><p>The Picture is by Kenyon; the sketch was by L. H., in a fine evening, after showers.</p><p>L. H. </p><p>March, 1849.</p>"
+        },
+        "id": "341bb7ef-4e96-4eb7-91ae-2ec199990264",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h2",
+            "text": "No. 5. — Opposite Page 12."
+        },
+        "id": "5f845b97-8617-4ac7-bcc0-be2b99b2eedb",
+        "isHidden": false,
+        "type": "heading"
+    },
+    {
+        "content": {
+            "text": "<p>A <em>Nimbus</em>, or Rain-cloud, letting fall a shower at a moderate distance: beneath and on the horizon are seen two clouds, as yet in the sunshine, which, by the expansion of their tops, show considerable forwardness of progress towards the same state. </p><p>The Landscape is by Kenyon. The sky is one of a number of sketches given him by the author of the Modifications. </p><p>L. H. </p><p>March, 1849.</p>"
+        },
+        "id": "151cc495-f951-4d53-b0c1-320301f4e76d",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentpart: frontmatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 
