@@ -3,7 +3,7 @@
 /**
  * Usage:
  * $parser = new Higgs\Epub\XhtmlParser(LIBXML_NSCLEAN);
- * $xhtml	= $parser->getXhtmlString($html);
+ * $xhtml	= $parser->createXhtmlString($html);
  * 
  * Options for saveXML (otpional):
  * LIBXML_NOEMPTYTAG		Expand empty tags (e.g. <br/> to <br></br>)
@@ -18,7 +18,7 @@ use DOMDocument;
 
 class XhtmlParser {
 
-	private $saveXMLOptions;
+	public $saveXMLOptions;
 	public $errors = [];
 	
 	public function __construct($options = 0) {
@@ -49,7 +49,7 @@ class XhtmlParser {
 		return $bodyNode;
 	}
 
-	protected function getHtmlDocument($html = '') {
+	protected function createHtmlDocument($html = '') {
 		
 		if(!is_string($html)) {
 			array_push($this->errors, 'First argument must be an string: ' . $html);
@@ -88,7 +88,7 @@ class XhtmlParser {
 		return $htmDocument;
 	}
 
-	public function getXhtmlDocument($html = '') {
+	public function createXhtmlDocument($html = '') {
 
 		if(!is_string($html)) {
 			array_push($this->errors, 'First argument must be an string: ' . $html);
@@ -96,7 +96,7 @@ class XhtmlParser {
 		}
 
 		/* Create HTML document (for body content) */
-		$htmDocument = $this->getHtmlDocument($html);
+		$htmDocument = $this->createHtmlDocument($html);
 		if(empty($htmDocument)) {
 			array_push($this->errors, 'HTML document could not be created');
 			return null;
@@ -147,7 +147,7 @@ class XhtmlParser {
 		return $xhtmlDocument;
 	}
 
-	public function getXhtmlString($html = '') {
+	public function createXhtmlString($html = '') {
 		
 		if(!is_string($html)) {
 			array_push($this->errors, 'First argument must be an string: ' . $html);
@@ -155,7 +155,7 @@ class XhtmlParser {
 		}
 
 		/* Create HTML document (body content is same in XHTML document) */
-		$htmDocument = $this->getHtmlDocument($html);
+		$htmDocument = $this->createHtmlDocument($html);
 
 		/* Check: Body element available? */
 		$bodyNode = $this->getBodyNode($htmDocument);
@@ -177,7 +177,7 @@ class XhtmlParser {
 		return $xhtml;
 	}
 
-	public function getXhtmlDocumentString($html = '') {
+	public function createXhtmlDocumentString($html = '') {
 
 		if(!is_string($html)) {
 			array_push($this->errors, 'First argument must be an string: ' . $html);
@@ -185,7 +185,7 @@ class XhtmlParser {
 		}
 
 		/* Create XHTML document (for body content) */
-		$xhtmlDocument = $this->getXhtmlDocument($html);
+		$xhtmlDocument = $this->createXhtmlDocument($html);
 		$xhtml = $xhtmlDocument->saveXML(null, $this->saveXMLOptions);
 		
 		return $xhtml;

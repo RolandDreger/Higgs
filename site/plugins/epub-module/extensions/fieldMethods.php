@@ -37,7 +37,7 @@ return [
 		$html = "{$startTag}{$html}{$endTag}";
 
 		$parser = new Higgs\Epub\XhtmlParser();
-		$xhtml = $parser->getXhtmlString($html);
+		$xhtml = $parser->createXhtmlString($html);
 		
 		$field->value = $xhtml;
 		
