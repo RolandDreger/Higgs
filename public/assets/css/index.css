@@ -64,10 +64,40 @@ a:focus {
 	color: #000;
 }
 
-h1 {
-	font-size: 5rem;
+h1, h2, h3, h4, h5, h6 {
 	line-height: 1.1;
 }
+
+section.level-1 h1 {
+	font-size: 5rem;
+}
+section.level-1 h2 {
+	font-size: 4rem;
+}
+section.level-1 h3 {
+	font-size: 3rem;
+}
+
+section.level-2 h1 {
+	font-size: 4rem;
+}
+section.level-2 h2 {
+	font-size: 3rem;
+}
+section.level-2 h3 {
+	font-size: 2rem;
+}
+
+section.level-3 h1 {
+	font-size: 3rem;
+}
+section.level-3 h2 {
+	font-size: 2rem;
+}
+section.level-3 h3 {
+	font-size: 1rem;
+}
+
 
 p {
 	max-width: 30em;

@@ -4,45 +4,7 @@ columns:
   - width: 2/3
     sections:
       documentContent:
-        type: fields
-        fields: 
-          documentText:
-            type: blocks
-            label: 
-              en: "Content"
-              de: "Inhalt"
-            autofocus: true
-            pretty: true 
-            fieldsets:
-              textGroup:
-                type: group
-                label: 
-                  en: Text
-                  de: Text
-                fieldsets:
-                  - heading
-                  - text
-                  - list
-                  - quote
-              codeGroup:
-                type: group
-                label: 
-                  en: Code
-                  de: Code
-                open: false
-                fieldsets:
-                  - code
-                  - makdown
-              mediaGroup:
-                type: group
-                label: 
-                  en: Media
-                  de: Medien
-                open: false
-                fieldsets:
-                  - image
-                  - gallery
-                  - video
+        extends: sections/content
       documentPublishedDocumentsLevel1:
         extends: sections/published
         when:
