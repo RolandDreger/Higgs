@@ -1,4 +1,4 @@
-Title: Essay
+Title: test
 
 ----
 
@@ -7,9 +7,9 @@ Documenttext:
 [
     {
         "content": {
-            "text": "<p>Essay text content</p>"
+            "text": "<p>Hier der Testinhalt</p>"
         },
-        "id": "1f420530-45be-4661-a560-44215495a6b9",
+        "id": "6e87a4b9-1fb8-4771-abe0-e8a7f5eb47f3",
         "isHidden": false,
         "type": "text"
     }
@@ -17,7 +17,7 @@ Documenttext:
 
 ----
 
-Documentlevel: ・
+Documentlevel: ・・・
 
 ----
 

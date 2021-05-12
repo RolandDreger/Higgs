@@ -3,26 +3,25 @@ title: Project
 columns:
   - width: 2/3
     sections:
+      projectTableOfContent:
+        type: fields
+        fields:
+          pages:
+            type: pages
+            label: 
+              en: "Table of Contents"
+              de: "Inhaltsverzeichnis"
+            text: "{{ page.documentLevel }} {{ page.title }}"
+            info: "{{ page.documentPart.translate().upper() }}"
+            image: 
+              query: page.image
+            query: page.children
+            subpages: true
+            search: true
       projectPublishedDocuments:
-        type: pages
-        headline: 
-          en: "Tabel of Content"
-          de: "Inhalt"
-        layout: list
-        status: published
-        text: "{{ page.title }}"
-        info: "{{ page.documentPart.translate().upper() }}"
-        create: 'Document'
+        extends: sections/published
       projectDraftDocuments:
-        headline: 
-          en: "Drafts"
-          de: "Entwürfe"
-        type: pages
-        layout: list
-        status: drafts
-        text: "{{ page.title }}"
-        info: "{{ page.documentPart.translate().upper() }}"
-        create: 'Document'
+        extends: sections/drafts
   - width: 1/3
     sections:
       projectDescription:

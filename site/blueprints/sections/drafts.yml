@@ -1,0 +1,8 @@
+type: pages
+headline: 
+  en: "Drafts"
+  de: "Entwürfe"
+layout: list
+status: drafts
+text: "{{ page.title }}"
+create: 'Document'

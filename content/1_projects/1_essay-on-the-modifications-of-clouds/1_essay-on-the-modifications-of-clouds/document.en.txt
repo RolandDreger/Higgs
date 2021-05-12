@@ -45,8 +45,29 @@ Documenttext:
         "id": "b6dfef48-b245-41af-9c86-0ff033fc0b16",
         "isHidden": false,
         "type": "text"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "nimbus_or_rain_cloud.jpg"
+            ],
+            "src": "",
+            "alt": "",
+            "caption": null,
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "2e32e954-3c51-49a2-92a0-9c859f701c52",
+        "isHidden": false,
+        "type": "image"
     }
 ]
+
+----
+
+Documentlevel: ・
 
 ----
 

@@ -122,6 +122,10 @@ Documenttext:
 
 ----
 
+Documentlevel: ・
+
+----
+
 Documentpart: frontmatter
 
 ----

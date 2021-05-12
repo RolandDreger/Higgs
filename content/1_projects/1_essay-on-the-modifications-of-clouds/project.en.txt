@@ -2,6 +2,29 @@ Title: Essay on the Modifications of Clouds
 
 ----
 
+Pages:
+
+- >
+  projects/essay-on-the-modifications-of-clouds/essay-on-the-modifications-of-clouds
+- >
+  projects/essay-on-the-modifications-of-clouds/advertisement-to-the-reader
+- >
+  projects/essay-on-the-modifications-of-clouds/preface-to-the-third-edition
+- >
+  projects/essay-on-the-modifications-of-clouds/poem-on-the-clouds
+- >
+  projects/essay-on-the-modifications-of-clouds/explanation-of-plates
+- >
+  projects/essay-on-the-modifications-of-clouds/essay
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/etc
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/etc/test
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-cirrus
+
+----
+
 Projectdescription: On the modifications of clouds, and on the principles of their production, suspension, and destruction.
 
 ----
