@@ -19,9 +19,17 @@ Pages:
 - >
   projects/essay-on-the-modifications-of-clouds/essay/etc
 - >
-  projects/essay-on-the-modifications-of-clouds/essay/etc/test
-- >
   projects/essay-on-the-modifications-of-clouds/essay/of-the-cirrus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-cumulus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-stratus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-cirro-cumulus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-cirro-stratus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-cumulo-stratus
 
 ----
 

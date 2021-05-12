@@ -1,0 +1,65 @@
+Title: Of the Cumulus.
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>Clouds in this Modification are commonly of the most dense structure: they are formed in the lower atmosphere, and move along with the Current which is next the earth.</p><p>A small irregular spot first appears, and is, as it were, the nucleus on which they increase. The lower surface continues irregularly plane, while the upper rises into conical or hemispherical heaps; which may afterwards continue long nearly of the same bulk, or rapidly grow to the size of moimtains.</p><p>In the former case they are usually numerous and near together, in the latter few and distant; but whether there are few or many, their <em>bases</em> lie always nearly in one horizontal plane; and their increase upward is somewhat proportionate to the extent of base, and nearly alike in many that appear at once.</p><p>Their appearance, increase, and disappearance, in <em>fair</em> weather, are often periodical, and keep pace with the Temperature of the day. Thus, they will begin to form some hours after sun-rise, arrive at their maximum in the hottest part of the afternoon, then go on diminishing, and totally disperse about sun-set.</p>"
+        },
+        "id": "ac56fe36-d5f5-4778-9824-109a78927881",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "stratus_or_ground_fog.jpg"
+            ],
+            "src": "",
+            "alt": "Stratus or ground fog",
+            "caption": "Stratus or ground fog. E. M. Wilhams lith. M. &amp; N. Hanhart imp",
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "b98205b6-a049-41a9-af5c-f36a42b023de",
+        "isHidden": false,
+        "type": "image"
+    },
+    {
+        "content": {
+            "text": "<p>But in <em>changeable</em> weather they partake of the vicissitudes of the atmosphere: sometimes evaporating almost as soon as formed; at others suddenly forming, and as quickly passing to the compound modifications. </p><p>The Cumulus of <em>fair</em> weather has a moderate elevation and extent, and a well-defined rounded surface. Previous to <em>rain</em> it increases more rapidly, appears lower in the atmosphere, and with its surface full of loose fleeces or protuberances. </p><p>The formation of large Cumuli to leeward in a strong wind, indicates the approach of a calm with rain. When they do not disappear or subside about sun-set, but continue to rise, Thunder is to be expected in the night. </p><p>Independently of the beauty and magnificence it adds to the face of nature,* the Cumulus serves to screen the earth from the direct rays of the sun ; by its multiplied reflections to diffuse, and, as it were, economise the Light, and also to convey the product of Evaporation to a distance from the place of its origin. The relations of the Cumulus with the state of the Barometer, &amp;c., have not yet been enough attended to.</p>"
+        },
+        "id": "fb208898-1746-4951-ab39-5d20571e0989",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* The connexion of the finer rounded forms, and more pleasing dispositions and colours of these Aggregates, with warmth and calmness; and of everything that is dark and abrupt, and shaggy, and blotched, and horrid in them, with cold, and storm, and tempest, may be cited as no mean instance of the perfection of that Wisdom and Benevolence which formed and sustains them.</p>"
+        },
+        "id": "90d16a94-e45a-4eb0-ac74-4a56f5bd6ef3",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentlevel: ・・
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

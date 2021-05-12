@@ -1,0 +1,48 @@
+Title: Of the Cirro-stratus.
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>This Cloud appears to result from the subsidence of the fibres of the Cirrus to a horizontal position, at the same time that they approach towards each other laterally. The form and relative position, when seen in the distance, frequently give the idea of shoals of fish. Yet in this, as in other instances, the <em>structure</em> must be attended to rather than the <em>form</em>, which varies much, presenting at times the appearance of parallel bars, or interwoven streaks like the grain of polished wood. It is thick in the middle, and extenuated towards the edge. The distinct appearance of a Cirrus, however, does not always precede the production of this and the last Modification. </p><p>The Cirro-stratus precedes <em>wind</em> and <em>rain</em>, the nearer or distant approach of which may sometimes be estimated from its greater or less abundance and permanence. It is almost always to be seen in the intervals of storms. Sometimes this and the Cirro-cumulus appear together in the sky, and even alternate with each other in the same cloud; when the different evolutions which ensue are a curious spectacle; and a judgment may be formed of the weather likely to ensue by observing which Modification prevails at last. The Cirro-stratus is the Modification which most frequently and completely exhibits the phenomena of the Solar and Lunar halo, and (as supposed from a few observations) the Parhelion and Paraselene also. Hence the reason of the prognostic of foul weather, commonly drawn from the appearance of Halo.* </p>"
+        },
+        "id": "16ccf57b-68b6-49dc-ab4c-0b16d09ae70e",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* The frequent appearance of Halo in this clond may be attributed to its possessing great extent, at such times, with little perpendicular depth, and the requisite degree of continuity of substance.</p>"
+        },
+        "id": "091a8729-ac52-4a7d-9947-4261068fcdd7",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>This Modification is on this account more peculiarly worthy of investigation.</p>"
+        },
+        "id": "31df375e-ff14-46c4-a6fd-3cd52e0ce6a2",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentlevel: ・・
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

@@ -1,0 +1,40 @@
+Title: Of the Stratus.
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>This Modification has a mean degree of density. </p><p>It is the <em>lowed</em> of Clouds, since its inferior surface commonly rests on the earth or water. </p><p>Contrary to the last, which may be considered as belonging to the <em>day</em>, this is properly the cloud of <em>night</em>; the time of its first appearance being about sun-set. It comprehends all those creeping Mists which in calm evenings ascend in spreading sheets (like an inundation) from the bottom of valleys, and the surface of lakes, rivers, and other pieces of water, to cover the surrounding country. </p><p>Its <em>duration</em> is frequently through the night. </p><p>On the return of the sun the level surface of this Cloud begins to put on the appearance of Cumulus, the whole at the same time separating from the ground. The continuity is next destroyed, and the Cloud ascends and evaporates, or passes off with the morning breeze. This change has been long experienced as a prognostic of fair weather,* and indeed there is none more serene than that which is ushered in by it.</p>"
+        },
+        "id": "6770bc38-4080-49a8-9084-f86cc863e736",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* At nebulæ magis ima petunt, campoque recumbunt. <strong>Virgil</strong>, Georg. lib. i.</p>"
+        },
+        "id": "6b1bef63-295a-4313-b3e7-1f8446c8348e",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentlevel: ・・
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

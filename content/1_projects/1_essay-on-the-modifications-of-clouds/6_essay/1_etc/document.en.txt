@@ -93,6 +93,23 @@ Documenttext:
         "id": "036010b1-3613-4fcf-83ea-a772ff29816e",
         "isHidden": false,
         "type": "text"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "cumulostratus_forming_fine_weather_cirri_above.jpg"
+            ],
+            "src": "",
+            "alt": "Cumulostratus forming fine weather cirri above",
+            "caption": "Cumulostratus forming fine weather cirri above. E. M. Wilhams lith. M. &amp; N. Hanhart imp.",
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "9144d414-ae81-4df0-bd2e-f801211e73c5",
+        "isHidden": false,
+        "type": "image"
     }
 ]
 

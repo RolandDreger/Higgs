@@ -2,7 +2,34 @@ Title: Of the Cirrus.
 
 ----
 
-Documenttext: []
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>Clouds in this Modification appear to have the least density, the greatest elevation, and the greatest variety of extent and direction. They are the earliest appearance after serene weather. They are first indicated by a few threads pencilled, as it were, on the sky. These increase in length, and new ones are in the mean time added to them. Often the first-formed threads serve as stems to support numerous branches, which in their turn give rise to others. </p><p>The increase is sometimes perfectly indeterminate, at others it has a very decided direction. Thus the first few Threads being once formed, the remainder shall be propagated in one or more directions laterally, or obliquely upward or downward,* the direction being often the same in a great number of Clouds visible at the same time; for the oblique descending tufts appear to converge towards a point in the Horizon, and the long straight streaks to meet in opposite points therein; which is the optical effect of parallel extension. </p>"
+        },
+        "id": "021e0a6b-c6bc-484a-bc7e-89521e2abf6f",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* The upward direction of the fibres, or tufts of this Oloud is found to be a decided indication of the decomposition of vapour preceding <em>rain:</em> the downward as decidedly indicates <em>evaporation</em> and fair weather. In each case they point towards the place of the Electricity which is evolved at the time.</p>"
+        },
+        "id": "54a77e64-f08a-4010-bd00-98614a6fdd99",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Their <em>duration</em> is uncertain, varying from a few minutes after the first appearance to an extent of many hours. It is long when they appear alone and at great heights, and shorter when they are formed lower and in the vicinity of other Clouds. </p><p>This Modification, although in appearance almost motionless, is intimately connected with the variable motions of the atmosphere. Considering that Clouds of this kind have long been deemed a prognostic of wind, it is extraordinary that the nature of this connexion should not have been more studied; as the knowledge of it might have been productive of useful results. </p><p>In <em>fair</em> weather, with light variable breezes, the sky is seldom quite clear of small groups of the oblique Cirrus, which frequently come on from the leeward, and the direction of their increase is to windward. Continued <em>wet</em> weather is attended with horizontal sheets of this cloud, which subside quickly and pass into the Cirro-stratus. </p><p>Before <em>storms</em> they appear lower and denser, and usually in the quarter opposite to that from which the storm arises. Steady high winds are also preceded and attended by streaks running quite across the sky in the direction they blow in. </p>"
+        },
+        "id": "a83ed8eb-8aae-4606-8514-68805436a0c7",
+        "isHidden": false,
+        "type": "text"
+    }
+]
 
 ----
 

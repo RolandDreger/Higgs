@@ -1,0 +1,49 @@
+Title: Of the Cumulo-Stratus.
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>The different Modifications which have been treated of sometimes give place to each other, at other times two or more appear in the same sky, but in this case the Clouds in the same Modification lie mostly of the same plane, those which are more elevated appearing through the intervals of the lower, or the latter showing dark against the lighter ones above them. When the Cumulus increases rapidly, a Cirro-stratus is frequently seen to form around its summit, reposing thereon as on a moimtain, while the former Cloud continues discernible in some degree through it. This state of things continues but a short time. The Cirro-stratus speedily becomes denser and spreads, while the superior Cumulus extends itself and passes into it, the base continuing as it was, while the convex protuberances change their position till they present themselves laterally and downward. More rarely, the Cumulus performs this evolution by itself, and its superior part then constitutes the incumbent Cirro-stratus. </p><p>In either case a large lofty dense Cloud is formed, which may be compared to a Mushroom with a very thick short stem. But when a whole sky is crowded with this Modification, the appearances are indistinct. The Cumulus rises through the interstices of the superior Cloud; and the whole, seen as it passes off in the distant horizon, presents to the fancy mountains covered with snow, intersected with darker ridges, lakes of water, rocks, and towers, &amp;c. The <em>distinct</em> Cumulo-stratus is formed in the interval between the first appearance of the fleecy Cumulus and the commencement of rain, while the lower atmosphere is yet dry; also during the approach of Thunder-storms: the <em>indistinct</em> appearance of it is chiefly in the longer or shorter intervals of showers of rain, snow, or hail.</p>"
+        },
+        "id": "7c235017-122a-4d5b-8bd9-b801e4e1b6b4",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "cumulostratus_as_produced_by_the_inosculation_of_cumulus.jpg"
+            ],
+            "src": "",
+            "alt": "Cumulostratus as produced by the inosculation of cumulus with cirrostratus cirri above passing to cirrocumulus.",
+            "caption": "Cumulostratus as produced by the inosculation of cumulus with cirrostratus cirri above passing to cirrocumulus. E. M. Wilhams lith. M. &amp; N. Hanhart imp.",
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "a0d6a116-4393-4299-984b-b834e48a3897",
+        "isHidden": false,
+        "type": "image"
+    }
+]
+
+----
+
+Documentlevel: ・・
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

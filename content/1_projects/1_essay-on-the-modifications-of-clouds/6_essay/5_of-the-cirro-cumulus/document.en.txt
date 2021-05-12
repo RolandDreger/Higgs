@@ -1,0 +1,57 @@
+Title: Of the Cirro-Cumulus
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>The Cirrus having continued for some time increasing or stationary, usually passes either to the Cirro-cumulus or the Cirro-stratus, at the same time descending to a lower station in the atmosphere. </p><p>The Cirro-cumulus is formed from a Cirrus, or from a number of small separate Cirri, by the fibres collapsing as it were, and passing into small roundish masses, in which the texture of the Cirrus is no longer discernible; although they still retain somewhat of the same relative arrangement. This change takes place either throughout the whole mass at once, or progressively from one extremity to the other. In either case the same efiect is produced on a number of adjacent Cirri at the same time and in the same order. It appears in some instances to be accelerated by the approach of other Clouds. </p><p>This Modification forms a very beautiful sky, sometimes exhibiting numerous distinct beds of these small connected clouds, floating at different altitudes.</p>"
+        },
+        "id": "7df130ba-53e3-4ee6-87e9-cf03a39acc56",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "cumulus_breaking_up_cirrus_and_cirro_cumulus_above.jpg"
+            ],
+            "src": "",
+            "alt": "Cumulus breaking up cirrus & cirro cumulus above.",
+            "caption": "Cumulus breaking up cirrus &amp; cirro cumulus above. E. M. Wilhams lith. M. &amp; N. Hanhart imp",
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "43ee7b95-49bf-43f1-9bae-8831fbb54bc6",
+        "isHidden": false,
+        "type": "image"
+    },
+    {
+        "content": {
+            "text": "<p>The Cirro-cumulus is frequent in <em>summer,</em> and is attendant on warm and dry weather. It is also occasionally and more sparingly seen in the intervals of showers, and in winter. It may either evaporate, or pass to the Cirrus or Cirro- stratus.</p>"
+        },
+        "id": "cc07825a-2a88-4b07-9b35-b1188796307f",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentlevel: ・・
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 
