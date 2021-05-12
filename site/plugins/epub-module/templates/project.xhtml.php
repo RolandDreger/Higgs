@@ -3,12 +3,18 @@
 	<?php snippet('xhtml/head'); ?>
 	<body>
 		<!-- Linear Content -->
-		<?php foreach($listedChildPages as $listedPage): ?>
-			<?php snippet('xhtml/section', ['targetPage' => $listedPage]); ?>
-		<?php endforeach; ?>
-		<!-- Non-linear Content-->
-		<?php foreach($unlistedChildPages as $unlistedPage): ?>
-			<?php snippet('xhtml/section', ['targetPage' => $unlistedPage]); ?>
-		<?php endforeach; ?>
+		<?php 
+			snippet('xhtml/section', [
+				'targetPages' => $listedChildPages, 
+				'level' => 1
+			]); 
+		?>
+		<!-- Non-linear Content -->
+		<?php 
+			snippet('xhtml/section', [
+				'targetPages' => $unlistedChildPages, 
+				'level' => 0
+			]); 
+		?>
 	</body>
 </html>
