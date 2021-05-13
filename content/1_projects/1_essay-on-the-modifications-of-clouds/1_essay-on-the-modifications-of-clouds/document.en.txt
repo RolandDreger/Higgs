@@ -50,7 +50,7 @@ Documenttext:
 
 ----
 
-Documentlevel: ・
+Documentlevel: level-1
 
 ----
 

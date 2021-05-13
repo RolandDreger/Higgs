@@ -8,19 +8,19 @@ columns:
       documentPublishedDocumentsLevel1:
         extends: sections/published
         when:
-          documentLevel: '・'
+          documentLevel: 'level-1'
       documentDraftDocumentsLevel1:
         extends: sections/drafts
         when:
-          documentLevel: '・'
+          documentLevel: 'level-1'
       documentPublishedDocumentsLevel2:
         extends: sections/published
         when:
-          documentLevel: '・・'
+          documentLevel: 'level-2'
       documentDraftDocumentsLevel2:
         extends: sections/drafts
         when:
-          documentLevel: '・・'
+          documentLevel: 'level-2'
   - width: 1/3
     sections:
       documentInfo:
@@ -31,12 +31,12 @@ columns:
             label: 
               en: "Level"
               de: "Ebene"
-            default: '・'
+            default: 'level-1'
             required: false
             options: 
-              '・': 1
-              '・・': 2
-              '・・・': 3
+              'level-1': 1
+              'level-2': 2
+              'level-3': 3
             help: 
               en: Level in Table of Contents
               de: Ebene im Inhaltsverzeichnis

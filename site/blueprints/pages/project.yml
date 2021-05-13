@@ -3,28 +3,28 @@ title: Project
 columns:
   - width: 2/3
     sections:
-      projectTableOfContent:
+      projectTableOfContentSection:
         type: fields
         fields:
-          pages:
+          projectTableOfContent:
             type: pages
             label: 
               en: "Table of Contents"
               de: "Inhaltsverzeichnis"
-            text: "{{ page.documentLevel }} {{ page.title }}"
+            text: "{{ page.documentLevel.translate() }} {{ page.title }}"
             info: "{{ page.documentPart.translate().upper() }}"
             image: 
               query: page.image
             query: page.children
             subpages: true
             search: true
-      projectPublishedDocuments:
+      projectPublishedDocumentSection:
         extends: sections/published
-      projectDraftDocuments:
+      projectDraftDocumentSection:
         extends: sections/drafts
   - width: 1/3
     sections:
-      projectDescription:
+      projectDescriptionSection:
         type: fields
         fields: 
           projectDescription:
@@ -35,7 +35,7 @@ columns:
             help:
               en: "Short description of the project."
               de: "Kurze Beschreibung des Projekts."
-      projectCoverImage:
+      projectCoverImageSection:
         type: files
         headline:
           en: "Cover Image"
@@ -49,7 +49,7 @@ columns:
           ratio: 1/1
           cover: false
         template: cover
-      projectFiles:
+      projectFilesSection:
         type: files
         headline:
           en: "Project Files"

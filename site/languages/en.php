@@ -50,7 +50,14 @@ return [
 			'lot' => 'List of tables',
 			'bibliography' => 'Bibliography',
 			'index' => 'Index',
-			'credits' => 'Credits'     
+			'credits' => 'Credits',
+			/* Levels (Table of Content) */
+			'level-1' => '・',
+			'level-2' => '・・',
+			'level-3' => '・・・',
+			'level-4' => '・・・・',
+			'level-5' => '・・・・・',
+			'level-6' => '・・・・・・'    
     ],
     'url' => NULL
 ];
