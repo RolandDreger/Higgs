@@ -16,17 +16,18 @@
 		]);
 	?>
 	<section <?= $sectionAttributes; ?>>
+		<?php /* Title */ ?>
 		<header>
 			<?= $targetPage->title()->toXhtml('text', 'h1', ['epub:type' => 'title']); ?>
 		</header>
+		<?php /* Content */ ?>
 		<?= $targetPage->documentText()->toXhtml('blocks'); ?>
-		<?php if($targetPage->hasChildren()): ?>
-			<?php 
-				snippet('xhtml/section', [
-					'targetPages' => $targetPage->children(), 
-					'level' => ($level + 1)
-				]); 
-			?>
-		<?php endif; ?>
+		<?php /* Subpages */ ?>
+		<?php 
+			snippet('xhtml/section', [
+				'targetPages' => $targetPage->children()->published(), 
+				'level' => ($level + 1)
+			]); 
+		?>
 	</section>
 <?php endforeach; ?>
