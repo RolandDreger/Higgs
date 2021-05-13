@@ -19,9 +19,10 @@ use DOMDocument;
 class XhtmlParser {
 
 	public $saveXMLOptions;
+	public $lang;
 	public $errors = [];
 	
-	public function __construct($options = 0) {
+	public function __construct($lang = 'en', $options = 0) {
 		$this->saveXMLOptions = $options;
 	}
 
@@ -118,7 +119,10 @@ class XhtmlParser {
 		
 		/* HTML Element */
 		$root = $xhtmlDocument->documentElement;
-		$root->setAttributeNS('', 'xmlns','http://www.w3.org/1999/xhtml');
+		$defaultAttrNS = $xhtmlDocument->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
+		$epubAttrNS = $xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
+		$root->setAttribute('xml:lang', $this->lang);
+		$root->setAttribute('lang', $this->lang);
 		
 		/* HEAD Element */
 		$head = $xhtmlDocument->createElement('head');
