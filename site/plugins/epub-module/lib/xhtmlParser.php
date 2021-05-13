@@ -23,6 +23,7 @@ class XhtmlParser {
 	public $errors = [];
 	
 	public function __construct($lang = 'en', $options = 0) {
+		$this->lang = $lang;
 		$this->saveXMLOptions = $options;
 	}
 
@@ -123,7 +124,7 @@ class XhtmlParser {
 		$epubAttrNS = $xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
 		$root->setAttribute('xml:lang', $this->lang);
 		$root->setAttribute('lang', $this->lang);
-		
+
 		/* HEAD Element */
 		$head = $xhtmlDocument->createElement('head');
 		$metaCharset = $xhtmlDocument->createElement('meta');
