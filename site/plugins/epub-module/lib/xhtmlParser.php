@@ -117,22 +117,22 @@ class XhtmlParser {
 		$xhtmlDocument->strictErrorChecking = FALSE;
 		
 		/* HTML Element */
-		$root = $xhtmlDocument->documentElement;
+		$rootElement = $xhtmlDocument->documentElement;
 		$defaultAttrNS = $xhtmlDocument->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
 		$epubAttrNS = $xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
-		$root->setAttribute('xml:lang', $lang);
-		$root->setAttribute('lang', $lang);
+		$rootElement->setAttribute('xml:lang', $lang);
+		$rootElement->setAttribute('lang', $lang);
 
 		/* HEAD Element */
-		$head = $xhtmlDocument->createElement('head');
+		$headElement = $xhtmlDocument->createElement('head');
 		$metaCharset = $xhtmlDocument->createElement('meta');
 		$metaCharset->setAttribute('charset','utf-8');
-		$head->appendChild($metaCharset);
-		$root->appendChild($head);
+		$headElement->appendChild($metaCharset);
+		$rootElement->appendChild($headElement);
 		
 		/* BODY Element */
-		$body = $xhtmlDocument->createElement('body');
-		$root->appendChild($body);
+		$bodyElement = $xhtmlDocument->createElement('body');
+		$rootElement->appendChild($bodyElement);
 
 		/* Check: Body element from HTML document available? */
 		$bodyNode = $this->getBodyNode($htmDocument);
@@ -142,7 +142,7 @@ class XhtmlParser {
 		}
 		
 		foreach($bodyNode->childNodes as $node) {
-			$root->appendChild(
+			$rootElement->appendChild(
 				$xhtmlDocument->importNode($node, true)
 			);
 		}
