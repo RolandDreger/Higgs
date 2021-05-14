@@ -19,11 +19,9 @@ use DOMDocument;
 class XhtmlParser {
 
 	public $saveXMLOptions;
-	public $lang;
 	public $errors = [];
 	
-	public function __construct($lang = 'en', $options = 0) {
-		$this->lang = $lang;
+	public function __construct($options = 0) {
 		$this->saveXMLOptions = $options;
 	}
 
@@ -90,7 +88,7 @@ class XhtmlParser {
 		return $htmDocument;
 	}
 
-	public function createXhtmlDocument($html = '') {
+	public function createXhtmlDocument($html = '', $lang = 'en') {
 
 		if(!is_string($html)) {
 			array_push($this->errors, 'First argument must be an string: ' . $html);
@@ -122,8 +120,8 @@ class XhtmlParser {
 		$root = $xhtmlDocument->documentElement;
 		$defaultAttrNS = $xhtmlDocument->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
 		$epubAttrNS = $xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
-		$root->setAttribute('xml:lang', $this->lang);
-		$root->setAttribute('lang', $this->lang);
+		$root->setAttribute('xml:lang', $lang);
+		$root->setAttribute('lang', $lang);
 
 		/* HEAD Element */
 		$head = $xhtmlDocument->createElement('head');
