@@ -1,6 +1,7 @@
 <?php if(!isset($level)) { $level = 0; } ?>
 <?php foreach($targetPages as $targetPage): ?>
 	<?php
+		$docID = $targetPage->id();
 		$docPart = trim($targetPage->documentPart());
 		$docRole = trim($targetPage->documentRole());
 		$docType = trim($targetPage->documentType());
@@ -10,6 +11,7 @@
 		$epupType = implode(' ', $epubTypeArray);
 		$docRole = trim($targetPage->documentRole());
 		$sectionAttributes = Xml::attr([
+			'id' => $docID,
 			'class' => "level-{$level}", 
 			'epub:type' => $epupType, 
 			'role' => $docRole
