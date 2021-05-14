@@ -103,8 +103,8 @@ class XhtmlParser {
 		}
 
 		$dom = new DOMImplementation();
+		$dom->xmlVersion = '1.0';
 		$dom->encoding = 'utf-8';
-		$dom->standalone = false;
 
 		$dtd = $dom->createDocumentType('html', '', '');
 
