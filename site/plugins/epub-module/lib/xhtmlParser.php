@@ -116,10 +116,11 @@ class XhtmlParser {
 		$xhtmlDocument->substituteEntities = TRUE;
 		$xhtmlDocument->strictErrorChecking = FALSE;
 		
+		$xhtmlDocument->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
+		$xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
+		
 		/* HTML Element */
 		$rootElement = $xhtmlDocument->documentElement;
-		$defaultAttrNS = $xhtmlDocument->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
-		$epubAttrNS = $xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
 		$rootElement->setAttribute('xml:lang', $lang);
 		$rootElement->setAttribute('lang', $lang);
 
