@@ -31,6 +31,7 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	/* Extensions */
-	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php'
+	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php',
+	'pageMethods' => include __DIR__ . '/extensions/pageMethods.php'
 
 ]);
