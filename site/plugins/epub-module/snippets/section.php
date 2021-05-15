@@ -1,7 +1,7 @@
 <?php if(!isset($level)) { $level = 0; } ?>
 <?php foreach($targetPages as $targetPage): ?>
 	<?php
-		$docID = $targetPage->id();
+		$docID = $targetPage->hashID();
 		$docPart = trim($targetPage->documentPart());
 		$docRole = trim($targetPage->documentRole());
 		$docType = trim($targetPage->documentType());
