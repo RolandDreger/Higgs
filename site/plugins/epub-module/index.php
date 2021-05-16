@@ -1,7 +1,8 @@
 <?php
 
 load([
-	'Higgs\\Epub\\XhtmlParser' => 'lib/xhtmlParser.php'
+	'Higgs\\Epub\\XhtmlParser' => 'lib/xhtmlParser.php',
+	'Higgs\\Epub\\EpubBuilder' => 'lib/epubBuilder.php'
 ], __DIR__);
 
 
@@ -28,6 +29,10 @@ Kirby::plugin('higgs/epub-module', [
 
 	'controllers' => [
 		'project' => include __DIR__ . '/controllers/project.php'
+	],
+
+	'blueprints' => [
+		'files/epub' => __DIR__ . '/blueprints/files/epub.yml'
 	],
 
 	/* Extensions */
