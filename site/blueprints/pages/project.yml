@@ -57,3 +57,10 @@ columns:
         info: "{{ file.dimensions }}"
         layout: list
         template: default
+      projectEpubSection:
+        type: files
+        headline:
+          en: "ePub"
+          de: "ePub"
+        layout: list
+        template: epub
