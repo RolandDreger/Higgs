@@ -1,0 +1,17 @@
+title: Epub
+
+accept: application/epub+zip 
+
+columns: 
+  - width: 2/3
+    fields: 
+      epubDesc:
+        type: textarea
+        label:
+          en: "Description"
+          de: "Beschreibung"
+      alt:
+        type: text
+        label:
+          en: "Alternative Text"
+          de: "Alternativtext"
