@@ -8,6 +8,6 @@ return [
 	 * <?= $page->hashID(); ?>
 	 */
 	'hashID' => function() {
-		return bin2hex(mhash(MHASH_MD5, $this->id()));
+		return 'x' . bin2hex(mhash(MHASH_MD5, $this->id()));
 	}
 ];
