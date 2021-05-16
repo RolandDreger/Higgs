@@ -3,13 +3,10 @@
 	<?php snippet('xhtml/head'); ?>
 	<body>
 		<?php 
-			$epubBuilder = new Higgs\Epub\EpubBuilder($kirby);
-
-			$options = [
-				"version" => '3.0', 
-				'cover' => true
-			];
-			$epubBuilder->createEpub($page, $options);
+			/* Build ePub */
+			$options = ["version" => '3.0', 'cover' => true];
+			$epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
+			$epubBuilder->createEpub();
 		?>
 		<!-- Linear Content -->
 		<?php 
