@@ -52,8 +52,8 @@ columns:
       projectFilesSection:
         type: files
         headline:
-          en: "Project Files"
-          de: "Projektdateien"
+          en: "Files"
+          de: "Dateien"
         info: "{{ file.dimensions }}"
         layout: list
         template: default

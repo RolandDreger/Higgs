@@ -102,3 +102,4 @@ columns:
         headline: Files
         type: files
         layout: list
+        template: blocks/image
