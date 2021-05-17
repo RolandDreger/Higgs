@@ -58,6 +58,7 @@ class EpubBuilder {
 	
 	public $errors = [];
 
+
 	public function __construct($projectPage, $options = []) {
 		
 		if(!$projectPage) {
@@ -71,7 +72,7 @@ class EpubBuilder {
 		$this->parentPage = $options['parent'] ?? $projectPage;
 		
 		/* Content Pages */
-		$this->docPages = $projectPage->children()->listed();
+		$this->docPages = $projectPage->index();
 
 		/* Table of Contents pages */
 		if($tocPagesField = $projectPage->projectTableOfContent()) {
@@ -104,6 +105,7 @@ class EpubBuilder {
 		$this->epubVersion = $options['version'] ?? '3.0';
 		$this->hasCover = $options['cover'] ?? true;
 	}
+
 
 	public function createEpub() {
 
@@ -144,16 +146,52 @@ class EpubBuilder {
 				return $this;
 			}
 
-			/* Populate ePub Archive */
-			$pageUrl =$this->docPages->first()->url() . '.xhtml';
-			$request = Remote::get($pageUrl);
-			if($request->code() === 200) {
-				$content = $request->content();
-			} else {
-				$results = 'Error';
+			$xmlString = '';
+
+			/* toc.xhtml */
+			if($this->checkVersion(3)) {
+				$tocXhtmlDoc = $this->createTocXhtmlDocument();
+				if(!$tocXhtmlDoc) {
+					array_push($this->errors, "Document could not be created: toc.xhtml");
+					return $this;
+				}
+				$xmlString = $tocXhtmlDoc->saveXML();
+				$epub->addFromString('OEBPS/toc.xhtml', $xmlString);
 			}
 
-			$epub->addFromString('OEBPS/content.opf', $content);
+			/* toc.ncx */
+			$tocNcxDoc = $this->createTocNcxDocument();
+			if(!$tocNcxDoc) {
+				array_push($this->errors, "Document could not be created: toc.ncx");
+				return $this;
+			}
+			$xmlString = $tocNcxDoc->saveXML();
+			$epub->addFromString('OEBPS/toc.ncx', $xmlString);
+
+			/* content.opf */
+			$contentOpfDoc = $this->createContentOpfDocument();
+			if(!$contentOpfDoc) {
+				array_push($this->errors, "Document could not be created: content.opf");
+				return $this;
+			}
+			$xmlString = $contentOpfDoc->saveXML();
+			$epub->addFromString('OEBPS/content.opf', $xmlString);
+
+			/* Content Documents */
+			foreach($this->docPages as $page) {
+				$docName = $this->getDocumentName($page);
+				$pageUrl = $page->url() . '.xhtml';
+				$content = '';
+				$request = Remote::get($pageUrl);
+				if($request->code() === 200) {
+					$content = $request->content();
+				} else {
+					array_push($this->errors, "Document could not be created: {$docName} Code: {$request->code()}");
+					continue;
+				}
+				$epub->addFromString('OEBPS/' . $docName, $content);
+			}
+
 
 		} catch(Exception $err) {
 			
@@ -218,7 +256,7 @@ class EpubBuilder {
 		}
 
 		foreach($this->docPages as $page) {
-			$idValue = method_exists($page, 'hashID') ? $page->hashID() : $page->id();
+			$idValue = $page->hashID();
 			$hrefValue = $this->getDocumentPath($page);
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $idValue], ['name' => 'href', 'value' => $hrefValue],['name' => 'media-type', 'value' => 'application/xhtml+xml']]);
 		};
@@ -227,7 +265,7 @@ class EpubBuilder {
 		$spineElement = $this->addElement($doc, $rootElement, 'spine', [['name'=>'toc', 'value'=>'ncx']]);
 
 		foreach($this->tocPages as $page) {
-			$idValue = method_exists($page, 'hashID') ? $page->hashID() : $page->id();
+			$idValue = $page->hashID();
 			$this->addElement($doc, $spineElement, 'itemref', [['name' => 'idref', 'value' => $idValue]]);
 		};
 
@@ -261,11 +299,11 @@ class EpubBuilder {
 			};
 		}
 		
-
 		$doc->appendChild($rootElement);
 
 		return $doc;
 	}
+
 
 	private function createTocXhtmlDocument() {
 
@@ -338,10 +376,11 @@ class EpubBuilder {
 			
 			$levelNum = $this->getLevelNumber($page);
 			if(empty($levelNum)) {
+				array_push($this->errors, "Level is not specified for the document: {$page->title()}");
 				continue;
 			}
 			
-			$hrefValue = $this->getDocumentPath($page);
+			$hrefValue = $this->getDocumentPath($page) . '#' . $page->hashID();
 			$pageTitle = $page->title();
 			$liElement = $this->createTocListItem($doc, 'li', $levelNum, $hrefValue, $pageTitle);
 						
@@ -389,10 +428,10 @@ class EpubBuilder {
 
 		foreach($this->tocPages as $page) {
 			$documentType = $page->documentType();
-			if(empty($documentType)) {
+			if(!$documentType->exists() || $documentType->isEmpty()) {
 				continue;
 			}
-			$hrefValue = $this->getDocumentPath($page);
+			$hrefValue = $this->getDocumentPath($page) . '#' . $page->hashID();
 			$pageTitle = $page->title();
 			$liElement = $this->createLandmarkListItem($doc, 'li', $documentType, $hrefValue, $pageTitle);
 			$landmarkOl->appendChild($liElement);
@@ -403,12 +442,14 @@ class EpubBuilder {
 		return $doc;
 	}
 
+
 	private function createTocList($doc, $tagName, $levelNum) {
 		$olElement = $doc->createElement($tagName);
 		$olElement->setAttribute('class', "level-{$levelNum}");
 		$olElement->setAttribute('data-level', $levelNum);
 		return $olElement;
 	}
+
 
 	private function createTocListItem($doc, $tagName, $levelNum, $hrefValue, $pageTitle) {
 		$liElement = $doc->createElement('li');
@@ -421,10 +462,12 @@ class EpubBuilder {
 		return $liElement;
 	}
 
+
 	private function createLandmarkList($doc, $tagName) {
 		$olElement = $doc->createElement($tagName);
 		return $olElement;
 	}
+
 
 	private function createLandmarkListItem($doc, $tagName, $documentType, $hrefValue, $pageTitle) {
 		$liElement = $doc->createElement('li');
@@ -436,6 +479,7 @@ class EpubBuilder {
 		$liElement->appendChild($aElement);
 		return $liElement;
 	}
+
 
 	private function createTocNcxDocument() {
 
@@ -449,10 +493,8 @@ class EpubBuilder {
 		$dom->xmlVersion = '1.0';
 		$dom->encoding = 'utf-8';
 
-		$dtd = $dom->createDocumentType('ncx', '-//NISO//DTD ncx 2005-1//EN', 'http://www.daisy.org/z3986/2005/ncx-2005-1.dtd');
-
 		/* Create XHTML Document */
-		$doc = $dom->createDocument(null, 'ncx', $dtd);
+		$doc = $dom->createDocument(null, 'ncx');
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'utf-8';
 		$doc->formatOutput = true;
@@ -491,6 +533,7 @@ class EpubBuilder {
 
 			$levelNum = $this->getLevelNumber($page);
 			if(empty($levelNum)) {
+				array_push($this->errors, "Level is not specified for the document: {$page->title()}");
 				continue;
 			}
 
@@ -499,9 +542,9 @@ class EpubBuilder {
 			}
 
 			$playOrder += 1;
-			$idValue = method_exists($page, 'hashID') ? $page->hashID() : $page->id();
+			$idValue = $page->hashID();
 			$pageTitle = $page->title();
-			$documentPath = $this->getDocumentPath($page);
+			$documentPath = $this->getDocumentPath($page) . '#' . $idValue;
 			$navPointElement = $this->createNavPointItem($doc, $idValue, $playOrder, $pageTitle, $documentPath);
 			$navPointElement->setAttribute('data-level',$levelNum);
 
@@ -532,6 +575,7 @@ class EpubBuilder {
 
 		return $doc;
 	}
+
 
 	private function createNavPointItem($doc, $id, $playOrder, $text, $src) {
 		
@@ -576,12 +620,13 @@ class EpubBuilder {
 		$childPagePathArray = explode('/', $childPage->uri());
 		
 		$projectPageLevel = count($projectPagePathArray);
-		$leveledChildPagePathArray = array_slice($childPagePathArray, ($projectPageLevel - 1));
+		$leveledChildPagePathArray = array_slice($childPagePathArray, $projectPageLevel);
 		
 		$documentName = implode('+', $leveledChildPagePathArray) . '.xhtml';
 		
 		return $documentName;
 	}
+
 
 	private function addElement($doc, $parentElement, $elementName, $attrArray = [], $textContent = '') {
 		
@@ -598,6 +643,7 @@ class EpubBuilder {
 		return $element;
 	}
 
+	
 	private function buildFilePath($folderPath = '', $fileName = '') {
 
 		$folderPathArray = [];
@@ -614,6 +660,7 @@ class EpubBuilder {
 
 		return $filePath;
 	}
+
 
 	private function checkVersion($versionNumber) {
 		
