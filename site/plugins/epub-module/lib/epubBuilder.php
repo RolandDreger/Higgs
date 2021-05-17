@@ -29,7 +29,7 @@ use Xml;
 
 	Felder auf der Documentseite
 	title()
-	documentType() (optional)
+	documentLandmark (optional)
 	id()
 	documentLevel()
 
@@ -284,15 +284,15 @@ class EpubBuilder {
 			}
 
 			foreach($this->docPages as $page) {
-				$documentType = $page->documentType();
-				if(empty($documentType)) {
+				$documentLandmark = $page->documentLandmark();
+				if($documentLandmark->exists() || $documentLandmark->isEmpty()) {
 					continue;
 				}
 				$documentTitle = $page->title();
 				$hrefValue = $this->getDocumentPath($page);
 				$this->addElement(
 					$doc, $guideElement, 'reference', [
-					['name' => 'type', 'value' => $documentType], 
+					['name' => 'type', 'value' => $documentLandmark], 
 					['name' => 'title', 'value' => $documentTitle],
 					['name' => 'href', 'value' => $hrefValue]
 				]);
@@ -342,7 +342,7 @@ class EpubBuilder {
 
 		/* Title */
 		$projectTitle = $this->projectPage->title();
-		if(!empty($projectTitle)) {
+		if($projectTitle->exists() && $projectTitle->isNotEmpty()) {
 			$titleElement = $doc->createElement('title');
 			$titleText = $doc->createTextNode($projectTitle);
 			$titleElement->appendChild($titleText);
@@ -427,13 +427,13 @@ class EpubBuilder {
 		$landmarkNav->appendChild($landmarkOl);
 
 		foreach($this->tocPages as $page) {
-			$documentType = $page->documentType();
-			if(!$documentType->exists() || $documentType->isEmpty()) {
+			$documentLandmark = $page->documentLandmark();
+			if(!$documentLandmark->exists() || $documentLandmark->isEmpty()) {
 				continue;
 			}
 			$hrefValue = $this->getDocumentPath($page) . '#' . $page->hashID();
 			$pageTitle = $page->title();
-			$liElement = $this->createLandmarkListItem($doc, 'li', $documentType, $hrefValue, $pageTitle);
+			$liElement = $this->createLandmarkListItem($doc, 'li', $documentLandmark, $hrefValue, $pageTitle);
 			$landmarkOl->appendChild($liElement);
 		}
 
@@ -469,10 +469,10 @@ class EpubBuilder {
 	}
 
 
-	private function createLandmarkListItem($doc, $tagName, $documentType, $hrefValue, $pageTitle) {
+	private function createLandmarkListItem($doc, $tagName, $documentLandmark, $hrefValue, $pageTitle) {
 		$liElement = $doc->createElement('li');
 		$aElement = $doc->createElement('a');
-		$aElement->setAttribute('epub:type', $documentType);
+		$aElement->setAttribute('epub:type', $documentLandmark);
 		$aElement->setAttribute('href', $hrefValue);
 		$textNode = $doc->createTextNode($pageTitle);
 		$aElement->appendChild($textNode);
@@ -595,6 +595,7 @@ class EpubBuilder {
 		return $navPointElement;
 	}
 
+
 	private function getLevelNumber($page) {
 		
 		$levelNum = intval(preg_replace('/\D+/', '', $page->documentLevel()));
@@ -605,6 +606,7 @@ class EpubBuilder {
 		return $levelNum;
 	}
 
+
 	private function getDocumentPath($page) {
 		
 		$contentFolderPath = self::CONTENT_FOLDER_PATH;
@@ -613,6 +615,7 @@ class EpubBuilder {
 		
 		return $documentPath;
 	}
+
 
 	private function getDocumentName($childPage) {
 		
