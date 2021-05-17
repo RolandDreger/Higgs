@@ -56,6 +56,20 @@ columns:
             help: 
               en: e.g. for parsX export
               de: z.B. für parsX-Export
+          documentLandmark:
+            # Translations from languages files
+            type: select
+            label: 
+              en: Landmark
+              de: Landmark
+            options: query
+            query: 
+              fetch: site.siteDocumentLandmarks.split
+              value: "{{ arrayItem.value }}"
+              text: "{{ arrayItem.value.translate() }}"
+            help: 
+              en: e.g. for landmarks in ePubs
+              de: z.B. für Landmarks in ePubs
           documentType:
             # Translations from languages files
             type: select
@@ -68,8 +82,8 @@ columns:
               value: "{{ arrayItem.value }}"
               text: "{{ arrayItem.value.translate() }}"
             help: 
-              en: e.g. for landmarks and epub:type attribute in ePubs
-              de: z.B. für Landmarks und epub:type-Attribut in ePubs
+              en: e.g. for epub:type attribute in ePubs
+              de: z.B. für epub:type-Attribut in ePubs
           documentRole:
             # Translations from languages files
             type: select
