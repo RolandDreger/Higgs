@@ -1,23 +1,18 @@
 <?php if(!isset($level)) { $level = 0; } ?>
 <?php foreach($targetPages as $targetPage): ?>
 	<?php
-		$docID = $targetPage->hashID();
-		$docPart = trim($targetPage->documentPart());
-		$docRole = trim($targetPage->documentRole());
-		$docType = trim($targetPage->documentType());
-		$epubTypeArray = array_filter([$docPart, $docRole], function($item) { 
-			return !empty($item); 
-		});
-		$epupType = implode(' ', $epubTypeArray);
-		$docRole = trim($targetPage->documentRole());
-		$sectionAttributes = Xml::attr([
-			'id' => $docID,
-			'class' => "level-{$level}", 
-			'epub:type' => $epupType, 
-			'role' => $docRole
-		]);
+		$sectionAttrArray = [
+			'id' => $targetPage->hashID(),
+			'class' => "level-{$level}"
+		];
+		if($targetPage->documentType()->isNotEmpty()) {
+			$sectionAttrArray['epub:type'] = $targetPage->documentType();
+		}
+		if($targetPage->documentRole()->isNotEmpty()) {
+			$sectionAttrArray['role'] = $targetPage->documentRole();
+		}
 	?>
-	<section <?= $sectionAttributes; ?>>
+	<section <?= Xml::attr($sectionAttrArray); ?>>
 		<?php /* Title */ ?>
 		<header>
 			<?= $targetPage->title()->toXhtml('text', 'h1', ['epub:type' => 'title']); ?>
