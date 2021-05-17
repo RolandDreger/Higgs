@@ -420,8 +420,8 @@ class EpubBuilder {
 				continue;
 			}
 			$hrefValue = $this->getDocumentPath($page) . '#' . $page->hashID();
-			$pageTitle = $page->title();
-			$liElement = $this->createLandmarkListItem($doc, 'li', $documentLandmark, $hrefValue, $pageTitle);
+			$textContent = t($documentLandmark->value(), $documentLandmark->value());
+			$liElement = $this->createLandmarkListItem($doc, 'li', $documentLandmark, $hrefValue, $textContent);
 			$landmarkOl->appendChild($liElement);
 		}
 
@@ -457,12 +457,12 @@ class EpubBuilder {
 	}
 
 
-	private function createLandmarkListItem($doc, $tagName, $documentLandmark, $hrefValue, $pageTitle) {
+	private function createLandmarkListItem($doc, $tagName, $documentLandmark, $hrefValue, $textContent) {
 		$liElement = $doc->createElement('li');
 		$aElement = $doc->createElement('a');
 		$aElement->setAttribute('epub:type', $documentLandmark);
 		$aElement->setAttribute('href', $hrefValue);
-		$textNode = $doc->createTextNode($pageTitle);
+		$textNode = $doc->createTextNode($textContent);
 		$aElement->appendChild($textNode);
 		$liElement->appendChild($aElement);
 		return $liElement;
