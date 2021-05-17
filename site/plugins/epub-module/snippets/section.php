@@ -1,6 +1,7 @@
 <?php if(!isset($level)) { $level = 0; } ?>
 <?php foreach($targetPages as $targetPage): ?>
 	<?php
+		/* Section Attributes */
 		$sectionAttrArray = [
 			'id' => $targetPage->hashID(),
 			'class' => "level-{$level}"
