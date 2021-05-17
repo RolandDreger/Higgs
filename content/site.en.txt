@@ -6,7 +6,11 @@ Sitedocumentparts: titlepages, frontmatter, bodymatter, backmatter
 
 ----
 
-Sitedocumenttypes: cover, titlepage, halftitlepage, copyright-page, imprint, imprimatur, contributors, colophon, other-credits, errata, revision-history, dedication, epigraph, toc, foreword, preface, acknowledgments, introduction, prologe, preamble, part, division, chapter, chapter-subchapter, volume, epilogue, afterword, conclusion, appendix, glossary, loi, lot, bibliography, index, credits
+Sitedocumentlandmarks: cover, frontmatter, bodymatter, backmatter, epigraph, conclusion, afterword, warning, epilogue, foreword, introduction, prologue, preface, preamble, notice, landmarks, lot, index, colophon, appendix, loi, toc, glossary, glossterm, glossdef, biblioentry, bibliography, imprint, errata, copyright-page, acknowledgments, other-credits, titlepage, imprimatur, contributors, halftitlepage, dedication, footnotes, rearnotes, bridgehead, title, halftitle, fulltitle, subtitle, covertitle
+
+----
+
+Sitedocumenttypes: cover, frontmatter, bodymatter, backmatter, volume, part, chapter, subchapter, division, epigraph, conclusion, afterword, warning, epilogue, foreword, introduction, prologue, preface, preamble, notice, landmarks, lot, index, colophon, appendix, loi, toc, glossary, glossterm, glossdef, biblioentry, bibliography, imprint, errata, copyright-page, acknowledgments, other-credits, titlepage, imprimatur, contributors, halftitlepage, dedication, help, sidebar, annotation, marginalia, practice, note, footnote, rearnote, footnotes, rearnotes, bridgehead, title, halftitle, fulltitle, subtitle, covertitle, concluding-sentence, keyword, topic-sentence, annoref, noteref, page-list, pagebreak
 
 ----
 

@@ -50,58 +50,159 @@ columns:
             help:
               en: e.g. for parsX export
               de: z.B. für parsX-Export
+          siteDocumentLandmarks:
+            label: 
+              en: Landmarks
+              de: Landmarks
+            type: tags
+            options:
+              # Dokumentaufbau
+	            - "cover"
+	            - "frontmatter"
+              - "bodymatter"
+              - "backmatter"
+              # Dokumentelemente
+              - "epigraph"
+              - "conclusion"
+              - "afterword"
+              - "warning"
+              - "epilogue"
+              - "foreword"
+              - "introduction"
+              - "prologue"
+              - "preface"
+              - "preamble"
+              - "notice"
+              # Referenzen
+              - "landmarks"
+              - "lot"
+              - "index"
+              - "colophon"
+              - "appendix"
+              - "loi"
+              - "toc"
+              # Glossare
+              - "glossary"
+              - "glossterm"
+              - "glossdef"
+              # Bibliographien
+              - "biblioentry"
+              - "bibliography"
+              # Titelei
+              - "imprint"
+              - "errata"
+              - "copyright-page"
+              - "acknowledgments"
+              - "other-credits"
+              - "titlepage"
+              - "imprimatur"
+              - "contributors"
+              - "halftitlepage"
+              - "dedication"
+              # Anmerkungen
+              - "footnotes"
+              - "rearnotes"
+              # Titelelemente
+              - "bridgehead"
+              - "title"
+              - "halftitle"
+              - "fulltitle"
+              - "subtitle"
+              - "covertitle"     
+            help:
+              en: "e.g. for landmarks in ePubs"
+              de: "z.B. für Landmarks ePubs"
           siteDocumentTypes:
             label: 
               en: Document Types
               de: Dokumenarten
             type: tags
             options:
-              # Frontmatter
-              - "cover"
-              - "titlepage"
-              - "halftitlepage"
-              - "maintitle"
-              - "copyright-page"
+              # Dokumentaufbau
+	            - "cover"
+	            - "frontmatter"
+              - "bodymatter"
+              - "backmatter"
+              # Unterteilungen
+              - "volume"
+              - "part"
+              - "chapter"
+              - "subchapter"
+              - "division"
+              # Dokumentelemente
+              - "epigraph"
+              - "conclusion"
+              - "afterword"
+              - "warning"
+              - "epilogue"
+              - "foreword"
+              - "introduction"
+              - "prologue"
+              - "preface"
+              - "preamble"
+              - "notice"
+              # Referenzen
+              - "landmarks"
+              - "lot"
+              - "index"
+              - "colophon"
+              - "appendix"
+              - "loi"
+              - "toc"
+              # Glossare
+              - "glossary"
+              - "glossterm"
+              - "glossdef"
+              # Bibliographien
+              - "biblioentry"
+              - "bibliography"
+              # Titelei
               - "imprint"
+              - "errata"
+              - "copyright-page"
+              - "acknowledgments"
+              - "other-credits"
+              - "titlepage"
               - "imprimatur"
               - "contributors"
-              - "colophon"
-              - "other-credits"
-              - "errata"
-              - "revision-history"
+              - "halftitlepage"
               - "dedication"
-              - "epigraph"
-              - "toc"
-              - "foreword"
-              - "preface"
-              - "acknowledgments"
-              - "introduction"
-              - "prologe"
-              - "preamble"
-              # Bodymatter
-              - "part"
-              - "division"
-              - "chapter"
-              - "chapter-subchapter"
-              - "volume"
-              # Backmatter
-              - "epilogue"
-              - "afterword"
-              - "conclusion"
-              - "appendix"
-              - "glossary"
-              - "loi"
-              - "lot"
-              - "bibliography"
-              - "index"
-              - "credits"              
+              # Ergänzungen
+              - "help"
+              - "sidebar"
+              - "annotation"
+              - "marginalia"
+              - "practice"
+              # Anmerkungen
+              - "note"
+              - "footnote"
+              - "rearnote"
+              - "footnotes"
+              - "rearnotes"
+              # Titelelemente
+              - "bridgehead"
+              - "title"
+              - "halftitle"
+              - "fulltitle"
+              - "subtitle"
+              - "covertitle"
+              # Textauszeichnungen
+              - "concluding-sentence"
+              - "keyword"
+              - "topic-sentence"
+              # Verweise
+              - "annoref"
+              - "noteref"
+              # Paginierung
+              - "page-list"
+              - "pagebreak"     
             help:
-              en: e.g. for landmarks and epub:type attribute in ePubs
-              de: z.B. für Landmarks und epub:type-Attribut in ePubs
+              en: "e.g. for epub:type attribute in ePubs"
+              de: "z.B. für epub:type-Attribut in ePubs"
           siteDocumentRoles:
             label: 
-              en: Document Roles
-              de: Dokumenrollen
+              en: "Document Roles"
+              de: "Dokumenrollen"
             type: tags
             options:
               # Frontmatter
