@@ -72,7 +72,7 @@ columns:
               de: z.B. für Landmarks in ePubs
           documentType:
             # Translations from languages files
-            type: select
+            type: multiselect
             label: 
               en: Type
               de: Typ

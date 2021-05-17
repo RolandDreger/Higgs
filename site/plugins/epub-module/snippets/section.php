@@ -6,7 +6,8 @@
 			'class' => "level-{$level}"
 		];
 		if($targetPage->documentType()->isNotEmpty()) {
-			$sectionAttrArray['epub:type'] = $targetPage->documentType();
+			$docTypeArray = $targetPage->documentType()->split();
+			$sectionAttrArray['epub:type'] = implode(' ', $docTypeArray);
 		}
 		if($targetPage->documentRole()->isNotEmpty()) {
 			$sectionAttrArray['role'] = $targetPage->documentRole();

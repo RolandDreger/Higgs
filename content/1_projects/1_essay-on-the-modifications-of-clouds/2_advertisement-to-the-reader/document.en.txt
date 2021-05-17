@@ -61,7 +61,7 @@ Documentlandmark: prologue
 
 ----
 
-Documenttype: 
+Documenttype: frontmatter, prologue
 
 ----
 
