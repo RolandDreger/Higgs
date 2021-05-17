@@ -32,7 +32,9 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'blueprints' => [
-		'files/epub' => __DIR__ . '/blueprints/files/epub.yml'
+		'files/epub' => __DIR__ . '/blueprints/files/epub.yml',
+		'files/css' => __DIR__ . '/blueprints/files/css.yml',
+		'files/font' => __DIR__ . '/blueprints/files/font.yml'
 	],
 
 	/* Extensions */

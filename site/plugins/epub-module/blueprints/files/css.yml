@@ -1,0 +1,12 @@
+title: CSS
+
+accept: text/css 
+
+columns: 
+  - width: 2/3
+    fields: 
+      epubDesc:
+        type: textarea
+        label:
+          en: "ePub Stylesheet"
+          de: "ePub Stylesheet"

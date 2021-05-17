@@ -1,0 +1,12 @@
+title: Font
+
+accept: font/otf, font/ttf, font/woff, font/woff2  
+
+columns: 
+  - width: 2/3
+    fields: 
+      epubDesc:
+        type: textarea
+        label:
+          en: "ePub Font"
+          de: "ePub Schrift"

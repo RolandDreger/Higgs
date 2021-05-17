@@ -27,6 +27,7 @@ use Xml;
 class EpubBuilder {
 
 	const RELATIVE_TEMPLATE_PATH = 'assets/zip/template.epub';
+	const OPF_FOLDER_NAME = 'OEBPS';
 	const CONTENT_FOLDER_PATH = '';
 	const STYLESHEET_FOLDER_PATH = 'css';
 	const FONT_FOLDER_PATH = 'fonts';
@@ -35,6 +36,7 @@ class EpubBuilder {
 	private $projectPage;
 	private $docPages = [];
 	private $tocPages = [];
+	private $cssFiles = [];
 	private $templatePath;
 	private $hasCover = true;
 	private $coverDocumentName = 'cover.xhtml';
@@ -87,6 +89,9 @@ class EpubBuilder {
 			trigger_error("Template file does not exists");
 		}
 		$this->templatePath = $templatePath;
+
+		/* CSS Files */
+		$this->cssFiles = $projectPage->files()->template('css');
 
 		/* Settings for ePub files */
 		$this->lang = $options['language'] ?? $projectPage->kirby()->language()->code();
@@ -144,7 +149,7 @@ class EpubBuilder {
 					return $this;
 				}
 				$xmlString = $tocXhtmlDoc->saveXML();
-				$epub->addFromString('OEBPS/toc.xhtml', $xmlString);
+				$epub->addFromString(self::OPF_FOLDER_NAME . '/' . 'toc.xhtml', $xmlString);
 			}
 
 			/* toc.ncx */
@@ -154,7 +159,7 @@ class EpubBuilder {
 				return $this;
 			}
 			$xmlString = $tocNcxDoc->saveXML();
-			$epub->addFromString('OEBPS/toc.ncx', $xmlString);
+			$epub->addFromString(self::OPF_FOLDER_NAME . '/' . 'toc.ncx', $xmlString);
 
 			/* content.opf */
 			$contentOpfDoc = $this->createContentOpfDocument();
@@ -163,7 +168,7 @@ class EpubBuilder {
 				return $this;
 			}
 			$xmlString = $contentOpfDoc->saveXML();
-			$epub->addFromString('OEBPS/content.opf', $xmlString);
+			$epub->addFromString(self::OPF_FOLDER_NAME . '/' . 'content.opf', $xmlString);
 
 			/* Content Documents */
 			foreach($this->docPages as $page) {
@@ -177,8 +182,19 @@ class EpubBuilder {
 					array_push($this->errors, "Document could not be created: {$docName} Code: {$request->code()}");
 					continue;
 				}
-				$epub->addFromString('OEBPS/' . $docName, $content);
+				$contentFileArchivePath = self::OPF_FOLDER_NAME . '/' . $docName;
+				$epub->addFromString($contentFileArchivePath, $content);
 			}
+
+			/* CSS Files */
+			foreach($this->cssFiles as $cssFile) {
+				$cssFileRootPath = $cssFile->root();
+				$cssFileName = $cssFile->filename();
+				$cssFileArchivePath = $this->buildFilePath(self::OPF_FOLDER_NAME . '/' . self::STYLESHEET_FOLDER_PATH, $cssFileName);
+				$epub->addFile($cssFileRootPath, $cssFileArchivePath);
+			}
+
+			/* Image Files */
 
 
 		} catch(Exception $err) {
@@ -249,6 +265,13 @@ class EpubBuilder {
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $idValue], ['name' => 'href', 'value' => $hrefValue],['name' => 'media-type', 'value' => 'application/xhtml+xml']]);
 		};
 
+		foreach($this->cssFiles as $cssFile) {
+			$stylesheetName = $cssFile->name();
+			$idValue = 'stylesheet-' . $stylesheetName;
+			$hrefValue = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFile->filename());
+			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $idValue], ['name' => 'href', 'value' => $hrefValue],['name' => 'media-type', 'value' => 'text/css']]);
+		}
+
 		/* Spine */
 		$spineElement = $this->addElement($doc, $rootElement, 'spine', [['name'=>'toc', 'value'=>'ncx']]);
 
@@ -259,8 +282,9 @@ class EpubBuilder {
 
 		/* Guide */
 		if($this->checkVersion(2)) {
-			$guideElement = $this->addElement($doc, $rootElement, 'guide');
 
+			$guideElement = $this->addElement($doc, $rootElement, 'guide');
+			
 			if($this->hasCover) {
 				$coverHref = $this->buildFilePath(self::CONTENT_FOLDER_PATH, $this->coverDocumentName);
 				$this->addElement(

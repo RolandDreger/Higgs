@@ -64,3 +64,17 @@ columns:
           de: "ePub"
         layout: list
         template: epub
+      projectCssSection:
+        type: files
+        headline:
+          en: "Stylesheets"
+          de: "Stylesheets"
+        layout: list
+        template: css
+      projectFontSection:
+        type: files
+        headline:
+          en: "Fonts"
+          de: "Schriften"
+        layout: list
+        template: font
