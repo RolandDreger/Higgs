@@ -26,7 +26,7 @@ use Xml;
 
 class EpubBuilder {
 
-	const REALTIVE_TEMPLATE_PATH = 'assets/zip/template.epub';
+	const RELATIVE_TEMPLATE_PATH = 'assets/zip/template.epub';
 	const CONTENT_FOLDER_PATH = '';
 	const STYLESHEET_FOLDER_PATH = 'css';
 	const FONT_FOLDER_PATH = 'fonts';
@@ -82,7 +82,7 @@ class EpubBuilder {
 		$this->epubName = $epubName . '.epub';
 		
 		/* Template Path */
-		$templatePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::REALTIVE_TEMPLATE_PATH;
+		$templatePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_TEMPLATE_PATH;
 		if(!file_exists($templatePath)) {
 			trigger_error("Template file does not exists");
 		}
