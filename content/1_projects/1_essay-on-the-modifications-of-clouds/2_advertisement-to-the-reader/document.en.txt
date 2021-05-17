@@ -57,8 +57,12 @@ Documentpart: frontmatter
 
 ----
 
-Documenttype: prologe
+Documentlandmark: prologue
 
 ----
 
-Documentrole: prologe
+Documenttype: 
+
+----
+
+Documentrole: 

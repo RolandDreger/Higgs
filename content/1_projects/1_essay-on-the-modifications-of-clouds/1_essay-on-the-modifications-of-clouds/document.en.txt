@@ -58,6 +58,10 @@ Documentpart: titlepages
 
 ----
 
+Documentlandmark: titlepage
+
+----
+
 Documenttype: titlepage
 
 ----
