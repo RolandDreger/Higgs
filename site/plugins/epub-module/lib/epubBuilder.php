@@ -10,31 +10,19 @@ use File;
 use Remote;
 use Xml;
 
-/* 
-	Zielfolder für das generierte ePub kann beim Erstellen mit ->createEpub festgelegt werden
-
-	Metadaten:
-	Eingabefelder auf der Proejektseite. 
-
-
-	Inhaltsseiten:
-	Ausgewertet werden die listed Unterseiten der übergebenen Projektseite (alle Ebenen)
-
-	Table of Content
-	Die Seiten für das Inhaltsverzeichnis werden im Feld "projectTableOfContent" (Projektseite -> Page Field)
-	Die Ebene für das Inhaltsverzeichnis wird im Feld "documentLevel" definiert (Documentseite -> Dropdown Field)
-
-	Felder auf der Projektseite:
-	projectTableOfContent()
-
-	Felder auf der Documentseite
-	title()
-	documentLandmark (optional)
-	id()
-	documentLevel()
-
-*/
-
+/**
+ * Usage:
+ * $options = ["version" => '3.0', 'cover' => true];
+ * $epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
+ * $epubBuilder->createEpub();
+ * 
+ * Options:
+ * 'parent': Export folder page (default projectPage)
+ * 'name': ePub export name (default projectPage slug)
+ * 'language': epub language
+ * 'version': epub version
+ * 'cover': Include cover page
+ */
 
 class EpubBuilder {
 
