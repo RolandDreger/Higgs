@@ -110,19 +110,16 @@ class EpubBuilder {
 		if($imageWidthField = $projectPage->epubImageWidth()) {
 			if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
 				$this->imageMaxWidth = $imageWidthField->toInt();
-				echo $this->imageMaxWidth;
 			}
 		}
 		if($imageHeightField = $projectPage->epubImageHeight()) {
 			if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
 				$this->imageMaxHeight = $imageHeightField->toInt();
-				echo $this->imageMaxHeight;
 			}
 		}
 		if($imageQuality = $projectPage->epubImageQuality()) {
 			if($imageQuality->exists() && $imageQuality->isNotEmpty()) {
 				$this->imageQuality = $imageQuality->value();
-				echo $this->imageQuality;
 			}
 		}
 
