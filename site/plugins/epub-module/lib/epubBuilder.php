@@ -41,6 +41,9 @@ class EpubBuilder {
 	private $templatePath;
 	private $hasCover = true;
 	private $coverDocumentName = 'cover.xhtml';
+	private $imageMaxWidth = 1200;
+	private $imageMaxHeight = 1200;
+	private $imageQuality = 80;
 
 	public $parentPage;
 	public $epubName;
@@ -103,7 +106,27 @@ class EpubBuilder {
 			}
 		}
 
-		/* Settings for ePub files */
+		/* Image Settings */
+		if($imageWidthField = $projectPage->epubImageWidth()) {
+			if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
+				$this->imageMaxWidth = $imageWidthField->toInt();
+				echo $this->imageMaxWidth;
+			}
+		}
+		if($imageHeightField = $projectPage->epubImageHeight()) {
+			if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
+				$this->imageMaxHeight = $imageHeightField->toInt();
+				echo $this->imageMaxHeight;
+			}
+		}
+		if($imageQuality = $projectPage->epubImageQuality()) {
+			if($imageQuality->exists() && $imageQuality->isNotEmpty()) {
+				$this->imageQuality = $imageQuality->value();
+				echo $this->imageQuality;
+			}
+		}
+
+		/* ePub file Settings  */
 		$this->lang = $options['language'] ?? $projectPage->kirby()->language()->code();
 		$this->epubVersion = $options['version'] ?? '3.0';
 		$this->hasCover = $options['cover'] ?? true;
@@ -135,7 +158,11 @@ class EpubBuilder {
 			'content' => []
 		]);
 
-		$epubPath = $epubFile->root();
+		$epubPath = $epubFile->realpath();
+		if(empty($epubPath)) {
+			array_push($this->errors, "ePub could not be created");
+			return $this;
+		}
 
 		try {
 			
@@ -198,27 +225,28 @@ class EpubBuilder {
 				/* Graphic Files */
 				$graphicFiles = $page->files()->template('blocks/image');
 				foreach($graphicFiles as $graphic) {
-					$graphicRootPath = $graphic->root();
+					$resizedGraphic = $graphic->resize($this->imageMaxWidth, $this->imageMaxHeight, $this->imageQuality);
+					$graphicRealPath = $resizedGraphic->realpath();
 					$graphicFileName = $graphic->filename();
 					$graphicArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $graphicFileName, 'opf');
-					$epub->addFile($graphicRootPath, $graphicArchivePath);
+					$epub->addFile($graphicRealPath, $graphicArchivePath);
 				}
 			}
 
 			/* CSS Files */
 			foreach($this->cssFiles as $css) {
-				$cssRootPath = $css->root();
+				$cssRealPath = $css->realpath();
 				$cssFileName = $css->filename();
 				$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName, 'opf');
-				$epub->addFile($cssRootPath, $cssArchivePath);
+				$epub->addFile($cssRealPath, $cssArchivePath);
 			}
 
 			/* Font Files */
 			foreach($this->fontFiles as $font) {
-				$fontRootPath = $font->root();
+				$fontRealPath = $font->realpath();
 				$fontFileName = $font->filename();
 				$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFileName, 'opf');
-				$epub->addFile($fontRootPath, $fontArchivePath);
+				$epub->addFile($fontRealPath, $fontArchivePath);
 			}
 
 		} catch(Exception $err) {
@@ -290,7 +318,7 @@ class EpubBuilder {
 			foreach($graphicFiles as $graphic) {
 				$graphicHashID = $graphic->hashID();
 				$graphicArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $graphic->filename(), 'manifest');
-				$graphicMimeType = mime_content_type($graphic->root()) ?? '';
+				$graphicMimeType = mime_content_type($graphic->realpath()) ?? '';
 				$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $graphicHashID], ['name' => 'href', 'value' => $graphicArchivePath],['name' => 'media-type', 'value' => $graphicMimeType]]);
 			}
 		};
@@ -306,7 +334,7 @@ class EpubBuilder {
 		foreach($this->fontFiles as $font) {
 			$fontHashID = $font->hashID();
 			$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $font->filename(), 'manifest');
-			$fontMimeType = mime_content_type($font->root()) ?? '';
+			$fontMimeType = mime_content_type($font->realpath()) ?? '';
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $fontHashID], ['name' => 'href', 'value' => $fontArchivePath],['name' => 'media-type', 'value' => $fontMimeType]]);
 		}
 

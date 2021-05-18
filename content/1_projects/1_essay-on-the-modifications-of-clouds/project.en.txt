@@ -43,6 +43,18 @@ Epubcoverimage:
 
 ----
 
+Epubimagewidth: 800
+
+----
+
+Epubimageheight: 800
+
+----
+
+Epubimagequality: 80
+
+----
+
 Epubcssfiles:
 
 - document.css

@@ -1,5 +1,11 @@
 type: fields
 fields:
+  epubHeadline:
+    type: headline
+    label: 
+      en: "ePub Export"
+      de: "ePub-Export"
+    numbered: false
   epubCoverImage:
     type: files
     label: 
@@ -14,6 +20,37 @@ fields:
     text: "{{ file.filename }} ({{ file.dimensions }})"
     info: "ALT: {{ file.alt }}"
     template: cover
+  epubImageWidth:
+    type: number
+    label: 
+      en: "Image Width (max)"
+      de: "Bildbreite (max)"
+    width: 1/2
+    min: 10
+    max: 3000
+    after: "px"
+    default: 600
+  epubImageHeight:
+    type: number
+    label: 
+      en: "Image Height (max)"
+      de: "Bildhöhe (max)"
+    width: 1/2
+    min: 10
+    max: 3000
+    after: "px"
+    default: 600
+  epubImageQuality:
+    type: range
+    label: 
+      en: "Image Quality"
+      de: "Bildqualität"
+    step: 10
+    min: 10
+    max: 100
+    default: 80
+    before: min
+    after: max
   epubCSSFiles:
     type: files
     label:
