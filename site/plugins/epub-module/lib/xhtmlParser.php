@@ -68,13 +68,13 @@ class XhtmlParser {
 		$htmDocument = new DOMDocument();
 
 		$htmDocument->xmlVersion = '1.0';
-		$htmDocument->encoding = 'utf-8';
+		$htmDocument->encoding = 'UTF-8';
 		$htmDocument->formatOutput = FALSE;
 		$htmDocument->preserveWhiteSpace = TRUE;
 		$htmDocument->substituteEntities = TRUE;
 		$htmDocument->strictErrorChecking = FALSE;
 
-		$htmDocument->loadHTML('<meta charset=\"utf-8\"/>' . $html);
+		$htmDocument->loadHTML('<meta charset=\"UTF-8\"/>' . $html);
 
 		$libxmlErrors = libxml_get_errors();
 		$this->errors = array_merge($this->errors, $libxmlErrors);
@@ -104,13 +104,13 @@ class XhtmlParser {
 
 		$dom = new DOMImplementation();
 		$dom->xmlVersion = '1.0';
-		$dom->encoding = 'utf-8';
+		$dom->encoding = 'UTF-8';
 
 		$dtd = $dom->createDocumentType('html', '', '');
 
 		$xhtmlDocument = $dom->createDocument(null, 'html', $dtd);
 		$xhtmlDocument->xmlVersion = '1.0';
-		$xhtmlDocument->encoding = 'utf-8';
+		$xhtmlDocument->encoding = 'UTF-8';
 		$xhtmlDocument->formatOutput = FALSE;
 		$xhtmlDocument->preserveWhiteSpace = TRUE;
 		$xhtmlDocument->substituteEntities = TRUE;
@@ -127,7 +127,7 @@ class XhtmlParser {
 		/* HEAD Element */
 		$headElement = $xhtmlDocument->createElement('head');
 		$metaCharset = $xhtmlDocument->createElement('meta');
-		$metaCharset->setAttribute('charset','utf-8');
+		$metaCharset->setAttribute('charset','UTF-8');
 		$headElement->appendChild($metaCharset);
 		$rootElement->appendChild($headElement);
 		
