@@ -9,6 +9,8 @@ use ZipArchive;
 use File;
 use Remote;
 use Xml;
+use XSLTProcessor;
+
 
 /**
  * Usage:
@@ -26,7 +28,8 @@ use Xml;
 
 class EpubBuilder {
 
-	const TEMPLATE_FILE_PATH = 'assets/zip/template.epub';
+	const RELATIVE_TEMPLATE_FILE_PATH = 'assets/zip/template.epub';
+	const RELATIVE_XSL_FILE_PATH = 'assets/xslt/content.xsl';
 	const OPF_FOLDER_NAME = 'OEBPS';
 	const CONTENT_FOLDER_PATH = '';
 	const STYLESHEET_FOLDER_PATH = 'css';
@@ -38,7 +41,8 @@ class EpubBuilder {
 	private $tocPages = [];
 	private $cssFiles = [];
 	private $fontsFiles = [];
-	private $templatePath;
+	private $templateFilePath;
+	private $xslFilePath;
 	private $hasCover = true;
 	private $coverDocumentName = 'cover.xhtml';
 	private $imageMaxWidth = 1200;
@@ -87,9 +91,15 @@ class EpubBuilder {
 		$this->epubName = $epubName . '.epub';
 		
 		/* Template Path */
-		$this->templatePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::TEMPLATE_FILE_PATH;
-		if(!file_exists($this->templatePath)) {
+		$this->templateFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_TEMPLATE_FILE_PATH;
+		if(!file_exists($this->templateFilePath)) {
 			trigger_error("Template file does not exists");
+		}
+
+		/* XSL Path */
+		$this->xslFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_XSL_FILE_PATH;
+		if(!file_exists($this->xslFilePath)) {
+			trigger_error("XSL file does not exists");
 		}
 
 		/* CSS Files */
@@ -134,21 +144,21 @@ class EpubBuilder {
 
 		$epubName = $this->epubName;
 		$projectPage = $this->projectPage;
-		$templatePath = $this->templatePath;
+		$templateFilePath = $this->templateFilePath;
 		
 		/* Delete ePub (if already exists) */
 		if($epubFile = $projectPage->file($epubName)) {
 			try {
 				$epubFile->delete();
-			} catch(Exception $err) {
-				array_push($this->errors, "File could not be deleted: {$epubName} Error: {$err->getMessage()}");
+			} catch(Exception $error) {
+				array_push($this->errors, "File could not be deleted: {$epubName} Error: {$error->getMessage()}");
 				return $this;
 			}
 		}
 
 		/* Create ePub (based on template) */
 		$epubFile = File::create([
-			'source' => $templatePath,
+			'source' => $templateFilePath,
 			'parent' => $projectPage,
 			'filename' => $epubName,
 			'template' => 'epub',
@@ -217,6 +227,8 @@ class EpubBuilder {
 					array_push($this->errors, "Document could not be created: {$docFileName} Code: {$request->code()}");
 					continue;
 				}
+				/* XSL Transformation of Content */
+				$content = $this->transformContent($content);
 				$docArchivePath = $this->buildFilePath('', $docFileName, 'opf');
 				$epub->addFromString($docArchivePath, $content);
 				/* Graphic Files */
@@ -246,8 +258,8 @@ class EpubBuilder {
 				$epub->addFile($fontRealPath, $fontArchivePath);
 			}
 
-		} catch(Exception $err) {
-			array_push($this->errors, $err->getMessage());
+		} catch(Exception $error) {
+			array_push($this->errors, $error->getMessage());
 			return $this;
 		} finally {
 			/* Close ePub Archive */
@@ -259,8 +271,51 @@ class EpubBuilder {
 		}
 
 		return $this;
-	}
+	}	 /* END function createEpub */
 
+	private function transformContent($content) {
+
+		$xslFilePath = $this->xslFilePath;
+
+		$xmlDoc = new DOMDocument();
+		$xslDoc = new DOMDocument();
+
+		$xslProcessor = new XSLTProcessor();
+		$xslProcessor->setParameter('','owner','Roland Dreger');
+
+		$xmlDoc->loadXML($content, LIBXML_PARSEHUGE);
+		$xslDoc->load($xslFilePath, LIBXML_NOCDATA);
+
+		libxml_use_internal_errors(true);
+
+		try {
+			
+			$wasImportOK = $xslProcessor->importStyleSheet($xslDoc);
+			if(!$wasImportOK) {
+				foreach(libxml_get_errors() as $error) {
+					array_push($this->errors, "Libxml error: {$error->message}");
+				}
+				libxml_clear_errors();
+				return $content;
+			} 
+			
+			$transformationResult = $xslProcessor->transformToXML($xmlDoc);
+			if(!$transformationResult) {
+				foreach(libxml_get_errors() as $error) {
+					array_push($this->errors, "Libxml error: {$error->message}");
+				}
+				libxml_clear_errors();
+				return $content;
+			}
+			
+		} catch(Exception $error) {
+			array_push($this->errors, "XSL import failed. Error: {$error->getMessage()}");
+		} finally {
+			libxml_use_internal_errors(false);
+		}
+		
+		return $transformationResult;
+	} /* END function transformContent */
 
 	private function createContentOpfDocument() {
 
@@ -274,7 +329,7 @@ class EpubBuilder {
 		/* Create XML Document */
 		$doc = new DOMDocument();
 		$doc->xmlVersion = '1.0';
-		$doc->encoding = 'utf-8';
+		$doc->encoding = 'UTF-8';
 		$doc->formatOutput = true;
 		$doc->preserveWhiteSpace = true;
 		$doc->substituteEntities = true;
@@ -364,21 +419,21 @@ class EpubBuilder {
 		$doc->appendChild($rootElement);
 
 		return $doc;
-	}
+	} /* END function createContentOpfDocument */
 
 
 	private function createTocXhtmlDocument() {
 
 		$dom = new DOMImplementation();
 		$dom->xmlVersion = '1.0';
-		$dom->encoding = 'utf-8';
+		$dom->encoding = 'UTF-8';
 
 		$dtd = $dom->createDocumentType('html', '', '');
 
 		/* Create XHTML Document */
 		$doc = $dom->createDocument(null, 'html', $dtd);
 		$doc->xmlVersion = '1.0';
-		$doc->encoding = 'utf-8';
+		$doc->encoding = 'UTF-8';
 		$doc->formatOutput = true;
 		$doc->preserveWhiteSpace = true;
 		$doc->substituteEntities = true;
@@ -398,7 +453,7 @@ class EpubBuilder {
 		/* HEAD Element */
 		$headElement = $doc->createElement('head');
 		$metaCharset = $doc->createElement('meta');
-		$metaCharset->setAttribute('charset','utf-8');
+		$metaCharset->setAttribute('charset','UTF-8');
 		$headElement->appendChild($metaCharset);
 		$rootElement->appendChild($headElement);
 
@@ -502,7 +557,7 @@ class EpubBuilder {
 		$bodyElement->appendChild($landmarkNav);
 
 		return $doc;
-	}
+	} /* END function createTocXhtmlDocument */
 
 
 	private function createTocList($doc, $tagName, $levelNum) {
@@ -510,7 +565,7 @@ class EpubBuilder {
 		$olElement->setAttribute('class', "level-{$levelNum}");
 		$olElement->setAttribute('data-level', $levelNum);
 		return $olElement;
-	}
+	} /* END function createTocList */
 
 
 	private function createTocListItem($doc, $tagName, $levelNum, $hrefValue, $pageTitle) {
@@ -522,13 +577,13 @@ class EpubBuilder {
 		$aElement->appendChild($textNode);
 		$liElement->appendChild($aElement);
 		return $liElement;
-	}
+	} /* END function createTocListItem */
 
 
 	private function createLandmarkList($doc, $tagName) {
 		$olElement = $doc->createElement($tagName);
 		return $olElement;
-	}
+	} /* END function createLandmarkList */
 
 
 	private function createLandmarkListItem($doc, $tagName, $documentLandmark, $hrefValue, $textContent) {
@@ -540,7 +595,7 @@ class EpubBuilder {
 		$aElement->appendChild($textNode);
 		$liElement->appendChild($aElement);
 		return $liElement;
-	}
+	} /* END function createLandmarkListItem */
 
 
 	private function createTocNcxDocument() {
@@ -553,12 +608,12 @@ class EpubBuilder {
 
 		$dom = new DOMImplementation();
 		$dom->xmlVersion = '1.0';
-		$dom->encoding = 'utf-8';
+		$dom->encoding = 'UTF-8';
 
 		/* Create XHTML Document */
 		$doc = $dom->createDocument(null, 'ncx');
 		$doc->xmlVersion = '1.0';
-		$doc->encoding = 'utf-8';
+		$doc->encoding = 'UTF-8';
 		$doc->formatOutput = true;
 		$doc->preserveWhiteSpace = true;
 		$doc->substituteEntities = true;
@@ -636,7 +691,7 @@ class EpubBuilder {
 		$metaDepthElement->setAttribute('content', $tocDepth);
 
 		return $doc;
-	}
+	} /* END function createTocNcxDocument */
 
 
 	private function createNavPointItem($doc, $id, $playOrder, $text, $src) {
@@ -655,7 +710,7 @@ class EpubBuilder {
 		$navPointElement->appendChild($contentElement);
 		
 		return $navPointElement;
-	}
+	} /* END function createNavPointItem */
 
 
 	private function getLevelNumber($page) {
@@ -666,7 +721,7 @@ class EpubBuilder {
 		}
 
 		return $levelNum;
-	}
+	} /* END function getLevelNumber */
 
 
 	private function getDocumentPath($page) {
@@ -676,7 +731,7 @@ class EpubBuilder {
 		$documentPath = $this->buildFilePath($contentFolderPath, $documentName);
 		
 		return $documentPath;
-	}
+	} /* END function getDocumentPath */
 
 
 	private function getDocumentName($childPage) {
@@ -690,7 +745,7 @@ class EpubBuilder {
 		$documentName = implode('+', $leveledChildPagePathArray) . '.xhtml';
 		
 		return $documentName;
-	}
+	} /* END function getDocumentName */
 
 
 	private function addElement($doc, $parentElement, $elementName, $attrArray = [], $textContent = '') {
@@ -706,7 +761,7 @@ class EpubBuilder {
 		$parentElement->appendChild($element);
 
 		return $element;
-	}
+	} /* END function addElement */
 
 	
 	private function buildFilePath($folderPath = '', $fileName = '', $flag = '') {
@@ -728,7 +783,7 @@ class EpubBuilder {
 		$filePath = implode('/', $folderPathArray);
 
 		return $filePath;
-	}
+	} /* END function buildFilePath */
 
 
 	private function checkVersion($versionNumber) {
@@ -738,5 +793,5 @@ class EpubBuilder {
 		}
 
 		return false;
-	}
+	} /* END function checkVersion */
 }
