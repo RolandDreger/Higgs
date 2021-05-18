@@ -7,7 +7,7 @@ Documenttext:
 [
     {
         "content": {
-            "text": "<p>Essay text content</p>"
+            "text": ""
         },
         "id": "1f420530-45be-4661-a560-44215495a6b9",
         "isHidden": false,
