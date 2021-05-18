@@ -35,6 +35,7 @@ class EpubBuilder {
 	const STYLESHEET_FOLDER_PATH = 'css';
 	const FONT_FOLDER_PATH = 'fonts';
 	const GRAPHIC_FOLDER_PATH = 'images';
+	const COVER_DOCUMENT_NAME = 'cover.xhtml';
 
 	private $projectPage;
 	private $docPages = [];
@@ -44,7 +45,7 @@ class EpubBuilder {
 	private $templateFilePath;
 	private $xslFilePath;
 	private $hasCover = true;
-	private $coverDocumentName = 'cover.xhtml';
+	private $coverDocumentName;
 	private $imageMaxWidth = 1200;
 	private $imageMaxHeight = 1200;
 	private $imageQuality = 80;
@@ -132,6 +133,10 @@ class EpubBuilder {
 				$this->imageQuality = $imageQuality->value();
 			}
 		}
+
+		/* Cover Document */
+		// self::COVER_DOCUMENT_NAME
+
 
 		/* ePub file Settings  */
 		$this->lang = $options['language'] ?? $projectPage->kirby()->language()->code();
