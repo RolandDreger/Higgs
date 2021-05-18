@@ -5,7 +5,7 @@
 		<?php snippet('html/header'); ?>
 		<main class="main">
 			<?php 
-				snippet('html/section', [
+				snippet('html/sections', [
 					'targetPages' => $page->children()->published(), 
 					'level' => 1
 				]); 

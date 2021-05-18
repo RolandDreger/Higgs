@@ -15,6 +15,7 @@ Kirby::plugin('higgs/epub-module', [
 	'snippets' => [
 		'xhtml/content-type' => __DIR__ . '/snippets/content-type.php',
 		'xhtml/head' => __DIR__ . '/snippets/head.php',
+		'xhtml/sections' => __DIR__ . '/snippets/sections.php',
 		'xhtml/section' => __DIR__ . '/snippets/section.php'
 	],
 	

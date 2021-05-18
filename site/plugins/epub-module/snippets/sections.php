@@ -21,5 +21,12 @@
 		</header>
 		<?php /* Content */ ?>
 		<?= $targetPage->documentText()->toXhtml('blocks'); ?>
+		<?php /* Subpages */ ?>
+		<?php 
+			snippet('xhtml/sections', [
+				'targetPages' => $targetPage->children()->published(), 
+				'level' => ($level + 1)
+			]); 
+		?>
 	</section>
 <?php endforeach; ?>

@@ -9,5 +9,12 @@
 		<?php foreach($targetPage->documentText()->toBlocks() as $block): ?>
 			<?= $block; ?>
 		<?php endforeach ?>
+		<?php /* Subpages */ ?>
+		<?php 
+			snippet('html/sections', [
+				'targetPages' => $targetPage->children()->published(), 
+				'level' => ($level + 1)
+			]); 
+		?>
 	</section>
 <?php endforeach; ?>

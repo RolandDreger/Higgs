@@ -10,14 +10,14 @@
 		?>
 		<!-- Linear Content -->
 		<?php 
-			snippet('xhtml/section', [
+			snippet('xhtml/sections', [
 				'targetPages' => $listedChildPages, 
 				'level' => 1
 			]); 
 		?>
 		<!-- Non-linear Content -->
 		<?php 
-			snippet('xhtml/section', [
+			snippet('xhtml/sections', [
 				'targetPages' => $unlistedChildPages, 
 				'level' => 0
 			]); 
