@@ -68,10 +68,9 @@ class EpubBuilder {
 		/* Table of Contents pages */
 		if($tocPagesField = $projectPage->projectTableOfContent()) {
 			if($tocPagesField->exists() && $tocPagesField->isNotEmpty()) {
-				$tocPages = $projectPage->projectTableOfContent()->toPages();
+				$this->tocPages = $tocPagesField->toPages();
 			}
 		}
-		$this->tocPages = $tocPages ?? $this->docPages;
 				
 		/* ePub Name */
 		$epubName = $options['name'] ?? '';
@@ -91,10 +90,18 @@ class EpubBuilder {
 		}
 
 		/* CSS Files */
-		$this->cssFiles = $projectPage->files()->template('css');
+		if($cssFilesField = $projectPage->epubCSSFiles()) {
+			if($cssFilesField->exists() && $cssFilesField->isNotEmpty()) {
+				$this->cssFiles = $cssFilesField->toFiles();
+			}
+		}
 
 		/* Font Files */
-		$this->fontsFiles = $projectPage->files()->template('font');
+		if($fontFilesField = $projectPage->epubFontFiles()) {
+			if($fontFilesField->exists() && $fontFilesField->isNotEmpty()) {
+				$this->fontFiles = $fontFilesField->toFiles();
+			}
+		}
 
 		/* Settings for ePub files */
 		$this->lang = $options['language'] ?? $projectPage->kirby()->language()->code();
@@ -206,6 +213,14 @@ class EpubBuilder {
 				$epub->addFile($cssRootPath, $cssArchivePath);
 			}
 
+			/* Font Files */
+			foreach($this->fontFiles as $font) {
+				$fontRootPath = $font->root();
+				$fontFileName = $font->filename();
+				$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFileName, 'opf');
+				$epub->addFile($fontRootPath, $fontArchivePath);
+			}
+
 		} catch(Exception $err) {
 			array_push($this->errors, $err->getMessage());
 			return $this;
@@ -280,11 +295,19 @@ class EpubBuilder {
 			}
 		};
 
-		/* Stylesheets */
+		/* CSS Files */
 		foreach($this->cssFiles as $css) {
 			$cssHashID = $css->hashID();
 			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $css->filename(), 'manifest');
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $cssHashID], ['name' => 'href', 'value' => $cssArchivePath],['name' => 'media-type', 'value' => 'text/css']]);
+		}
+
+		/* Font Files */
+		foreach($this->fontFiles as $font) {
+			$fontHashID = $font->hashID();
+			$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $font->filename(), 'manifest');
+			$fontMimeType = mime_content_type($font->root()) ?? '';
+			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $fontHashID], ['name' => 'href', 'value' => $fontArchivePath],['name' => 'media-type', 'value' => $fontMimeType]]);
 		}
 
 		/* Spine */

@@ -1,5 +1,14 @@
 title: Default
 
+accept: 
+  extension: jpeg, jpg, png, gif, jpg, svg, css, otf, ttf, woff, woff2, eot, epub, zip, xsl, xml, pdf, idml
+
+options:
+  changeName: true
+  delete: true
+  replace: true
+  update: true
+
 columns: 
   - width: 2/3
     fields: 

@@ -37,4 +37,24 @@ Projectdescription: On the modifications of clouds, and on the principles of the
 
 ----
 
+Epubcoverimage:
+
+- cover.jpg
+
+----
+
+Epubcssfiles:
+
+- document.css
+
+----
+
+Epubfontfiles:
+
+- vollkorn-regular.otf
+- vollkorn-bold.otf
+- vollkorn-italic.otf
+
+----
+
 Text: 

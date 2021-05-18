@@ -1,0 +1,40 @@
+type: fields
+fields:
+  epubCoverImage:
+    type: files
+    label: 
+      en: "Cover Image"
+      de: "Titelbild"
+    layout: cards
+    size: small
+    image:
+      ratio: 1/1
+      cover: false
+    max: 1
+    text: "{{ file.filename }} ({{ file.dimensions }})"
+    info: "ALT: {{ file.alt }}"
+    template: cover
+  epubCSSFiles:
+    type: files
+    label:
+      en: "Stylesheets"
+      de: "Stylesheets"
+    layout: list
+    link: false
+    multiple: true
+    search: true
+    query: page.files.template('css')
+    uploads:
+      template: css
+  epubFontFiles:
+    type: files
+    label:
+      en: "Fonts"
+      de: "Schriften"
+    layout: list
+    link: false
+    multiple: true
+    search: true
+    query: page.files.template('font')
+    uploads:
+      template: font

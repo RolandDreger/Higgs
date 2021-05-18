@@ -99,7 +99,9 @@ columns:
               en: e.g. for role attribute in ePubs
               de: z.B. für role-Atribite in ePubs
       documentFiles:
-        headline: Files
+        headline: 
+          en: Graphic files
+          de: Grafikdateien
         type: files
         layout: list
         template: blocks/image
