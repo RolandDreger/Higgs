@@ -34,6 +34,6 @@
 		/* Add link elements of selected stylesheets */
 		foreach($cssFiles as $css) {
 			echo css($css->url()) . '</link>';
-		}		
+		}
 	?>
 </head>
