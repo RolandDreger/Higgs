@@ -26,8 +26,8 @@ class EpubBuilder {
 
 	const RELATIVE_TEMPLATE_FILE_PATH = 'assets/zip/template.epub';
 	const RELATIVE_XSL_FILE_PATH = 'assets/xslt/content.xsl';
-	const OPF_FOLDER_NAME = 'OEBPS';
-	const CONTENT_FOLDER_PATH = '';
+	const OPS_FOLDER_NAME = 'OEBPS';
+	const CONTENT_FOLDER_PATH = ''; /* Do not change! */
 	const STYLESHEET_FOLDER_PATH = 'css';
 	const FONT_FOLDER_PATH = 'fonts';
 	const GRAPHIC_FOLDER_PATH = 'images';
@@ -161,7 +161,8 @@ class EpubBuilder {
 		$templateFilePath = $this->templateFilePath;
 		
 		/* Delete ePub (if already exists) */
-		if($epubFile = $projectPage->file($epubName)) {
+		$epubFile = $projectPage->file($epubName);
+		if($epubFile->exists()) {
 			try {
 				$epubFile->delete();
 			} catch(Exception $error) {
@@ -205,7 +206,7 @@ class EpubBuilder {
 					return $this;
 				}
 				$xmlString = $tocXhtmlDoc->saveXML();
-				$tocXhtmlArchivePath = $this->buildFilePath('', 'toc.xhtml', 'opf');
+				$tocXhtmlArchivePath = $this->buildFilePath('', 'toc.xhtml', 'ops');
 				$epub->addFromString($tocXhtmlArchivePath, $xmlString);
 			}
 
@@ -216,7 +217,7 @@ class EpubBuilder {
 				return $this;
 			}
 			$xmlString = $tocNcxDoc->saveXML();
-			$tocNcxArchivePath = $this->buildFilePath('', 'toc.ncx', 'opf');
+			$tocNcxArchivePath = $this->buildFilePath('', 'toc.ncx', 'ops');
 			$epub->addFromString($tocNcxArchivePath, $xmlString);
 
 			/* content.opf */
@@ -226,28 +227,29 @@ class EpubBuilder {
 				return $this;
 			}
 			$xmlString = $contentOpfDoc->saveXML();
-			$contentOpfArchivePath = $this->buildFilePath('', 'content.opf', 'opf');
+			$contentOpfArchivePath = $this->buildFilePath('', 'content.opf', 'ops');
 			$epub->addFromString($contentOpfArchivePath, $xmlString);
 
 			/* Cover */
 			if($this->hasCover) {
 				$coverFile = $this->coverFile;
-				if(empty($coverFile)) {
+				if(empty($coverFile) || !$coverFile->exists()) {
 					array_push($this->errors, "Cover file does not exists");
 				} else {
 					/* cover.xhtml */
+					$coverDocFileName = self::COVER_DOCUMENT_NAME;
 					$coverDoc = $this->createCoverDocument();
 					if(!$coverDoc) {
-						array_push($this->errors, "Document could not be created: {self::COVER_DOCUMENT_NAME}");
+						array_push($this->errors, "Document could not be created: {$coverDocFileName}");
 					} else {
 						$xmlString = $coverDoc->saveXML();
-						$coverOpfArchivePath = $this->buildFilePath('', self::COVER_DOCUMENT_NAME, 'opf');
+						$coverOpfArchivePath = $this->buildFilePath('', $coverDocFileName, 'ops');
 						$epub->addFromString($coverOpfArchivePath, $xmlString);
 					}
 					/* cover.jpg */
-					$coverRealPath = $this->coverFile->realpath();
+					$coverRealPath = $coverFile->realpath();
 					$coverFileName = $coverFile->filename();
-					$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFileName, 'opf');
+					$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFileName, 'ops');
 					$epub->addFile($coverRealPath, $coverArchivePath);
 				}
 			}
@@ -266,7 +268,7 @@ class EpubBuilder {
 				}
 				/* XSL Transformation of Content */
 				$content = $this->transformContent($content);
-				$docArchivePath = $this->buildFilePath('', $docFileName, 'opf');
+				$docArchivePath = $this->buildFilePath('', $docFileName, 'ops');
 				$epub->addFromString($docArchivePath, $content);
 				/* Graphic Files */
 				$graphicFiles = $page->files()->template('blocks/image');
@@ -274,7 +276,7 @@ class EpubBuilder {
 					$resizedGraphic = $graphic->resize($this->imageMaxWidth, $this->imageMaxHeight, $this->imageQuality);
 					$graphicRealPath = $resizedGraphic->realpath();
 					$graphicFileName = $graphic->filename();
-					$graphicArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $graphicFileName, 'opf');
+					$graphicArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $graphicFileName, 'ops');
 					$epub->addFile($graphicRealPath, $graphicArchivePath);
 				}
 			}
@@ -283,7 +285,7 @@ class EpubBuilder {
 			foreach($this->cssFiles as $css) {
 				$cssRealPath = $css->realpath();
 				$cssFileName = $css->filename();
-				$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName, 'opf');
+				$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName, 'ops');
 				$epub->addFile($cssRealPath, $cssArchivePath);
 			}
 
@@ -291,7 +293,7 @@ class EpubBuilder {
 			foreach($this->fontFiles as $font) {
 				$fontRealPath = $font->realpath();
 				$fontFileName = $font->filename();
-				$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFileName, 'opf');
+				$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFileName, 'ops');
 				$epub->addFile($fontRealPath, $fontArchivePath);
 			}
 
@@ -332,7 +334,8 @@ class EpubBuilder {
 			$wasImportOK = $xslProcessor->importStyleSheet($xslDoc);
 			if(!$wasImportOK) {
 				foreach(libxml_get_errors() as $error) {
-					array_push($this->errors, "Libxml error: {$error->message}");
+					$errorMessage = $error->message;
+					array_push($this->errors, "Libxml error: {$errorMessage}");
 				}
 				libxml_clear_errors();
 				return $content;
@@ -341,14 +344,16 @@ class EpubBuilder {
 			$transformationResult = $xslProcessor->transformToXML($xmlDoc);
 			if(!$transformationResult) {
 				foreach(libxml_get_errors() as $error) {
-					array_push($this->errors, "Libxml error: {$error->message}");
+					$errorMessage = $error->message;
+					array_push($this->errors, "Libxml error: {$errorMessage}");
 				}
 				libxml_clear_errors();
 				return $content;
 			}
 			
 		} catch(Exception $error) {
-			array_push($this->errors, "XSL import failed. Error: {$error->getMessage()}");
+			$errorMessage = $error->getMessage();
+			array_push($this->errors, "XSL transformation of content failed. Error: {$errorMessage}");
 		} finally {
 			libxml_use_internal_errors(false);
 		}
@@ -428,12 +433,13 @@ class EpubBuilder {
 
 	private function createContentOpfDocument() {
 
+		/* Metadaten ToDo */
 		$epubVersion = $this->epubVersion;
 		$projectTitle = $this->projectPage->title();
 		$projectCreator = 'Roland Dreger';
 		$projectID = 'urn:isbn:9781234460001';
 		$projectLanguage = $this->epubLang;
-		$projectDate = strftime('%Y-%m-%dT%H:%M:%SZ');//'2021-04-01T10:22:53Z';
+		$projectDate = strftime('%Y-%m-%dT%H:%M:%SZ'); /* '2021-04-01T10:22:53Z' */
 		
 		/* Create XML Document */
 		$doc = new DOMDocument();
@@ -734,6 +740,7 @@ class EpubBuilder {
 
 	private function createTocNcxDocument() {
 
+		/* Metadaten ToDo */
 		$projectTitle = $this->projectPage->title();
 		$projectID = 'urn:isbn:9781234460001';
 		$tocDepth = 1;
@@ -903,8 +910,8 @@ class EpubBuilder {
 		
 		$folderPathArray = explode('/', $folderPath);
 		
-		if($flag === 'opf') {
-			array_unshift($folderPathArray, self::OPF_FOLDER_NAME);
+		if($flag === 'ops') {
+			array_unshift($folderPathArray, self::OPS_FOLDER_NAME);
 		}
 
 		$documentName = $fileName;
