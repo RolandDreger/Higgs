@@ -4,9 +4,12 @@
 	<body>
 		<?php 
 			/* Build ePub */
-			$options = ["version" => '3.0', 'cover' => true];
+			$options = [];
 			$epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
 			$epubBuilder->createEpub();
+			foreach($epubBuilder->errors as $error) {
+				var_dump($error);
+			}
 		?>
 		<!-- Linear Content -->
 		<?php 

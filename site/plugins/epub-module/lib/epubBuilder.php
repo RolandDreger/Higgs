@@ -14,16 +14,12 @@ use XSLTProcessor;
 
 /**
  * Usage:
- * $options = ["version" => '3.0', 'cover' => true];
+ * $options = [];
  * $epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
  * $epubBuilder->createEpub();
  * 
  * Options:
  * 'parent': Export folder page (default projectPage)
- * 'name': ePub export name (default projectPage slug)
- * 'language': epub language
- * 'version': epub version
- * 'cover': Include cover page
  */
 
 class EpubBuilder {
@@ -35,6 +31,7 @@ class EpubBuilder {
 	const STYLESHEET_FOLDER_PATH = 'css';
 	const FONT_FOLDER_PATH = 'fonts';
 	const GRAPHIC_FOLDER_PATH = 'images';
+	const COVER_DOCUMENT_TITLE = 'Cover';
 	const COVER_DOCUMENT_NAME = 'cover.xhtml';
 
 	private $projectPage;
@@ -45,7 +42,7 @@ class EpubBuilder {
 	private $templateFilePath;
 	private $xslFilePath;
 	private $hasCover = true;
-	private $coverDocumentName;
+	private $coverFile;
 	private $imageMaxWidth = 1200;
 	private $imageMaxHeight = 1200;
 	private $imageQuality = 80;
@@ -53,7 +50,7 @@ class EpubBuilder {
 	public $parentPage;
 	public $epubName;
 	public $epubVersion;
-	public $lang;
+	public $epubLang;
 	
 	public $errors = [];
 
@@ -64,33 +61,6 @@ class EpubBuilder {
 			trigger_error("First parameter must be an page object.");
 		}
 
-		/* Source: Page with content documents */
-		$this->projectPage = $projectPage;
-
-		/* Destination: Export folder page  */
-		$this->parentPage = $options['parent'] ?? $projectPage;
-		
-		/* Content Pages */
-		$this->docPages = $projectPage->index();
-
-		/* Table of Contents pages */
-		if($tocPagesField = $projectPage->projectTableOfContent()) {
-			if($tocPagesField->exists() && $tocPagesField->isNotEmpty()) {
-				$this->tocPages = $tocPagesField->toPages();
-			}
-		}
-				
-		/* ePub Name */
-		$epubName = $options['name'] ?? '';
-		$epubName = preg_replace('/\.epub$/', '', $epubName); 
-		if(empty($epubName)) {
-			$epubName = $projectPage->slug();
-		}
-		if(empty($epubName)) {
-			trigger_error("ePub file name not valid: {$name}");
-		}
-		$this->epubName = $epubName . '.epub';
-		
 		/* Template Path */
 		$this->templateFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_TEMPLATE_FILE_PATH;
 		if(!file_exists($this->templateFilePath)) {
@@ -103,45 +73,84 @@ class EpubBuilder {
 			trigger_error("XSL file does not exists");
 		}
 
-		/* CSS Files */
-		if($cssFilesField = $projectPage->epubCSSFiles()) {
-			if($cssFilesField->exists() && $cssFilesField->isNotEmpty()) {
-				$this->cssFiles = $cssFilesField->toFiles();
-			}
-		}
+		/* Source: Page with content documents */
+		$this->projectPage = $projectPage;
 
+		/* Destination: Export folder page  */
+		$this->parentPage = $options['parent'] ?? $projectPage;
+		
+		/* Content Pages (all descendants) */
+		$this->docPages = $projectPage->index();
+
+		/* Table of Contents pages */
+		$tocPagesField = $projectPage->projectTableOfContent();
+		if($tocPagesField->exists() && $tocPagesField->isNotEmpty()) {
+			$this->tocPages = $tocPagesField->toPages();
+		}
+				
+		/* ePub Name */
+		$epubName = '';
+		$epubNameField = $projectPage->epubName();
+		if($epubNameField->exists() && $epubNameField->isNotEmpty()) {
+			$epubName = preg_replace('/\.epub$/', '', $epubNameField->value());
+		} else {
+			$epubName = $projectPage->slug();
+		}
+		$this->epubName = $epubName . '.epub';
+		
+		/* CSS Files */
+		$cssFilesField = $projectPage->epubCSSFiles();
+		if($cssFilesField->exists() && $cssFilesField->isNotEmpty()) {
+			$this->cssFiles = $cssFilesField->toFiles();
+		}
+		
 		/* Font Files */
-		if($fontFilesField = $projectPage->epubFontFiles()) {
-			if($fontFilesField->exists() && $fontFilesField->isNotEmpty()) {
-				$this->fontFiles = $fontFilesField->toFiles();
-			}
+		$fontFilesField = $projectPage->epubFontFiles();
+		if($fontFilesField->exists() && $fontFilesField->isNotEmpty()) {
+			$this->fontFiles = $fontFilesField->toFiles();
 		}
 
 		/* Image Settings */
-		if($imageWidthField = $projectPage->epubImageWidth()) {
-			if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
-				$this->imageMaxWidth = $imageWidthField->toInt();
-			}
+		$imageWidthField = $projectPage->epubImageWidth();
+		if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
+			$this->imageMaxWidth = $imageWidthField->toInt();
 		}
-		if($imageHeightField = $projectPage->epubImageHeight()) {
-			if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
-				$this->imageMaxHeight = $imageHeightField->toInt();
-			}
+		$imageHeightField = $projectPage->epubImageHeight();
+		if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
+			$this->imageMaxHeight = $imageHeightField->toInt();
 		}
-		if($imageQuality = $projectPage->epubImageQuality()) {
-			if($imageQuality->exists() && $imageQuality->isNotEmpty()) {
-				$this->imageQuality = $imageQuality->value();
-			}
+		$imageQuality = $projectPage->epubImageQuality();
+		if($imageQuality->exists() && $imageQuality->isNotEmpty()) {
+			$this->imageQuality = $imageQuality->value();
+		}
+		
+		/* Cover File */
+		$hasCoverField = $projectPage->epubHasCoverImage();
+		if($hasCoverField->exists() && $hasCoverField->value() === 'true') {
+			$this->hasCover = true;
+		} else {
+			$this->hasCover = false;
+		}
+		$coverImageField = $projectPage->epubCoverImageFile();
+		if($coverImageField->exists() && $coverImageField->isNotEmpty()) {
+			$this->coverFile = $coverImageField->toFiles()->first();
+		}
+		
+		/* ePub Language  */
+		$epubLanguage = $projectPage->epubLanguage();
+		if($epubLanguage->exists() && $epubLanguage->isNotEmpty()) {
+			$this->epubLang = $epubLanguage->value();
+		} else {
+			$this->epubLang = 'en';
 		}
 
-		/* Cover Document */
-		// self::COVER_DOCUMENT_NAME
-
-
-		/* ePub file Settings  */
-		$this->lang = $options['language'] ?? $projectPage->kirby()->language()->code();
-		$this->epubVersion = $options['version'] ?? '3.0';
-		$this->hasCover = $options['cover'] ?? true;
+		/* ePub Version */
+		$epubVersion = $projectPage->epubVersion();
+		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
+			$this->epubVersion = $epubVersion->value();
+		} else {
+			$this->epubVersion = '3.0';
+		}
 	}
 
 
@@ -220,6 +229,29 @@ class EpubBuilder {
 			$contentOpfArchivePath = $this->buildFilePath('', 'content.opf', 'opf');
 			$epub->addFromString($contentOpfArchivePath, $xmlString);
 
+			/* Cover */
+			if($this->hasCover) {
+				$coverFile = $this->coverFile;
+				if(empty($coverFile)) {
+					array_push($this->errors, "Cover file does not exists");
+				} else {
+					/* cover.xhtml */
+					$coverDoc = $this->createCoverDocument();
+					if(!$coverDoc) {
+						array_push($this->errors, "Document could not be created: {self::COVER_DOCUMENT_NAME}");
+					} else {
+						$xmlString = $coverDoc->saveXML();
+						$coverOpfArchivePath = $this->buildFilePath('', self::COVER_DOCUMENT_NAME, 'opf');
+						$epub->addFromString($coverOpfArchivePath, $xmlString);
+					}
+					/* cover.jpg */
+					$coverRealPath = $this->coverFile->realpath();
+					$coverFileName = $coverFile->filename();
+					$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFileName, 'opf');
+					$epub->addFile($coverRealPath, $coverArchivePath);
+				}
+			}
+
 			/* Content Documents */
 			foreach($this->docPages as $page) {
 				$docFileName = $this->getDocumentName($page);
@@ -278,6 +310,7 @@ class EpubBuilder {
 		return $this;
 	}	 /* END function createEpub */
 
+
 	private function transformContent($content) {
 
 		$xslFilePath = $this->xslFilePath;
@@ -323,13 +356,83 @@ class EpubBuilder {
 		return $transformationResult;
 	} /* END function transformContent */
 
+
+	private function createCoverDocument() {
+
+		$dom = new DOMImplementation();
+		$dom->xmlVersion = '1.0';
+		$dom->encoding = 'UTF-8';
+
+		$dtd = $dom->createDocumentType('html', '', '');
+
+		/* Create XHTML Document */
+		$doc = $dom->createDocument(null, 'html', $dtd);
+		$doc->xmlVersion = '1.0';
+		$doc->encoding = 'UTF-8';
+		$doc->formatOutput = true;
+		$doc->preserveWhiteSpace = true;
+		$doc->substituteEntities = true;
+		$doc->strictErrorChecking = true;
+
+		$doc->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
+		$doc->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
+
+		/* HTML Element */
+		$rootElement = $doc->documentElement;
+		$rootElement->setAttribute('xml:lang', $this->epubLang);
+		$rootElement->setAttribute('lang', $this->epubLang);
+
+		/* HEAD Element */
+		$headElement = $doc->createElement('head');
+		$metaCharset = $doc->createElement('meta');
+		$metaCharset->setAttribute('charset','UTF-8');
+		$headElement->appendChild($metaCharset);
+		$rootElement->appendChild($headElement);
+
+		/* Title */
+		$titleElement = $doc->createElement('title');
+		$titleText = $doc->createTextNode(self::COVER_DOCUMENT_TITLE);
+		$titleElement->appendChild($titleText);
+		$headElement->appendChild($titleElement);
+		
+		/* BODY Element */
+		$bodyElement = $doc->createElement('body');
+		$rootElement->appendChild($bodyElement);
+
+		/* Body Element */
+		$bodyElement = $doc->getElementsByTagName('body')->item(0);
+		$bodyElement->setAttribute('epub:type','cover');
+
+		/* Container Element */
+		$containerElement = $doc->createElement('div');
+		$containerElement->setAttribute('class','cover');
+		$imgElement = $doc->createElement('img');
+		$imgElement->setAttribute('alt','cover');
+		$imgElement->setAttribute('role','doc-cover');
+
+		$containerElement->appendChild($imgElement);
+		$bodyElement->appendChild($containerElement);
+		
+		$coverFile = $this->coverFile;
+		if(empty($coverFile)) {
+			return $doc;
+		}
+
+		$coverFileName = $coverFile->filename();
+		$srcValue = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFileName);
+		$imgElement->setAttribute('src', $srcValue);
+		
+		return $doc;
+	} /* END function createCoverDocument */
+
+
 	private function createContentOpfDocument() {
 
 		$epubVersion = $this->epubVersion;
 		$projectTitle = $this->projectPage->title();
 		$projectCreator = 'Roland Dreger';
 		$projectID = 'urn:isbn:9781234460001';
-		$projectLanguage = $this->lang;
+		$projectLanguage = $this->epubLang;
 		$projectDate = strftime('%Y-%m-%dT%H:%M:%SZ');//'2021-04-01T10:22:53Z';
 		
 		/* Create XML Document */
@@ -348,7 +451,9 @@ class EpubBuilder {
 		$rootElement->setAttribute('unique-identifier', 'bookid');
 		$rootElement->setAttribute('version', $epubVersion);
 
-		/* Metadata */
+		/* ++++++++++++ */
+		/* + Metadata + */
+		/* ++++++++++++ */
 		$metadataElement = $this->addElement($doc, $rootElement, 'metadata');
 		$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:title', [['name'=>'id', 'value'=>'opf_title']], $projectTitle);
 		$dcCreatorElement = $this->addElement($doc, $metadataElement, 'dc:creator', [['name'=>'id', 'value'=>'opf_author']], $projectCreator);
@@ -358,45 +463,64 @@ class EpubBuilder {
 			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'property', 'value' => 'dcterms:modified']], $projectDate);
 		}
 
-		/* Manifest */
+		/* ++++++++++++ */
+		/* + Manifest + */
+		/* ++++++++++++ */
 		$manifestElement = $this->addElement($doc, $rootElement, 'manifest');
 
-		$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'ncx'], ['name' => 'href', 'value' => 'toc.ncx'],['name' => 'media-type', 'value' => 'application/x-dtbncx+xml']]);
+		/* Table of Contents */
+		$tocNcxFileName = 'toc.ncx';
+		$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'ncx'], ['name' => 'href', 'value' => $tocNcxFileName],['name' => 'media-type', 'value' => 'application/x-dtbncx+xml']]);
 		if($this->checkVersion(3)) {
-			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'nav'], ['name' => 'href', 'value' => 'toc.xhtml'],['name' => 'media-type', 'value' => 'application/xhtml+xml'],['name' => 'properties', 'value' => 'nav']]);
+			$tocXhtmlFileName = 'toc.xhtml';
+			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'nav'], ['name' => 'href', 'value' => $tocXhtmlFileName],['name' => 'media-type', 'value' => 'application/xhtml+xml'],['name' => 'properties', 'value' => 'nav']]);
 		}
 
+		/* Content Documents */
 		foreach($this->docPages as $page) {
 			$pageHashID = $page->hashID();
 			$docArchivePath = $this->getDocumentPath($page);
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $pageHashID], ['name' => 'href', 'value' => $docArchivePath],['name' => 'media-type', 'value' => 'application/xhtml+xml']]);
-		
-			/* Graphic Files */
-			$graphicFiles = $page->files()->template('blocks/image');
-			foreach($graphicFiles as $graphic) {
-				$graphicHashID = $graphic->hashID();
-				$graphicArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $graphic->filename(), 'manifest');
-				$graphicMimeType = mime_content_type($graphic->realpath()) ?? '';
-				$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $graphicHashID], ['name' => 'href', 'value' => $graphicArchivePath],['name' => 'media-type', 'value' => $graphicMimeType]]);
+			/* Block Image Files */
+			$imageFiles = $page->files()->template('blocks/image');
+			foreach($imageFiles as $imageFile) {
+				$imageHashID = $imageFile->hashID();
+				$imageArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $imageFile->filename(), 'manifest');
+				$imageMimeType = mime_content_type($imageFile->realpath()) ?? '';
+				$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $imageHashID], ['name' => 'href', 'value' => $imageArchivePath],['name' => 'media-type', 'value' => $imageMimeType]]);
 			}
 		};
 
+		/* Cover */
+		if($this->hasCover && !empty($this->coverFile)) {
+			/* cover.jpg */
+			$coverFile = $this->coverFile;
+			$coverHashID = $coverFile->hashID();
+			$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFile->filename(), 'manifest');
+			$coverMimeType = mime_content_type($coverFile->realpath()) ?? '';
+			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $coverHashID], ['name' => 'href', 'value' => $coverArchivePath],['name' => 'media-type', 'value' => $coverMimeType]]);
+			/* cover.xhtml */
+			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'cover'], ['name' => 'href', 'value' => self::COVER_DOCUMENT_NAME],['name' => 'media-type', 'value' => 'application/xhtml+xml']]);
+		}
+
 		/* CSS Files */
-		foreach($this->cssFiles as $css) {
-			$cssHashID = $css->hashID();
-			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $css->filename(), 'manifest');
+		foreach($this->cssFiles as $cssFile) {
+			$cssHashID = $cssFile->hashID();
+			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFile->filename(), 'manifest');
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $cssHashID], ['name' => 'href', 'value' => $cssArchivePath],['name' => 'media-type', 'value' => 'text/css']]);
 		}
 
 		/* Font Files */
-		foreach($this->fontFiles as $font) {
-			$fontHashID = $font->hashID();
-			$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $font->filename(), 'manifest');
-			$fontMimeType = mime_content_type($font->realpath()) ?? '';
+		foreach($this->fontFiles as $fontFile) {
+			$fontHashID = $fontFile->hashID();
+			$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFile->filename(), 'manifest');
+			$fontMimeType = mime_content_type($fontFile->realpath()) ?? '';
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $fontHashID], ['name' => 'href', 'value' => $fontArchivePath],['name' => 'media-type', 'value' => $fontMimeType]]);
 		}
 
-		/* Spine */
+		/* +++++++++ */
+		/* + Spine + */
+		/* +++++++++ */
 		$spineElement = $this->addElement($doc, $rootElement, 'spine', [['name'=>'toc', 'value'=>'ncx']]);
 
 		foreach($this->tocPages as $page) {
@@ -404,13 +528,17 @@ class EpubBuilder {
 			$this->addElement($doc, $spineElement, 'itemref', [['name' => 'idref', 'value' => $pageHashID]]);
 		};
 
-		/* Guide */
+		/* +++++++++ */
+		/* + Guide + */
+		/* +++++++++ */
 		if($this->checkVersion(2)) {
 			$guideElement = $this->addElement($doc, $rootElement, 'guide');
-			if($this->hasCover) {
-				$coverArchivePath = $this->buildFilePath(self::CONTENT_FOLDER_PATH, $this->coverDocumentName, 'guide');
+			/* Cover */
+			if($this->hasCover && !empty($this->coverFile)) {
+				$coverArchivePath = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'guide');
 				$this->addElement($doc, $guideElement, 'reference', [['name' => 'type', 'value' => 'cover'], ['name' => 'title', 'value' => 'Cover'], ['name' => 'href', 'value' => $coverArchivePath]]);
 			}
+			/* Document Pages */
 			foreach($this->docPages as $page) {
 				$documentLandmark = $page->documentLandmark();
 				if($documentLandmark->exists() || $documentLandmark->isEmpty()) {
@@ -453,8 +581,8 @@ class EpubBuilder {
 
 		/* HTML Element */
 		$rootElement = $doc->documentElement;
-		$rootElement->setAttribute('xml:lang', $this->lang);
-		$rootElement->setAttribute('lang', $this->lang);
+		$rootElement->setAttribute('xml:lang', $this->epubLang);
+		$rootElement->setAttribute('lang', $this->epubLang);
 
 		/* HEAD Element */
 		$headElement = $doc->createElement('head');
@@ -632,7 +760,7 @@ class EpubBuilder {
 
 		/* Root Element */
 		$rootElement = $doc->documentElement;
-		$rootElement->setAttribute('xml:lang', $this->lang);
+		$rootElement->setAttribute('xml:lang', $this->epubLang);
 		$rootElement->setAttribute('dir', 'ltr');
 		$rootElement->setAttribute('version', '2005-1');
 
