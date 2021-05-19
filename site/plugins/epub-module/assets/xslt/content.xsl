@@ -12,8 +12,8 @@
 >
     
     <xsl:param name="css-folder-path" select="'css'" />
-    <xsl:param name="image-folder-path" select="'images'"/>
-    <xsl:variable name="path-delimiter" select="'/'"/>
+    <xsl:param name="graphic-folder-path" select="'images'"/>
+    <xsl:param name="path-delimiter" select="'/'"/>
     
     <xsl:output method="xml" encoding="UTF-8"/>
     <xsl:template match="@*|node()">
@@ -39,7 +39,7 @@
     <xsl:template match="h:img/@src">
         <xsl:attribute name="src">
             <xsl:call-template name="trim-path-delimiter">
-                <xsl:with-param name="string" select="$image-folder-path"/>
+                <xsl:with-param name="string" select="$graphic-folder-path"/>
                 <xsl:with-param name="delimiter" select="$path-delimiter"/>
             </xsl:call-template>
             <xsl:text>/</xsl:text>
