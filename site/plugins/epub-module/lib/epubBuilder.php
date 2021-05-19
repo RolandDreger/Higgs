@@ -41,7 +41,7 @@ class EpubBuilder {
 	private $docPages = [];
 	private $tocPages = [];
 	private $cssFiles = [];
-	private $fontsFiles = [];
+	private $fontFiles = [];
 	private $templateFilePath;
 	private $xslFilePath;
 	private $hasCover = true;
@@ -286,10 +286,11 @@ class EpubBuilder {
 		$xslDoc = new DOMDocument();
 
 		$xslProcessor = new XSLTProcessor();
-		$xslProcessor->setParameter('','owner','Roland Dreger');
+		$xslProcessor->setParameter('','css-folder-path', self::STYLESHEET_FOLDER_PATH);
+		$xslProcessor->setParameter('','image-folder-path', self::GRAPHIC_FOLDER_PATH);
 
 		$xmlDoc->loadXML($content, LIBXML_PARSEHUGE);
-		$xslDoc->load($xslFilePath, LIBXML_NOCDATA);
+		$xslDoc->load($xslFilePath);
 
 		libxml_use_internal_errors(true);
 
