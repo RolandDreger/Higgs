@@ -14,7 +14,7 @@
 			}
 		}
 		
-		/* CSS files of project pages */
+		/* CSS files of project page */
 		$parentPages = $page->parents();
 			
 		foreach($parentPages as $parentPage) {
@@ -31,7 +31,7 @@
 			}
 		}
 		
-		/* Add stylesheet link elements */
+		/* Add link elements of selected stylesheets */
 		foreach($cssFiles as $css) {
 			echo css($css->url()) . '</link>';
 		}		
