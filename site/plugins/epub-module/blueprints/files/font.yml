@@ -1,7 +1,7 @@
 title: Font
 
 accept: 
-  mime: font/otf, application/vnd.ms-opentype, font/ttf, font/woff, font/woff2  
+  extension: otf, ttf, woff, woff2
 
 columns: 
   - width: 2/3
