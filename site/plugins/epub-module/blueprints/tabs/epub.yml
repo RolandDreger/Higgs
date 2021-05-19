@@ -1,0 +1,158 @@
+label:
+  en: "ePub"
+  de: "ePub"
+icon: text
+columns:
+  - width: 1/4
+    sections:
+      epubGeneralSettings:
+        type: fields
+        fields:
+          epubHeadline:
+            type: headline
+            label: 
+              en: "General Settings"
+              de: "Allgemeine Einstellungen"
+            numbered: false
+          epubName:
+            type: text
+            label:
+              en: "File Name"
+              de: "Dateiname"
+            placeholder: "{{ page.slug }}"
+            after: ".epub"
+            converter: slug
+          epubVersion:
+            type: select
+            label:
+              en: Version
+              de: Version
+            options:
+              - "2.0"
+              - "3.0"
+            default: "3.0"
+          epubLanguage:
+            type: select
+            label:
+              en: "Language"
+              de: "Sprache"
+            options: query
+            query: 
+              fetch: kirby.languages
+              text: "{{ item.name }}"
+              value: "{{ item.code }}"
+            default: kirby.language.code
+  - width: 1/4
+    sections:
+      epubCoverSettings:
+        type: fields
+        fields:
+          epubCoverHeadline:
+            type: headline
+            label: 
+              en: "Cover"
+              de: "Deckblatt"
+            numbered: false
+          epubHasCoverImage:
+            type: toggle
+            label: 
+              en: "Include Cover"
+              de: "Titelbild einfügen"
+            text:
+              - en: "Nope"
+                de: "Nein"
+              - en: "Yes"
+                de: "Ja"
+          epubCoverImageFile:
+            type: files
+            label: 
+              en: "Image File"
+              de: "Bilddatei"
+            layout: cards
+            size: small
+            image:
+              ratio: 1/1
+              cover: false
+            max: 1
+            text: "{{ file.filename }} ({{ file.dimensions }})"
+            info: "ALT: {{ file.alt }}"
+            template: cover
+            when: 
+              epubHasCoverImage: true
+  - width: 1/4
+    sections:
+      epubImageSettings:
+        type: fields
+        fields:
+          epubImageHeadline:
+            type: headline
+            label: 
+              en: "Image Conversion"
+              de: "Bildkonvertierung"
+            numbered: false
+          epubImageWidth:
+            type: number
+            label: 
+              en: "Maximum Width"
+              de: "Maximale Breite"
+            width: 1/2
+            min: 10
+            max: 3000
+            after: "px"
+            default: 600
+          epubImageHeight:
+            type: number
+            label: 
+              en: "Maximum Height"
+              de: "Maximale Höhe (max)"
+            width: 1/2
+            min: 10
+            max: 3000
+            after: "px"
+            default: 600
+          epubImageQuality:
+            type: range
+            label: 
+              en: "Image Quality"
+              de: "Bildqualität"
+            step: 10
+            min: 10
+            max: 100
+            default: 80
+            before: min
+            after: max
+  - width: 1/4
+    sections:
+      epubAdditionalFilesSettings:
+        type: fields
+        fields:
+          epubFilesHeadline:
+            type: headline
+            label: 
+              en: "Additional files"
+              de: "Zusätzliche Dateien"
+            numbered: false
+          epubCSSFiles:
+            type: files
+            label:
+              en: "Stylesheets"
+              de: "Stylesheets"
+            layout: list
+            link: false
+            multiple: true
+            search: true
+            query: page.files.template('css')
+            uploads:
+              template: css
+          epubFontFiles:
+            type: files
+            label:
+              en: "Fonts"
+              de: "Schriften"
+            layout: list
+            link: false
+            multiple: true
+            search: true
+            query: page.files.template('font')
+            uploads:
+              template: font

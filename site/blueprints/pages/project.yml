@@ -1,46 +1,70 @@
 title: Project
 
-columns:
-  - width: 2/3
-    sections:
-      projectTableOfContentSection:
-        type: fields
-        fields:
-          projectTableOfContent:
-            type: pages
-            label: 
-              en: "Table of Contents"
-              de: "Inhaltsverzeichnis"
-            text: "{{ page.documentLevel.translate() }} {{ page.title }}"
-            info: "{{ page.documentPart.translate().upper() }}"
-            image: 
-              query: page.image
-            query: page.children
-            subpages: true
-            search: true
-      projectPublishedDocumentSection:
-        extends: sections/published
-      projectDraftDocumentSection:
-        extends: sections/drafts
-      projectFilesSection:
-        type: files
-        headline:
-          en: "Project Files"
-          de: "Projektdateien"
-        info: "{{ file.niceSize }}"
-        layout: list
-  - width: 1/3
-    sections:
-      projectDescriptionSection:
-        type: fields
-        fields: 
-          projectDescription:
-            type: textarea
-            label: 
-              en: "Description"
-              de: "Beschreibung"
-            help:
-              en: "Short description of the project."
-              de: "Kurze Beschreibung des Projekts."
-      projectEpubSection:
-        extends: sections/epub
+tabs:
+  projectContent:
+    label:
+      en: "Content"
+      de: "Inhalt"
+    icon: layers
+    columns:
+      - width: 2/3
+        sections:
+          projectTableOfContentSection:
+            type: fields
+            fields:
+              projectTableOfContent:
+                type: pages
+                label: 
+                  en: "Table of Contents"
+                  de: "Inhaltsverzeichnis"
+                text: "{{ page.documentLevel.translate() }} {{ page.title }}"
+                info: "{{ page.documentPart.translate().upper() }}"
+                image: 
+                  query: page.image
+                query: page.children
+                subpages: true
+                search: true
+          projectPublishedDocumentSection:
+            extends: sections/published
+          projectDraftDocumentSection:
+            extends: sections/drafts
+      - width: 1/3
+        sections:
+          projectDescriptionSection:
+            type: fields
+            fields: 
+              projectDescription:
+                type: textarea
+                label: 
+                  en: "Description"
+                  de: "Beschreibung"
+                help:
+                  en: "Short description of the project."
+                  de: "Kurze Beschreibung des Projekts."
+  projectMetadata:
+    label:
+      en: "Metadata"
+      de: "Metadaten"
+    icon: text
+    columns:
+      - width: 1/1
+
+  projectFiles:
+    label:
+      en: "Files"
+      de: "Dateien"
+    icon: import
+    columns:
+      - width: 1/1
+        sections:
+          projectFilesSection:
+            type: files
+            headline:
+              en: "Project Files"
+              de: "Projektdateien"
+            info: "{{ file.niceSize }}"
+            layout: cards
+
+  projectEPub: 
+    extends: tabs/epub
+    icon: settings
