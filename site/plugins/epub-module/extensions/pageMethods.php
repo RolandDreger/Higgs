@@ -1,10 +1,11 @@
 <?php
 
 return [
+
 	/**
 	 * Generating a hash string from page ID
 	 * 
-	 * e.g.: 
+	 * Useage: 
 	 * <?= $page->hashID(); ?>
 	 */
 	'hashID' => function() {
