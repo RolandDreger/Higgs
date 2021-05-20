@@ -33,7 +33,17 @@ Projecttableofcontent:
 
 ----
 
-Projectdescription: On the modifications of clouds, and on the principles of their production, suspension, and destruction.
+Projectinfo: <p>Historical essay on the <strong>modifications of clouds</strong>, and on the principles of their production, suspension, and destruction.</p><p><em>Luke Howard,</em> 1803</p>
+
+----
+
+Projecteditor:
+
+- ryjMNXOu
+
+----
+
+Projecttags: Science, Essay, Luke Howard
 
 ----
 
@@ -53,7 +63,7 @@ Metadatacreator: Luke Howard
 
 ----
 
-Metadatarights: 
+Metadatarights: Public Domain
 
 ----
 
@@ -92,6 +102,14 @@ Epubhascoverimage: true
 Epubcoverimagefile:
 
 - cover.jpg
+
+----
+
+Epubcoverheight: 1200
+
+----
+
+Epubcoverquality: 80
 
 ----
 

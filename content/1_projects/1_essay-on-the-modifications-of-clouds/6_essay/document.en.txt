@@ -17,6 +17,10 @@ Documenttext:
 
 ----
 
+Documentstatus: ✓
+
+----
+
 Documentlevel: level-1
 
 ----

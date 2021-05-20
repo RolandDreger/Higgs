@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
-    Transform content of xhtml documents
+    
+    Transform content of XHTML (HTML4) documents
+    
+    - Replace stylesheet paths
+    - Replace image source paths
+    
+    – Replace not allowed elements (header, footer, ...)
+    – Replace not allowed attributes (role, epub:type, ...)
+    
 -->
+
 <xsl:stylesheet 
     version="1.0" 
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -15,7 +25,8 @@
     <xsl:param name="graphic-folder-path" select="'images'"/>
     <xsl:param name="path-delimiter" select="'/'"/>
     
-    <xsl:output method="xml" encoding="UTF-8"/>
+    <xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" doctype-public="-//W3C//DTD XHTML 1.1//EN" encoding="UTF-8"/>
+    
     <xsl:template match="@*|node()">
         <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
@@ -92,6 +103,51 @@
         </xsl:variable>
         <xsl:value-of select="substring($string, $start-index, $stop-index)"/>
     </xsl:template>
+    
+    <!--  XHTML 1.1: Not allowed elements -->
+    <xsl:template match="h:meta[@charset]">
+        <meta http-equiv="content-type" content="text/html" />
+    </xsl:template>
+    <xsl:template match="h:section">
+        <div>
+            <xsl:apply-templates select="@*|node()"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="h:header">
+        <div class="doc-header">
+            <xsl:apply-templates select="@*|node()"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="h:footer">
+        <div class="doc-footer">
+            <xsl:apply-templates select="@*|node()"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="h:blockquote/text()">
+        <div class="blockquote-text">
+            <xsl:value-of select="."/>
+        </div>
+    </xsl:template>
+    <xsl:template match="h:blockquote/h:footer">
+        <div class="blockquote-footer">
+            <xsl:apply-templates select="@*|node()"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="h:figure">
+        <div class="figure">
+            <xsl:apply-templates select="@*|node()"/>
+        </div>
+    </xsl:template>
+    <xsl:template match="h:figcaption">
+        <div class="figcaption">
+            <xsl:apply-templates select="@*|node()"/>
+        </div>
+    </xsl:template>
+    
+    <!--  XHTML 1.1: Not allowed attributes -->
+    <xsl:template match="@epub:type"></xsl:template>
+    <xsl:template match="@role"></xsl:template>
+    <xsl:template match="@data-ratio"></xsl:template>
     
 </xsl:stylesheet>
 

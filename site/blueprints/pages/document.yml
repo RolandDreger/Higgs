@@ -26,6 +26,17 @@ columns:
       documentInfo:
         type: fields
         fields:
+          documentStatus:
+            type: select
+            label: 
+              en: "Status"
+              de: "Status"
+            default: '✗'
+            required: false
+            options: 
+              '✗': Being edited
+              '?': Requires check
+              '✓': Completed
           documentLevel:
             type: select
             label: 

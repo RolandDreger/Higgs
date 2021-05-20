@@ -87,4 +87,6 @@ columns:
               de: "Inhaltliche Beschreibung"
             width: 1/1
             buttons: false
-            default: "{{ page.projectDescription }}"
+            help:
+              en: "Short description of the project."
+              de: "Kurze Beschreibung des Projekts."

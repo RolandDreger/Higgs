@@ -1,0 +1,53 @@
+label:
+  en: "Dashboard"
+  de: "Dashboard"
+columns:
+  - width: 2/4
+    sections:
+      projectTableOfContentSection:
+        type: fields
+        fields:
+          projectTableOfContent:
+            type: pages
+            label: 
+              en: "Table of Contents"
+              de: "Inhaltsverzeichnis"
+            text: "{{ page.documentLevel.translate() }} {{ page.title }}  {{ page.documentStatus }}"
+            info: "{{ page.documentPart.translate().upper() }}"
+            image: 
+              query: page.image
+            query: page.children
+            subpages: true
+            search: true
+  - width: 1/4
+    sections:
+      projectInfoSection:
+        type: fields
+        fields: 
+          projectInfo:
+            type: writer
+            label: 
+              en: "Project Info"
+              de: "Projectinfomation"
+          projectEditor:
+            type: users
+            label:
+              en: "Editors"
+              de: "Bearbeiter:innen"
+          projectTags:
+            type: tags
+            label:
+              en: "Tags"
+              de: "Schlagwörter"
+  - width: 1/4
+    sections:
+      projectExportSection:
+        type: fields
+        fields:
+          projectExportHeadline:
+            type: headline
+            label:
+              en: "Export"
+              de: "Export"
+            numbered: false
+          

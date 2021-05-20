@@ -25,7 +25,8 @@ use XSLTProcessor;
 class EpubBuilder {
 
 	const RELATIVE_TEMPLATE_FILE_PATH = 'assets/zip/template.epub';
-	const RELATIVE_XSL_FILE_PATH = 'assets/xslt/content.xsl';
+	const RELATIVE_XSL_FILE_EPUB2_PATH = 'assets/xslt/content-epub-2.xsl';
+	const RELATIVE_XSL_FILE_EPUB3_PATH = 'assets/xslt/content-epub-3.xsl';
 	const OPS_FOLDER_NAME = 'OEBPS';
 	const CONTENT_FOLDER_PATH = ''; /* Do not change! */
 	const STYLESHEET_FOLDER_PATH = 'css';
@@ -43,9 +44,12 @@ class EpubBuilder {
 	private $xslFilePath;
 	private $hasCover;
 	private $coverFile;
-	private $imageMaxWidth = 1200;
-	private $imageMaxHeight = 1200;
-	private $imageQuality = 80;
+	private $coverMaxWidth;
+	private $coverMaxHeight;
+	private $coverQuality;
+	private $imageMaxWidth;
+	private $imageMaxHeight;
+	private $imageQuality;
 	
 	public $parentPage;
 	public $epubName;
@@ -72,6 +76,14 @@ class EpubBuilder {
 			trigger_error("First parameter must be an page object.");
 		}
 
+		/* ePub Version */
+		$epubVersion = $projectPage->epubVersion();
+		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
+			$this->epubVersion = $epubVersion->value();
+		} else {
+			$this->epubVersion = '3.0';
+		}
+
 		/* Template Path */
 		$this->templateFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_TEMPLATE_FILE_PATH;
 		if(!file_exists($this->templateFilePath)) {
@@ -79,7 +91,12 @@ class EpubBuilder {
 		}
 
 		/* XSL Path */
-		$this->xslFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_XSL_FILE_PATH;
+		if($this->checkVersion(2)) {
+			$this->xslFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_XSL_FILE_EPUB2_PATH;
+		} 
+		elseif ($this->checkVersion(3)) {
+			$this->xslFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::RELATIVE_XSL_FILE_EPUB3_PATH;
+		}
 		if(!file_exists($this->xslFilePath)) {
 			trigger_error("XSL file does not exists");
 		}
@@ -120,8 +137,22 @@ class EpubBuilder {
 		if($fontFilesField->exists() && $fontFilesField->isNotEmpty()) {
 			$this->fontFiles = $fontFilesField->toFiles();
 		}
+		
+		/* Cover Image Settings */
+		$coverWidthField = $projectPage->epubCoverWidth();
+		if($coverWidthField->exists() && $coverWidthField->isNotEmpty()) {
+			$this->coverMaxWidth = $coverWidthField->toInt();
+		}
+		$coverHeightField = $projectPage->epubCoverHeight();
+		if($coverHeightField->exists() && $coverHeightField->isNotEmpty()) {
+			$this->coverMaxHeight = $coverHeightField->toInt();
+		}
+		$coverQualityFild = $projectPage->epubCoverQuality();
+		if($coverQualityFild->exists() && $coverQualityFild->isNotEmpty()) {
+			$this->coverQuality = $coverQualityFild->value();
+		}
 
-		/* Image Settings */
+		/* Content Image Settings */
 		$imageWidthField = $projectPage->epubImageWidth();
 		if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
 			$this->imageMaxWidth = $imageWidthField->toInt();
@@ -130,9 +161,9 @@ class EpubBuilder {
 		if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
 			$this->imageMaxHeight = $imageHeightField->toInt();
 		}
-		$imageQuality = $projectPage->epubImageQuality();
-		if($imageQuality->exists() && $imageQuality->isNotEmpty()) {
-			$this->imageQuality = $imageQuality->value();
+		$imageQualityField = $projectPage->epubImageQuality();
+		if($imageQualityField->exists() && $imageQualityField->isNotEmpty()) {
+			$this->imageQuality = $imageQualityField->value();
 		}
 		
 		/* Cover File */
@@ -153,14 +184,6 @@ class EpubBuilder {
 			$this->epubLang = $epubLanguage->value();
 		} else {
 			$this->epubLang = 'en';
-		}
-
-		/* ePub Version */
-		$epubVersion = $projectPage->epubVersion();
-		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
-			$this->epubVersion = $epubVersion->value();
-		} else {
-			$this->epubVersion = '3.0';
 		}
 
 		/* Metadata */
@@ -273,12 +296,14 @@ class EpubBuilder {
 						array_push($this->errors, "Document could not be created: {$coverDocFileName}");
 					} else {
 						$xmlString = $coverDoc->saveXML();
+						$xmlString = $this->transformContent($xmlString);
 						$coverOpfArchivePath = $this->buildFilePath('', $coverDocFileName, 'ops');
 						$epub->addFromString($coverOpfArchivePath, $xmlString);
 					}
 					/* cover.jpg */
-					$coverRealPath = $coverFile->realpath();
 					$coverFileName = $coverFile->filename();
+					$resizedCover = $coverFile->resize($this->coverMaxWidth, $this->coverMaxHeight, $this->coverQuality);
+					$coverRealPath = $resizedCover->realpath();
 					$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFileName, 'ops');
 					$epub->addFile($coverRealPath, $coverArchivePath);
 				}

@@ -25,11 +25,19 @@ Documenttext:
 
 ----
 
+Documentstatus: ?
+
+----
+
 Documentlevel: level-2
 
 ----
 
 Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
 
 ----
 

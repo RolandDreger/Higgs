@@ -2,16 +2,16 @@ title: Project
 
 tabs:
   projectContent:
-    extends: tabs/projectContent
-    icon: layers
+    extends: tabs/dashboard
+    icon: dashboard
     
+  projectFiles:
+    extends: tabs/content
+    icon: layers
+
   projectMetadata:
     extends: tabs/metadata
     icon: text
-
-  projectFiles:
-    extends: tabs/projectFiles
-    icon: import
 
   projectEPub: 
     extends: tabs/epub

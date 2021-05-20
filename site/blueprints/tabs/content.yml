@@ -1,8 +1,14 @@
 label:
-  en: "Files"
-  de: "Dateien"
+  en: "Content"
+  de: "Inhalt"
 columns:
-  - width: 1/1
+  - width: 1/2
+    sections:
+      projectPublishedPageSection:
+        extends: sections/published
+      projectDraftPageSection:
+        extends: sections/drafts
+  - width: 1/2
     sections:
       projectFilesSection:
         type: files
