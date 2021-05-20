@@ -1,0 +1,13 @@
+label:
+  en: "Files"
+  de: "Dateien"
+columns:
+  - width: 1/1
+    sections:
+      projectFilesSection:
+        type: files
+        headline:
+          en: "Project Files"
+          de: "Projektdateien"
+        info: "{{ file.niceSize }}"
+        layout: cards

@@ -37,6 +37,42 @@ Projectdescription: On the modifications of clouds, and on the principles of the
 
 ----
 
+Metadatatitle: Essay on the Modifications of Clouds
+
+----
+
+Metadataprojectid: urn:isbn:9781234567890
+
+----
+
+Metadataprojectidisisbn: true
+
+----
+
+Metadatacreator: Luke Howard
+
+----
+
+Metadatarights: 
+
+----
+
+Metadatapublisher: 
+
+----
+
+Metadatacontributor: 
+
+----
+
+Metadatadate: 2021-05-20
+
+----
+
+Medadatadescription: On the modifications of clouds, and on the principles of their production, suspension, and destruction.
+
+----
+
 Epubname: 
 
 ----

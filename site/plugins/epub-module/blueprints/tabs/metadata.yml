@@ -1,0 +1,90 @@
+label:
+  en: "Metadata"
+  de: "Metadaten"
+columns:
+  - width: 1/3
+    sections:
+      metadataRequired:
+        type: fields
+        fields:
+          metadataRequiredHeadline:
+            type: headline
+            label:
+              en: "Required"
+              de: "Verpflichtende Angaben"
+            numbered: false
+          metadataTitle:
+            type: text
+            label: 
+              en: "Project Title"
+              de: "Projecttitel"
+            default: "{{ page.title }}"
+            placeholder: "{{ page.title }}"
+          metadataProjectID:
+            type: text
+            label: 
+              en: "Project ID"
+              de: "Project-ID"
+          metadataProjectIDIsISBN:
+            type: toggle
+            label: 
+              en: "Project ID is ISBN number?"
+              de: "Project-ID ist ISBN-Nummer?"
+            text:
+              - en: "No"
+                de: "Nein"
+              - en: "Yes"
+                de: "Ja"
+  - width: 2/3
+    sections:
+      metadataOptional:
+        type: fields
+        fields:
+          metadataOptionalHeadline:
+            type: headline
+            label:
+              en: "Optional"
+              de: "Optionale Angaben"
+            width: 1/1
+            numbered: false
+          metadataCreator:
+            type: text
+            label: 
+              en: "Creator(s)"
+              de: "Autor:innen"
+            width: 1/2
+          metadataRights:
+            type: text
+            label: 
+              en: "Copyrights"
+              de: "Urheberrechte"
+            width: 1/2
+          metadataPublisher:
+            type: text
+            label: 
+              en: "Publisher"
+              de: "Herausgeber/Verlag"
+            width: 1/2
+          metadataContributor:
+            type: text
+            label: 
+              en: "Contributors"
+              de: "Mitwirkende"
+            width: 1/2
+          metadataDate:
+            type: date
+            label: 
+              en: "Publishing Date"
+              de: "Erscheinungsdatum"
+            width: 1/2
+            display: DD-MM-YYYY
+            format: Y-m-d
+            time: false
+          medadataDescription:
+            type: textarea
+            label:
+              en: "Content Description"
+              de: "Inhaltliche Beschreibung"
+            width: 1/1
+            buttons: false
+            default: "{{ page.projectDescription }}"

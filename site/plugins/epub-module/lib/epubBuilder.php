@@ -41,17 +41,28 @@ class EpubBuilder {
 	private $fontFiles = [];
 	private $templateFilePath;
 	private $xslFilePath;
-	private $hasCover = true;
+	private $hasCover;
 	private $coverFile;
 	private $imageMaxWidth = 1200;
 	private $imageMaxHeight = 1200;
 	private $imageQuality = 80;
-
+	
 	public $parentPage;
 	public $epubName;
 	public $epubVersion;
 	public $epubLang;
+	public $projectDate;
+	public $projectTitle;
 	
+	public $metadataTitle;
+	public $metadataProjectID;
+	public $metadataCreator;
+	public $metadataProjectIDIsISBN;
+	public $metadataRights;
+	public $metadataContributor;
+	public $metadataDate;
+	public $medadataDescription;
+
 	public $errors = [];
 
 
@@ -151,15 +162,34 @@ class EpubBuilder {
 		} else {
 			$this->epubVersion = '3.0';
 		}
+
+		/* Metadata */
+		$this->metadataTitle = $projectPage->metadataTitle()->value() ?? $projectPage->title();
+		$this->metadataProjectID = $projectPage->metadataProjectID()->value() ?? '';
+		$this->metadataCreator = $projectPage->metadataCreator()->value() ?? '';
+		$metadataProjectIDIsISBNField = $projectPage->metadataProjectIDIsISBN();
+		if($metadataProjectIDIsISBNField->exists()) {
+			if($metadataProjectIDIsISBNField->value() === 'true') {
+				$this->metadataProjectIDIsISBN = true;
+			} else {
+				$this->metadataProjectIDIsISBN = false;
+			}
+		}
+		$this->metadataRights = $projectPage->metadataRights()->value() ?? '';
+		$this->metadataContributor = $projectPage->metadataContributor()->value() ?? '';
+		$this->metadataDate = $projectPage->metadataDate()->value() ?? '';
+		$this->medadataDescription = $projectPage->medadataDescription()->value() ?? '';
 	}
 
 
 	public function createEpub() {
 
+		$this->projectDate = strftime('%Y-%m-%dT%H:%M:%SZ'); /* '2021-04-01T10:22:53Z' */
+
 		$epubName = $this->epubName;
 		$projectPage = $this->projectPage;
 		$templateFilePath = $this->templateFilePath;
-		
+
 		/* Delete ePub (if already exists) */
 		$epubFile = $projectPage->file($epubName);
 		if($epubFile->exists()) {
@@ -433,14 +463,6 @@ class EpubBuilder {
 
 	private function createContentOpfDocument() {
 
-		/* Metadaten ToDo */
-		$epubVersion = $this->epubVersion;
-		$projectTitle = $this->projectPage->title();
-		$projectCreator = 'Roland Dreger';
-		$projectID = 'urn:isbn:9781234460001';
-		$projectLanguage = $this->epubLang;
-		$projectDate = strftime('%Y-%m-%dT%H:%M:%SZ'); /* '2021-04-01T10:22:53Z' */
-		
 		/* Create XML Document */
 		$doc = new DOMDocument();
 		$doc->xmlVersion = '1.0';
@@ -455,20 +477,52 @@ class EpubBuilder {
 		$doc->appendChild($rootElement);
 		$rootElement->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:dc', 'http://purl.org/dc/elements/1.1/');
 		$rootElement->setAttribute('unique-identifier', 'bookid');
-		$rootElement->setAttribute('version', $epubVersion);
+		$rootElement->setAttribute('version', $this->epubVersion);
 
 		/* ++++++++++++ */
 		/* + Metadata + */
 		/* ++++++++++++ */
+		/* Dublin Core Metadata Terms (required) */
 		$metadataElement = $this->addElement($doc, $rootElement, 'metadata');
-		$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:title', [['name'=>'id', 'value'=>'opf_title']], $projectTitle);
-		$dcCreatorElement = $this->addElement($doc, $metadataElement, 'dc:creator', [['name'=>'id', 'value'=>'opf_author']], $projectCreator);
-		$dcIdentifierElement = $this->addElement($doc, $metadataElement, 'dc:identifier', [['name'=>'id', 'value'=>'bookid']], $projectID);
-		$dcLanguageElement = $this->addElement($doc, $metadataElement, 'dc:language', [], $projectLanguage);
+		$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:title', [['name'=>'id', 'value'=>'opf_title']], $this->metadataTitle);
+		$dcIdentifierElement = $this->addElement($doc, $metadataElement, 'dc:identifier', [['name'=>'id', 'value'=>'bookid']], $this->metadataProjectID);
+		$dcLanguageElement = $this->addElement($doc, $metadataElement, 'dc:language', [], $this->epubLang);
+		
+		/* Meta Elements (required) */
 		if($this->checkVersion(3)) {
-			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'property', 'value' => 'dcterms:modified']], $projectDate);
+			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#opf_title'],['name' => 'property', 'value' => 'title-type']], 'main');
+			if($this->metadataProjectIDIsISBN) {
+				$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#bookid'],['name' => 'property', 'value' => 'identifier-type'],['name' => 'scheme', 'value' => 'onix:codelist5']], '15');
+			}
+			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'property', 'value' => 'dcterms:modified']], $this->projectDate);
 		}
+		
+		/* Dublin Core Metadata Terms (optional) */
 
+		if(!empty($this->metadataCreator)) {
+			$dcCreatorElement = $this->addElement($doc, $metadataElement, 'dc:creator', [['name'=>'id', 'value'=>'opf_author1']], $this->metadataCreator);
+		}
+		if(!empty($this->metadataRights)) {
+			$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:rights', [], $this->metadataRights);
+		}
+		if(!empty($this->metadataContributor)) {
+			$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:contributor', [], $this->metadataContributor);
+		}
+		if(!empty($this->metadataDate)) {
+			$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:date', [], $this->metadataDate);
+		}
+		if(!empty($this->medadataDescription)) {
+			$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:description', [], $this->medadataDescription);
+		}
+		
+		/* Meta Elements (optional) */
+		if($this->checkVersion(3)) {
+			if(!empty($this->metadataCreator)) {
+				$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#opf_author1'],['name' => 'property', 'value' => 'role'], ['name' => 'scheme', 'value' => 'marc:relators']], 'aut');
+				$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#opf_author1'],['name' => 'property', 'value' => 'file-as']], $this->metadataCreator);
+			}
+		}
+		
 		/* ++++++++++++ */
 		/* + Manifest + */
 		/* ++++++++++++ */
@@ -506,7 +560,8 @@ class EpubBuilder {
 			$coverMimeType = mime_content_type($coverFile->realpath()) ?? '';
 			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => $coverHashID], ['name' => 'href', 'value' => $coverArchivePath],['name' => 'media-type', 'value' => $coverMimeType]]);
 			/* cover.xhtml */
-			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'cover'], ['name' => 'href', 'value' => self::COVER_DOCUMENT_NAME],['name' => 'media-type', 'value' => 'application/xhtml+xml']]);
+			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
+			$this->addElement($doc, $manifestElement, 'item', [['name' => 'id', 'value' => 'cover'], ['name' => 'href', 'value' => $coverHrefValue],['name' => 'media-type', 'value' => 'application/xhtml+xml']]);
 		}
 
 		/* CSS Files */
@@ -529,6 +584,12 @@ class EpubBuilder {
 		/* +++++++++ */
 		$spineElement = $this->addElement($doc, $rootElement, 'spine', [['name'=>'toc', 'value'=>'ncx']]);
 
+		/* Cover */
+		if($this->hasCover && !empty($this->coverFile)) {
+			$this->addElement($doc, $spineElement, 'itemref', [['name' => 'idref', 'value' => 'cover']]);
+		}
+
+		/* Content Documents */
 		foreach($this->tocPages as $page) {
 			$pageHashID = $page->hashID();
 			$this->addElement($doc, $spineElement, 'itemref', [['name' => 'idref', 'value' => $pageHashID]]);
@@ -598,8 +659,8 @@ class EpubBuilder {
 		$rootElement->appendChild($headElement);
 
 		/* Title */
-		$projectTitle = $this->projectPage->title();
-		if($projectTitle->exists() && $projectTitle->isNotEmpty()) {
+		$projectTitle = $this->metadataTitle;
+		if(!empty($projectTitle)) {
 			$titleElement = $doc->createElement('title');
 			$titleText = $doc->createTextNode($projectTitle);
 			$titleElement->appendChild($titleText);
@@ -619,7 +680,9 @@ class EpubBuilder {
 		$h1Element->appendChild($h1TextNode);
 		$bodyElement->appendChild($h1Element);
 
-		/* Page Navigation */
+		/* +++++++++++++++++++ */
+		/* + Page Navigation + */
+		/* +++++++++++++++++++ */
 		$pageNavElement = $doc->createElement('nav');
 		$pageNavElement->setAttribute('id','toc');
 		$pageNavElement->setAttribute('epub:type','toc');
@@ -674,15 +737,26 @@ class EpubBuilder {
 		foreach($xPathResults as $node) {
 			$node->removeAttribute('data-level');
 		}
-
-		/* Landmark Navigation */
+		
+		/* +++++++++++++++++++++++ */
+		/* + Landmark Navigation + */
+		/* +++++++++++++++++++++++ */
 		$landmarkNav = $doc->createElement('nav');
 		$landmarkNav->setAttribute('id','landmarks');
 		$landmarkNav->setAttribute('epub:type','landmarks');
 		
 		$landmarkOl = $this->createLandmarkList($doc, 'ol');
 		$landmarkNav->appendChild($landmarkOl);
+		
+		/* Cover */
+		if($this->hasCover && !empty($this->coverFile)) {
+			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
+			$textContent = t('Cover', 'Cover');
+			$liElement = $this->createLandmarkListItem($doc, 'li', 'cover', $coverHrefValue, $textContent);
+			$landmarkOl->appendChild($liElement);
+		}
 
+		/* Content Documents */
 		foreach($this->tocPages as $page) {
 			$documentLandmark = $page->documentLandmark();
 			if(!$documentLandmark->exists() || $documentLandmark->isEmpty()) {
@@ -740,9 +814,6 @@ class EpubBuilder {
 
 	private function createTocNcxDocument() {
 
-		/* Metadaten ToDo */
-		$projectTitle = $this->projectPage->title();
-		$projectID = 'urn:isbn:9781234460001';
 		$tocDepth = 1;
 		$totalPageCount = 0;
 		$maxPageNumber = 0;
@@ -773,14 +844,14 @@ class EpubBuilder {
 
 		/* Head Element */
 		$headElement = $this->addElement($doc, $rootElement, 'head');
-		$metaUidElement = $this->addElement($doc, $headElement, 'meta', [['name'=>'name', 'value'=>'dtb:uid'],['name'=>'content', 'value'=>$projectID]]);
-		$metaDepthElement = $this->addElement($doc, $headElement, 'meta', [['name'=>'name', 'value'=>'dtb:depth'],['name'=>'content', 'value'=>$tocDepth]]);
-		$metaTotalPageCountElement = $this->addElement($doc, $headElement, 'meta', [['name'=>'name', 'value'=>'dtb:totalPageCount'],['name'=>'content', 'value'=>$totalPageCount]]);
-		$metaMaxPageNumberElement = $this->addElement($doc, $headElement, 'meta', [['name'=>'name', 'value'=>'dtb:maxPageNumber'],['name'=>'content', 'value'=>$maxPageNumber]]);
+		$metaUidElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:uid'],['name' => 'content', 'value' => $this->metadataProjectID]]);
+		$metaDepthElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' =>'dtb:depth'],['name'=>'content', 'value' => $tocDepth]]);
+		$metaTotalPageCountElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:totalPageCount'],['name' => 'content', 'value' => $totalPageCount]]);
+		$metaMaxPageNumberElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:maxPageNumber'],['name' => 'content', 'value' => $maxPageNumber]]);
 
 		/* DocTitle Element */
 		$docTitleElement = $this->addElement($doc, $rootElement, 'docTitle');
-		$textElement = $this->addElement($doc, $docTitleElement, 'text', [], $projectTitle);
+		$textElement = $this->addElement($doc, $docTitleElement, 'text', [], $this->metadataTitle);
 
 		/* NavMap Element */
 		$navMapElement = $this->addElement($doc, $rootElement, 'navMap');

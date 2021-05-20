@@ -1,7 +1,6 @@
 label:
   en: "ePub"
   de: "ePub"
-icon: text
 columns:
   - width: 1/4
     sections:

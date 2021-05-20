@@ -33,6 +33,7 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'blueprints' => [
+		'tabs/metadata' => __DIR__ . '/blueprints/tabs/metadata.yml',
 		'tabs/epub' => __DIR__ . '/blueprints/tabs/epub.yml',
 		'files/epub' => __DIR__ . '/blueprints/files/epub.yml',
 		'files/css' => __DIR__ . '/blueprints/files/css.yml',
