@@ -74,7 +74,6 @@ columns:
               cover: false
             max: 1
             text: "{{ file.filename }} ({{ file.dimensions }})"
-            info: "ALT: {{ file.alt }}"
             template: cover
             when: 
               epubHasCoverImage: true
