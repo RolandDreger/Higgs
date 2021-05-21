@@ -36,6 +36,7 @@ class EpubBuilder {
 	const COVER_DOCUMENT_NAME = 'cover.xhtml';
 
 	private $projectPage;
+	private $formatOutput;
 	private $docPages = [];
 	private $tocPages = [];
 	private $cssFiles = [];
@@ -104,8 +105,15 @@ class EpubBuilder {
 		/* Source: Page with content documents */
 		$this->projectPage = $projectPage;
 
+		/* OPTIONS */
 		/* Destination: Export folder page  */
 		$this->parentPage = $options['parent'] ?? $projectPage;
+		$optionFormatOutput = $options['formatOutput'];
+		if(empty($optionFormatOutput) || !is_bool($optionFormatOutput)) {
+			$this->formatOutput = false;
+		} else {
+			$this->formatOutput = $optionFormatOutput;
+		}
 		
 		/* Content Pages (all descendants) */
 		$this->docPages = $projectPage->index();
@@ -437,9 +445,8 @@ class EpubBuilder {
 		$doc = $dom->createDocument(null, 'html', $dtd);
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = true;
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
-		$doc->substituteEntities = true;
 		$doc->strictErrorChecking = true;
 
 		$doc->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
@@ -500,9 +507,8 @@ class EpubBuilder {
 		$doc = new DOMDocument();
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = true;
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
-		$doc->substituteEntities = true;
 		$doc->strictErrorChecking = true;
 
 		/* Root Element */
@@ -668,9 +674,8 @@ class EpubBuilder {
 		$doc = $dom->createDocument(null, 'html', $dtd);
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = true;
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
-		$doc->substituteEntities = true;
 		$doc->strictErrorChecking = true;
 
 		$doc->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
@@ -859,9 +864,8 @@ class EpubBuilder {
 		$doc = $dom->createDocument(null, 'ncx');
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = true;
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
-		$doc->substituteEntities = true;
 		$doc->strictErrorChecking = true;
 
 		$doc->createAttributeNS('http://www.daisy.org/z3986/2005/ncx/', 'xmlns');
