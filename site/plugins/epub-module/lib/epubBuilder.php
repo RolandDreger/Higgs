@@ -228,9 +228,19 @@ class EpubBuilder {
 		$epubName = $this->epubName;
 		$projectPage = $this->projectPage;
 		
+		/* Delete ePub (if already exists) */
+		$epubFile = $projectPage->file($epubName);
+		if($epubFile !== null && $epubFile->exists()) {
+			$isDeleted = $epubFile->delete();
+			if(!$isDeleted) {
+				array_push($this->errors, "File could not be deleted: {$epubName}");
+				return $this;
+			}
+		}
+		
+		/* Create ePub (based on template) */
 		$epubFile = $projectPage->file($epubName);
 		if(!$epubFile || !$epubFile->exists()) {
-			/* Create ePub (based on template) */
 			$templateFilePath = $this->templateFilePath;
 			$epubFile = File::create([
 				'source' => $templateFilePath,
@@ -252,12 +262,9 @@ class EpubBuilder {
 			$epubPath = $epubFile->realpath();
 			$isOpened = $epub->open($epubPath, ZIPARCHIVE::CHECKCONS);
 			if(!$isOpened) {
-				array_push($this->errors, 'Error opening ePub archive');
+				array_push($this->errors, "Error opening ePub archive: {$epubPath}");
 				return $this;
 			}
-
-			/* Clean up archive */
-			$epub->deleteName(self::OPS_FOLDER_NAME);
 
 			$xmlString = '';
 
@@ -381,13 +388,13 @@ class EpubBuilder {
 	 * XSL Transformation of content
 	 * (XSL files for ePub version 2 und 3)
 	 * 
-	 * Version 2: 
+	 * ePub Version 2: 
 	 * - Replaces stylesheet paths
 	 * - Replaces image source paths 
 	 * - Replaces not allowed elements (header, footer, ...)
    * - Replaces not allowed attributes (role, epub:type, ...)
 	 * 
-	 * * Version 3: 
+	 * * ePub Version 3: 
 	 * - Replaces stylesheet paths
 	 * - Replaces image source paths
 	 * 
