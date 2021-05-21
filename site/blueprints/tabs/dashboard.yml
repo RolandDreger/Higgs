@@ -50,4 +50,9 @@ columns:
               en: "Export"
               de: "Export"
             numbered: false
+          projectEpubExportButton:
+            type: epub
+            label:
+              en: ePub
+              de: ePub
           

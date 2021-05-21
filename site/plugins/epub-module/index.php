@@ -41,6 +41,11 @@ Kirby::plugin('higgs/epub-module', [
 		'files/cover' => __DIR__ . '/blueprints/files/cover.yml'
 	],
 
+	'fields' => [
+		'epub' => [
+			/* Backend logic goes here */
+		]
+	],
 	/* Extensions */
 	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php',
 	'pageMethods' => include __DIR__ . '/extensions/pageMethods.php',

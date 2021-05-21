@@ -1,6 +1,6 @@
 {
 	"name": "higgs/epub-module",
-	"description": "Kirby Plugin for generating ePubs",
+	"description": "Kirby Plugin for generating ePub",
 	"type": "kirby-plugin",
 	"license": "MIT",
 	"authors": [

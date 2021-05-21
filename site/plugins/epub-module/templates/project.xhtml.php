@@ -6,10 +6,10 @@
 			/* Build ePub */
 			$options = ['formatOutput' => true];
 			$epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
-			$epubBuilder->createEpub();
-			foreach($epubBuilder->errors as $error) {
-				var_dump($error);
-			}
+			// $epubBuilder->createEpub();
+			// foreach($epubBuilder->errors as $error) {
+			// 	var_dump($error);
+			// }
 		?>
 		<!-- Linear Content -->
 		<?php 
