@@ -212,50 +212,52 @@ class EpubBuilder {
 		$this->medadataDescription = $projectPage->medadataDescription()->value() ?? '';
 	}
 
-
+	/**
+	 * Create ePub Archive
+	 * 
+	 * 1. Copies template ePub to project page (or page from options)
+	 * 2. Transforms the content documents
+	 * 3. Fills the ePub ZIP archiv with files (ToC, OPF, content documents, images, ...) 
+	 * 
+	 * @return $this
+	 */
 	public function createEpub() {
 
 		$this->projectDate = strftime('%Y-%m-%dT%H:%M:%SZ'); /* '2021-04-01T10:22:53Z' */
 
 		$epubName = $this->epubName;
 		$projectPage = $this->projectPage;
-		$templateFilePath = $this->templateFilePath;
-
-		/* Delete ePub (if already exists) */
+		
 		$epubFile = $projectPage->file($epubName);
-		if($epubFile->exists()) {
-			try {
-				$epubFile->delete();
-			} catch(Exception $error) {
-				array_push($this->errors, "File could not be deleted: {$epubName} Error: {$error->getMessage()}");
+		if(!$epubFile || !$epubFile->exists()) {
+			/* Create ePub (based on template) */
+			$templateFilePath = $this->templateFilePath;
+			$epubFile = File::create([
+				'source' => $templateFilePath,
+				'parent' => $projectPage,
+				'filename' => $epubName,
+				'template' => 'epub',
+				'content' => []
+			]);
+			if(!$epubFile->exists()) {
+				array_push($this->errors, "File could not be created: {$epubName}");
 				return $this;
 			}
 		}
 
-		/* Create ePub (based on template) */
-		$epubFile = File::create([
-			'source' => $templateFilePath,
-			'parent' => $projectPage,
-			'filename' => $epubName,
-			'template' => 'epub',
-			'content' => []
-		]);
-
-		$epubPath = $epubFile->realpath();
-		if(empty($epubPath)) {
-			array_push($this->errors, "ePub could not be created");
-			return $this;
-		}
-
 		try {
 			
-			/* Open ePub Archive */
+			/* Open ePub archive */
 			$epub = new ZipArchive();
+			$epubPath = $epubFile->realpath();
 			$isOpened = $epub->open($epubPath, ZIPARCHIVE::CHECKCONS);
 			if(!$isOpened) {
 				array_push($this->errors, 'Error opening ePub archive');
 				return $this;
 			}
+
+			/* Clean up archive */
+			$epub->deleteName(self::OPS_FOLDER_NAME);
 
 			$xmlString = '';
 
@@ -375,7 +377,23 @@ class EpubBuilder {
 		return $this;
 	}	 /* END function createEpub */
 
-
+	/**
+	 * XSL Transformation of content
+	 * (XSL files for ePub version 2 und 3)
+	 * 
+	 * Version 2: 
+	 * - Replaces stylesheet paths
+	 * - Replaces image source paths 
+	 * - Replaces not allowed elements (header, footer, ...)
+   * - Replaces not allowed attributes (role, epub:type, ...)
+	 * 
+	 * * Version 3: 
+	 * - Replaces stylesheet paths
+	 * - Replaces image source paths
+	 * 
+	 * @param {String} $content
+	 * @return {String}
+	 */
 	private function transformContent($content) {
 
 		$xslFilePath = $this->xslFilePath;
