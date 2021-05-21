@@ -71,7 +71,7 @@ class XhtmlParser {
 
 		$htmDocument->xmlVersion = '1.0';
 		$htmDocument->encoding = 'UTF-8';
-		$htmDocument->formatOutput = $this->formatOutput();
+		$htmDocument->formatOutput = $this->formatOutput;
 		$htmDocument->preserveWhiteSpace = true;
 		$htmDocument->strictErrorChecking = false;
 
