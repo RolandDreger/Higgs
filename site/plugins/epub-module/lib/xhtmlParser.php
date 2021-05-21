@@ -21,6 +21,8 @@ class XhtmlParser {
 	public $saveXMLOptions;
 	public $errors = [];
 	
+	private $formatOutput = false;
+
 	public function __construct($options = 0) {
 		$this->saveXMLOptions = $options;
 	}
@@ -69,10 +71,9 @@ class XhtmlParser {
 
 		$htmDocument->xmlVersion = '1.0';
 		$htmDocument->encoding = 'UTF-8';
-		$htmDocument->formatOutput = FALSE;
-		$htmDocument->preserveWhiteSpace = TRUE;
-		$htmDocument->substituteEntities = TRUE;
-		$htmDocument->strictErrorChecking = FALSE;
+		$htmDocument->formatOutput = $this->formatOutput();
+		$htmDocument->preserveWhiteSpace = true;
+		$htmDocument->strictErrorChecking = false;
 
 		$htmDocument->loadHTML('<meta charset=\"UTF-8\"/>' . $html);
 
@@ -111,10 +112,9 @@ class XhtmlParser {
 		$xhtmlDocument = $dom->createDocument(null, 'html', $dtd);
 		$xhtmlDocument->xmlVersion = '1.0';
 		$xhtmlDocument->encoding = 'UTF-8';
-		$xhtmlDocument->formatOutput = FALSE;
-		$xhtmlDocument->preserveWhiteSpace = TRUE;
-		$xhtmlDocument->substituteEntities = TRUE;
-		$xhtmlDocument->strictErrorChecking = FALSE;
+		$xhtmlDocument->formatOutput = $this->formatOutput;
+		$xhtmlDocument->preserveWhiteSpace = true;
+		$xhtmlDocument->strictErrorChecking = false;
 		
 		$xhtmlDocument->createAttributeNS('http://www.w3.org/1999/xhtml', 'xmlns');
 		$xhtmlDocument->createAttributeNS('http://www.idpf.org/2007/ops', 'epub:type');
