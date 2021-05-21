@@ -4,7 +4,7 @@
 	<body>
 		<?php 
 			/* Build ePub */
-			$options = ['formatOutput' => false];
+			$options = ['formatOutput' => true];
 			$epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
 			$epubBuilder->createEpub();
 			foreach($epubBuilder->errors as $error) {
