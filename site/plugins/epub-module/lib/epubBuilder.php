@@ -379,8 +379,16 @@ class EpubBuilder {
 		$xslProcessor->setParameter('','css-folder-path', self::STYLESHEET_FOLDER_PATH);
 		$xslProcessor->setParameter('','image-folder-path', self::GRAPHIC_FOLDER_PATH);
 
-		$xmlDoc->loadXML($content, LIBXML_PARSEHUGE);
-		$xslDoc->load($xslFilePath);
+		$isLoaded = $xmlDoc->loadXML($content, LIBXML_PARSEHUGE);
+		if(!$isLoaded) {
+			array_push($this->errors, "loadXML error: Could not load the given XML string");
+			return $content;
+		}
+		$isLoaded = $xslDoc->load($xslFilePath);
+		if(!$isLoaded) {
+			array_push($this->errors, "load error: Could not load the XSL transformation file");
+			return $content;
+		}
 
 		libxml_use_internal_errors(true);
 
