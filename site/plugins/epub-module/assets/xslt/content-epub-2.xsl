@@ -4,8 +4,8 @@
     
     Transform content of XHTML (HTML4) documents
     
-    - Replace stylesheet paths
-    - Replace image source paths
+    – Replace stylesheet paths
+    – Replace image source paths
     
     – Replace not allowed elements (header, footer, ...)
     – Replace not allowed attributes (role, epub:type, ...)
