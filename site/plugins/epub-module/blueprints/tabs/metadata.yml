@@ -20,12 +20,12 @@ columns:
               de: "Projecttitel"
             default: "{{ page.title }}"
             placeholder: "{{ page.title }}"
-          metadataProjectID:
+          metadataID:
             type: text
             label: 
               en: "Project ID"
               de: "Project-ID"
-          metadataProjectIDIsISBN:
+          metadataIDIsISBN:
             type: toggle
             label: 
               en: "Project ID is ISBN number?"
