@@ -60,9 +60,9 @@ class EpubBuilder {
 	public $projectTitle;
 	
 	public $metadataTitle;
-	public $metadataProjectID;
+	public $metadataID;
 	public $metadataCreator;
-	public $metadataProjectIDIsISBN;
+	public $metadataIDIsISBN;
 	public $metadataRights;
 	public $metadataContributor;
 	public $metadataDate;
@@ -195,21 +195,25 @@ class EpubBuilder {
 		}
 
 		/* Metadata */
-		$this->metadataTitle = $projectPage->metadataTitle()->value() ?? $projectPage->title();
-		$this->metadataProjectID = $projectPage->metadataProjectID()->value() ?? '';
-		$this->metadataCreator = $projectPage->metadataCreator()->value() ?? '';
-		$metadataProjectIDIsISBNField = $projectPage->metadataProjectIDIsISBN();
-		if($metadataProjectIDIsISBNField->exists()) {
-			if($metadataProjectIDIsISBNField->value() === 'true') {
-				$this->metadataProjectIDIsISBN = true;
+		
+		$this->metadataTitle = $projectPage->metadataTitle()->value(); 
+		if(empty($this->metadataTitle)) {
+			$this->metadataTitle = $projectPage->title();
+		}
+		$this->metadataID = $projectPage->metadataID()->value();
+		$this->metadataCreator = $projectPage->metadataCreator()->value();
+		$metadataIDIsISBNField = $projectPage->metadataIDIsISBN();
+		if($metadataIDIsISBNField->exists()) {
+			if($metadataIDIsISBNField->value() === 'true') {
+				$this->metadataIDIsISBN = true;
 			} else {
-				$this->metadataProjectIDIsISBN = false;
+				$this->metadataIDIsISBN = false;
 			}
 		}
-		$this->metadataRights = $projectPage->metadataRights()->value() ?? '';
-		$this->metadataContributor = $projectPage->metadataContributor()->value() ?? '';
-		$this->metadataDate = $projectPage->metadataDate()->value() ?? '';
-		$this->medadataDescription = $projectPage->medadataDescription()->value() ?? '';
+		$this->metadataRights = $projectPage->metadataRights()->value();
+		$this->metadataContributor = $projectPage->metadataContributor()->value();
+		$this->metadataDate = $projectPage->metadataDate()->value();
+		$this->medadataDescription = $projectPage->medadataDescription()->value();
 	}
 
 	/**
@@ -549,13 +553,13 @@ class EpubBuilder {
 		/* Dublin Core Metadata Terms (required) */
 		$metadataElement = $this->addElement($doc, $rootElement, 'metadata');
 		$dcTitleElement = $this->addElement($doc, $metadataElement, 'dc:title', [['name'=>'id', 'value'=>'opf_title']], $this->metadataTitle);
-		$dcIdentifierElement = $this->addElement($doc, $metadataElement, 'dc:identifier', [['name'=>'id', 'value'=>'bookid']], $this->metadataProjectID);
+		$dcIdentifierElement = $this->addElement($doc, $metadataElement, 'dc:identifier', [['name'=>'id', 'value'=>'bookid']], $this->metadataID);
 		$dcLanguageElement = $this->addElement($doc, $metadataElement, 'dc:language', [], $this->epubLang);
 		
 		/* Meta Elements (required) */
 		if($this->checkVersion(3)) {
 			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#opf_title'],['name' => 'property', 'value' => 'title-type']], 'main');
-			if($this->metadataProjectIDIsISBN) {
+			if($this->metadataIDIsISBN) {
 				$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#bookid'],['name' => 'property', 'value' => 'identifier-type'],['name' => 'scheme', 'value' => 'onix:codelist5']], '15');
 			}
 			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'property', 'value' => 'dcterms:modified']], $this->projectDate);
@@ -906,7 +910,7 @@ class EpubBuilder {
 
 		/* Head Element */
 		$headElement = $this->addElement($doc, $rootElement, 'head');
-		$metaUidElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:uid'],['name' => 'content', 'value' => $this->metadataProjectID]]);
+		$metaUidElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:uid'],['name' => 'content', 'value' => $this->metadataID]]);
 		$metaDepthElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' =>'dtb:depth'],['name'=>'content', 'value' => $tocDepth]]);
 		$metaTotalPageCountElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:totalPageCount'],['name' => 'content', 'value' => $totalPageCount]]);
 		$metaMaxPageNumberElement = $this->addElement($doc, $headElement, 'meta', [['name' => 'name', 'value' => 'dtb:maxPageNumber'],['name' => 'content', 'value' => $maxPageNumber]]);
