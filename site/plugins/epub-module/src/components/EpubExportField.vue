@@ -18,9 +18,6 @@ export default {
 		icon: String,
 		endpoints: Object
 	},
-	data: {
-    
-  },
 
 	methods: {
 		exportEpub(event) {
@@ -56,13 +53,11 @@ export default {
 </script>
 
 <style lang="scss">
-	/** put your css here **/
-	.k-export-fied {
-		
-	}
+	
 	.k-export-button {
 		width: 100%;
 		text-align: left;
+		vertical-align: middle;
 		background: #fff;
 		box-shadow: var(--box-shadow-item);
 	}
