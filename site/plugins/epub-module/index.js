@@ -8938,7 +8938,7 @@ var _default = {
         var errorArray = resObj['data']['errors'];
 
         if (errorArray.length === 0) {
-          _this.help = 'ePub successfully exported';
+          _this.help = 'ePub was exported successfully';
         } else {
           _this.help = 'Export failed';
 
@@ -8995,7 +8995,8 @@ exports.default = _default;
           attrs: { title: "ePup Export", icon: _vm.icon, theme: "positiv" },
           on: { click: _vm.exportEpub }
         },
-        [_vm._v(_vm._s(_vm.buttonLabel))]
+        [_c("k-button-text", [_vm._v(_vm._s(_vm.buttonLabel))])],
+        1
       )
     ],
     1

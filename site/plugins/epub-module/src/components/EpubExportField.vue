@@ -5,7 +5,7 @@
 			:icon="icon" 
 			theme="positiv"
 			@click="exportEpub"
-		>{{ buttonLabel }}</k-button>
+		><k-button-text>{{ buttonLabel }}</k-button-text></k-button>
 	</k-field>
 </template>
 
@@ -38,7 +38,7 @@ export default {
 			.then(resObj => {
 				const errorArray = resObj['data']['errors'];
 				if(errorArray.length === 0) {
-					this.help = 'ePub successfully exported';
+					this.help = 'ePub was exported successfully';
 				} else {
 					this.help = 'Export failed';
 					for(let err of errorArray) {
@@ -61,21 +61,10 @@ export default {
 		
 	}
 	.k-export-button {
-		display: flex;
-		justify-content: start;
-		align-items: center;
 		width: 100%;
+		text-align: left;
 		background: #fff;
-		border-radius: 1px;
-		line-height: 1.25rem;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
-	}
-
-	.k-export-button span {
-		position: relative;
+		box-shadow: var(--box-shadow-item);
 	}
 
 	.k-export-button span:first-child {
@@ -86,8 +75,14 @@ export default {
 		color:#fff;
 	}
 
+	.k-export-button:focus span:first-child,
+	.k-export-button:active span:first-child,
+	.k-export-button:hover span:first-child {
+		background-color: #4271ae;
+	}
+
 	.k-export-button span:last-child {
-		
+		margin-left: 0.5rem;
 	}
 	
 </style>
