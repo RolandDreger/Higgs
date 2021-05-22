@@ -8909,13 +8909,26 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   props: {
     label: String,
-    help: String,
     buttonLabel: String,
+    help: String,
+    disabled: Boolean,
+    required: Boolean,
     icon: String,
     endpoints: Object
+  },
+  data: {
+    userHelp: String
   },
   methods: {
     exportEpub: function exportEpub(event) {
@@ -8929,7 +8942,9 @@ var _default = {
         return false;
       }
 
+      this.userHelp = this.help;
       this.help = "Export processing ...";
+      this.disabled = true;
       var postObj = {
         'page': parentPagePath
       };
@@ -8937,7 +8952,7 @@ var _default = {
         var errorArray = resObj['data']['errors'];
 
         if (errorArray.length === 0) {
-          _this.help = 'ePub was exported successfully';
+          _this.help = 'ePub successfully created';
         } else {
           _this.help = 'Export failed';
 
@@ -8956,8 +8971,9 @@ var _default = {
           }
         }
 
+        _this.disabled = false;
         setTimeout(function () {
-          _this.help = '';
+          _this.help = _this.userHelp;
         }, 3000);
       }).catch(function (err) {
         console.log({
@@ -8984,14 +9000,24 @@ exports.default = _default;
     "k-field",
     {
       staticClass: "k-export-fied",
-      attrs: { label: _vm.label, help: _vm.help }
+      attrs: {
+        label: _vm.label,
+        disabled: _vm.disabled,
+        required: _vm.required,
+        help: _vm.help
+      }
     },
     [
       _c(
         "k-button",
         {
           staticClass: "k-export-button",
-          attrs: { title: "ePup Export", icon: _vm.icon, theme: "positiv" },
+          attrs: {
+            theme: "positiv",
+            buttonLabel: _vm.buttonLabel,
+            disabled: _vm.disabled,
+            icon: _vm.icon
+          },
           on: { click: _vm.exportEpub }
         },
         [_c("k-button-text", [_vm._v(_vm._s(_vm.buttonLabel))])],
@@ -9075,7 +9101,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53690" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62821" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

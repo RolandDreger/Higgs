@@ -52,4 +52,7 @@ columns:
             buttonLabel: 
               en: "Export ePub"
               de: "ePub exportieren"
+            help: 
+              en: ""
+              de: ""
             icon: upload 

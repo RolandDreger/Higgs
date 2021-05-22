@@ -1,9 +1,17 @@
 <template>
-	<k-field class="k-export-fied" :label="label" :help="help">
-		<k-button class="k-export-button" 
-			title="ePup Export" 
-			:icon="icon" 
+	<k-field 
+		class="k-export-fied" 
+		:label="label" 
+		:disabled="disabled"
+		:required="required"
+		:help="help"
+	>
+		<k-button 
+			class="k-export-button" 
 			theme="positiv"
+			:buttonLabel="buttonLabel"  
+			:disabled="disabled"
+			:icon="icon"
 			@click="exportEpub"
 		><k-button-text>{{ buttonLabel }}</k-button-text></k-button>
 	</k-field>
@@ -13,12 +21,16 @@
 export default {
   props: {
 		label: String,
-		help: String,
 		buttonLabel: String,
+		help: String,
+		disabled: Boolean,
+		required: Boolean,
 		icon: String,
 		endpoints: Object
 	},
-
+	data: {
+		userHelp: String
+	},
 	methods: {
 		exportEpub(event) {
 			var parentPagePath = this.$route.params.path;
@@ -27,7 +39,9 @@ export default {
 				console.error('Page could not found: ' + parentPagePath);
 				return false;
 			}
+			this.userHelp = this.help;
 			this.help = "Export processing ...";
+			this.disabled = true;
 			var postObj = { 
 				'page': parentPagePath
 			};
@@ -35,14 +49,17 @@ export default {
 			.then(resObj => {
 				const errorArray = resObj['data']['errors'];
 				if(errorArray.length === 0) {
-					this.help = 'ePub was exported successfully';
+					this.help = 'ePub successfully created';
 				} else {
 					this.help = 'Export failed';
 					for(let err of errorArray) {
 						console.error(err);
 					}
 				}
-				setTimeout(() => { this.help = ''; }, 3000);
+				this.disabled = false;
+				setTimeout(() => { 
+					this.help = this.userHelp; 
+				}, 3000);
 			})
 			.catch(err => {
 					console.log({ 'Error': err });
