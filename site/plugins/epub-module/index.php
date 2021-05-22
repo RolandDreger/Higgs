@@ -42,7 +42,7 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'fields' => [
-		'epubExport' => __DIR__ . '/fields/epubExport.php'
+		'epubExportButton' => __DIR__ . '/fields/epubExportButton.php'
 	],
 
 	/* Extensions */

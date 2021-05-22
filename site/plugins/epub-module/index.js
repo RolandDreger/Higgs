@@ -9044,7 +9044,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* Panel code */
 panel.plugin("higgs/epub-export", {
   fields: {
-    epubExport: _EpubExportField.default
+    epubExportButton: _EpubExportField.default
   }
 });
 },{"./components/EpubExportField.vue":"components/EpubExportField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
