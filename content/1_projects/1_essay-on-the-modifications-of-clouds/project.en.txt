@@ -47,15 +47,15 @@ Projecttags: Science, Essay, Luke Howard
 
 ----
 
-Metadatatitle: Essay on the Modifications of Clouds
+Metadatatitle: 
 
 ----
 
-Metadataprojectid: urn:isbn:9781234567890
+Metadataid: urn:isbn:9781234567890
 
 ----
 
-Metadataprojectidisisbn: true
+Metadataidisisbn: true
 
 ----
 

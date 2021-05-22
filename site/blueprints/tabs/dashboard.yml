@@ -44,8 +44,8 @@ columns:
       projectExportSection:
         type: fields
         fields:
-          projectEpubExportButton:
-            type: epubExportButton
+          projectEpubExport:
+            type: epubExport
             label: 
               en: "ePub"
               de: "epub"

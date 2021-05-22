@@ -8917,7 +8917,6 @@ var _default = {
     icon: String,
     endpoints: Object
   },
-  data: {},
   methods: {
     exportEpub: function exportEpub(event) {
       var _this = this;
@@ -9045,7 +9044,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* Panel code */
 panel.plugin("higgs/epub-export", {
   fields: {
-    epubExportButton: _EpubExportField.default
+    epubExport: _EpubExportField.default
   }
 });
 },{"./components/EpubExportField.vue":"components/EpubExportField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {

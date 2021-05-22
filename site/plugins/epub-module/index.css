@@ -1,7 +1,7 @@
-/** put your css here **/
 .k-export-button {
   width: 100%;
   text-align: left;
+  vertical-align: middle;
   background: #fff;
   box-shadow: var(--box-shadow-item);
 }
