@@ -1,13 +1,93 @@
 <template>
-  <p>Hello World!</p>
+	<k-field class="k-export-fied" :label="label" :help="help">
+		<k-button class="k-export-button" 
+			title="ePup Export" 
+			:icon="icon" 
+			theme="positiv"
+			@click="exportEpub"
+		>{{ buttonLabel }}</k-button>
+	</k-field>
 </template>
 
 <script>
 export default {
-  /** put your view logic here **/
+  props: {
+		label: String,
+		help: String,
+		buttonLabel: String,
+		icon: String,
+		endpoints: Object
+	},
+	data: {
+    
+  },
+
+	methods: {
+		exportEpub(event) {
+			var parentPagePath = this.$route.params.path;
+			if(!parentPagePath) {
+				this.help = 'Page could not found: ' + parentPagePath;
+				console.error('Page could not found: ' + parentPagePath);
+				return false;
+			}
+			this.help = "Export processing ...";
+			var postObj = { 
+				'page': parentPagePath
+			};
+			this.$api.post(this.endpoints.field + '/export/epub', postObj)
+			.then(resObj => {
+				const errorArray = resObj['data']['errors'];
+				if(errorArray.length === 0) {
+					this.help = 'ePub successfully exported';
+				} else {
+					this.help = 'Export failed';
+					for(let err of errorArray) {
+						console.error(err);
+					}
+				}
+				setTimeout(() => { this.help = ''; }, 3000);
+			})
+			.catch(err => {
+					console.log({ 'Error': err });
+			});
+		}
+	}
 };
 </script>
 
 <style lang="scss">
-/** put your css here **/
+	/** put your css here **/
+	.k-export-fied {
+		
+	}
+	.k-export-button {
+		display: flex;
+		justify-content: start;
+		align-items: center;
+		width: 100%;
+		background: #fff;
+		border-radius: 1px;
+		line-height: 1.25rem;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		box-shadow: 0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px 0 rgba(0,0,0,.06);
+	}
+
+	.k-export-button span {
+		position: relative;
+	}
+
+	.k-export-button span:first-child {
+		width: 38px;
+		height: 38px;
+		background-color: #2b2b2b;
+		line-height: 0;
+		color:#fff;
+	}
+
+	.k-export-button span:last-child {
+		
+	}
+	
 </style>

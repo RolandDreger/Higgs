@@ -8891,12 +8891,82 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
 //
 var _default = {
-  /** put your view logic here **/
+  props: {
+    label: String,
+    help: String,
+    buttonLabel: String,
+    icon: String,
+    endpoints: Object
+  },
+  data: {},
+  methods: {
+    exportEpub: function exportEpub(event) {
+      var _this = this;
+
+      var parentPagePath = this.$route.params.path;
+
+      if (!parentPagePath) {
+        this.help = 'Page could not found: ' + parentPagePath;
+        console.error('Page could not found: ' + parentPagePath);
+        return false;
+      }
+
+      this.help = "Export processing ...";
+      var postObj = {
+        'page': parentPagePath
+      };
+      this.$api.post(this.endpoints.field + '/export/epub', postObj).then(function (resObj) {
+        var errorArray = resObj['data']['errors'];
+
+        if (errorArray.length === 0) {
+          _this.help = 'ePub successfully exported';
+        } else {
+          _this.help = 'Export failed';
+
+          var _iterator = _createForOfIteratorHelper(errorArray),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var err = _step.value;
+              console.error(err);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+
+        setTimeout(function () {
+          _this.help = '';
+        }, 3000);
+      }).catch(function (err) {
+        console.log({
+          'Error': err
+        });
+      });
+    }
+  }
 };
 exports.default = _default;
         var $ea81dd = exports.default || module.exports;
@@ -8911,7 +8981,25 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("Hello World!")])
+  return _c(
+    "k-field",
+    {
+      staticClass: "k-export-fied",
+      attrs: { label: _vm.label, help: _vm.help }
+    },
+    [
+      _c(
+        "k-button",
+        {
+          staticClass: "k-export-button",
+          attrs: { title: "ePup Export", icon: _vm.icon, theme: "positiv" },
+          on: { click: _vm.exportEpub }
+        },
+        [_vm._v(_vm._s(_vm.buttonLabel))]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8956,7 +9044,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* Panel code */
 panel.plugin("higgs/epub-export", {
   fields: {
-    epub: _EpubExportField.default
+    epubExport: _EpubExportField.default
   }
 });
 },{"./components/EpubExportField.vue":"components/EpubExportField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -8987,7 +9075,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60588" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53690" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

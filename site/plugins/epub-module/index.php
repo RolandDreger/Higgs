@@ -42,10 +42,9 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'fields' => [
-		'epub' => [
-			/* Backend logic goes here */
-		]
+		'epubExport' => __DIR__ . '/fields/epubExport.php'
 	],
+
 	/* Extensions */
 	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php',
 	'pageMethods' => include __DIR__ . '/extensions/pageMethods.php',

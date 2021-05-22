@@ -44,15 +44,12 @@ columns:
       projectExportSection:
         type: fields
         fields:
-          projectExportHeadline:
-            type: headline
-            label:
-              en: "Export"
-              de: "Export"
-            numbered: false
           projectEpubExportButton:
-            type: epub
-            label:
-              en: ePub
-              de: ePub
-          
+            type: epubExport
+            label: 
+              en: "ePub"
+              de: "epub"
+            buttonLabel: 
+              en: "Export"
+              de: "Exportieren"
+            icon: upload 
