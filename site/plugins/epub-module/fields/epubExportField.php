@@ -1,7 +1,6 @@
 <?php
 
 return [
-	/* Backend logic goes here */
 	'props' => [
 		'buttonLabel' => function($buttonLabel) {
 			return I18n::translate($buttonLabel, $buttonLabel);
