@@ -37,38 +37,49 @@ export default {
 	},
 	methods: {
 		exportEpub(event) {
+			
 			var parentPagePath = this.$route.params.path;
 			if(!parentPagePath) {
 				this.help = 'Page could not found: ' + parentPagePath;
 				console.error('Page could not found: ' + parentPagePath);
 				return false;
 			}
+			
 			this.userHelp = this.help;
-			this.help = "Export processing ...";
+			this.help = 'Export processing ...';
 			this.disabled = true;
+			
 			var postObj = { 
 				'page': parentPagePath
 			};
+			
 			this.$api.post(this.endpoints.field + '/export/epub', postObj)
 			.then(resObj => {
+				
 				const errorArray = resObj['data']['errors'];
 				if(errorArray.length === 0) {
+					/* Success */
 					const epubUrl = resObj['data']['url'];
 					const epubFileName = resObj['data']['fileName'];
-					this.help = `Exported to content folder. Download: <a href="${epubUrl}" type="application/epub+zip" download="${epubFileName}">ePub</a>`;
+					this.$store.dispatch('notification/success', 'ePub exported to content folder');
+					this.help = `Download: <a href="${epubUrl}" type="application/epub+zip" download="${epubFileName}">ePub</a>`;
 				} else {
-					this.help = 'Export failed';
+					/* Error */
+					this.$store.dispatch('notification/error', 'Export failed');
+					this.help = '';
 					for(let err of errorArray) {
 						console.error(err);
 					}
 				}
+				
 				this.disabled = false;
+				
 				setTimeout(() => { 
 					this.help = this.userHelp; 
 				}, 4000);
 			})
 			.catch(err => {
-					console.log({ 'Error': err });
+					console.error(err);
 			});
 		}
 	}

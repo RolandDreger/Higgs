@@ -8947,7 +8947,7 @@ var _default = {
       }
 
       this.userHelp = this.help;
-      this.help = "Export processing ...";
+      this.help = 'Export processing ...';
       this.disabled = true;
       var postObj = {
         'page': parentPagePath
@@ -8956,11 +8956,18 @@ var _default = {
         var errorArray = resObj['data']['errors'];
 
         if (errorArray.length === 0) {
+          /* Success */
           var epubUrl = resObj['data']['url'];
           var epubFileName = resObj['data']['fileName'];
-          _this.help = "Exported to content folder. Download: <a href=\"".concat(epubUrl, "\" type=\"application/epub+zip\" download=\"").concat(epubFileName, "\">ePub</a>");
+
+          _this.$store.dispatch('notification/success', 'ePub exported to content folder');
+
+          _this.help = "Download: <a href=\"".concat(epubUrl, "\" type=\"application/epub+zip\" download=\"").concat(epubFileName, "\">ePub</a>");
         } else {
-          _this.help = 'Export failed';
+          /* Error */
+          _this.$store.dispatch('notification/error', 'Export failed');
+
+          _this.help = '';
 
           var _iterator = _createForOfIteratorHelper(errorArray),
               _step;
@@ -8982,9 +8989,7 @@ var _default = {
           _this.help = _this.userHelp;
         }, 4000);
       }).catch(function (err) {
-        console.log({
-          'Error': err
-        });
+        console.error(err);
       });
     }
   }
