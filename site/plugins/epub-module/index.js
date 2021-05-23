@@ -8884,7 +8884,7 @@ if (inBrowser) {
 
 var _default = Vue;
 exports.default = _default;
-},{}],"components/EpubExportField.vue":[function(require,module,exports) {
+},{}],"components/fields/EpubExportField.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8898,6 +8898,8 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
+//
+//
 //
 //
 //
@@ -8952,7 +8954,7 @@ var _default = {
         var errorArray = resObj['data']['errors'];
 
         if (errorArray.length === 0) {
-          _this.help = 'ePub successfully created';
+          _this.help = 'ePub exported to content folder';
         } else {
           _this.help = 'Export failed';
 
@@ -8984,14 +8986,14 @@ var _default = {
   }
 };
 exports.default = _default;
-        var $ea81dd = exports.default || module.exports;
+        var $e32a6e = exports.default || module.exports;
       
-      if (typeof $ea81dd === 'function') {
-        $ea81dd = $ea81dd.options;
+      if (typeof $e32a6e === 'function') {
+        $e32a6e = $e32a6e.options;
       }
     
         /* template */
-        Object.assign($ea81dd, (function () {
+        Object.assign($e32a6e, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -9047,9 +9049,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$ea81dd', $ea81dd);
+            api.createRecord('$e32a6e', $e32a6e);
           } else {
-            api.reload('$ea81dd', $ea81dd);
+            api.reload('$e32a6e', $e32a6e);
           }
         }
 
@@ -9063,7 +9065,7 @@ render._withStripped = true
 },{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-var _EpubExportField = _interopRequireDefault(require("./components/EpubExportField.vue"));
+var _EpubExportField = _interopRequireDefault(require("./components/fields/EpubExportField.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9073,7 +9075,7 @@ panel.plugin("higgs/epub-export", {
     epubExport: _EpubExportField.default
   }
 });
-},{"./components/EpubExportField.vue":"components/EpubExportField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./components/fields/EpubExportField.vue":"components/fields/EpubExportField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9101,7 +9103,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50644" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52041" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

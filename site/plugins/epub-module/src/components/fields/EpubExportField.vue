@@ -13,7 +13,9 @@
 			:disabled="disabled"
 			:icon="icon"
 			@click="exportEpub"
-		><k-button-text>{{ buttonLabel }}</k-button-text></k-button>
+		>
+			<k-button-text>{{ buttonLabel }}</k-button-text>
+		</k-button>
 	</k-field>
 </template>
 
@@ -49,7 +51,7 @@ export default {
 			.then(resObj => {
 				const errorArray = resObj['data']['errors'];
 				if(errorArray.length === 0) {
-					this.help = 'ePub successfully created';
+					this.help = 'ePub exported to content folder';
 				} else {
 					this.help = 'Export failed';
 					for(let err of errorArray) {

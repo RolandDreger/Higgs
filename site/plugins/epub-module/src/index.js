@@ -1,4 +1,4 @@
-import EpubExportField from "./components/EpubExportField.vue";
+import EpubExportField from "./components/fields/EpubExportField.vue";
 
 /* Panel code */
 panel.plugin("higgs/epub-export", {
