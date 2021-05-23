@@ -1,5 +1,6 @@
 ﻿# OS
-**/.DS_Store
+Icon
+.DS_Store
 
 # VS Code
 higgs.code-workspace
@@ -10,6 +11,14 @@ vendor/
 
 # npm
 node_modules/
+/site/plugins/*/node_modules
+
+# Parcel cache folder
+/.cache
+/site/plugins/*/.cache
+
+# Composer files
+/site/plugins/*/vendor
 
 # Kirby
 kirby/
