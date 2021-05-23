@@ -14,7 +14,7 @@ columns:
               de: "Allgemeine Einstellungen"
             numbered: false
           epubName:
-            type: text
+            type: epubFileName
             label:
               en: "File Name"
               de: "Dateiname"

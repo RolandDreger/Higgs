@@ -9067,20 +9067,162 @@ render._withStripped = true
       
       }
     })();
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"components/fields/EpubFileNameField.vue":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var _default = {
+  props: {
+    label: String,
+    help: String,
+    disabled: Boolean,
+    required: Boolean,
+    before: String,
+    after: String,
+    placeholder: String,
+    icon: String,
+    when: String,
+    value: String
+  },
+  computed: {
+    slugValue: function slugValue() {
+      var lowerCaseValue = this.value.toLowerCase();
+      return this.$helper.slug(lowerCaseValue, [{
+        'ß': 'sz'
+      }, {
+        'ä': 'ae'
+      }, {
+        'ö': 'oe'
+      }, {
+        'ü': 'ue'
+      }]);
+    }
+  },
+  methods: {
+    onInput: function onInput(value) {
+      this.$emit("input", value);
+    }
+  }
+};
+exports.default = _default;
+        var $1450e2 = exports.default || module.exports;
+      
+      if (typeof $1450e2 === 'function') {
+        $1450e2 = $1450e2.options;
+      }
+    
+        /* template */
+        Object.assign($1450e2, (function () {
+          var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "k-field",
+    {
+      staticClass: "k-epub-file-name-field",
+      attrs: {
+        label: _vm.label,
+        help: _vm.help,
+        disabled: _vm.disabled,
+        required: _vm.required,
+        when: _vm.when
+      }
+    },
+    [
+      _c("k-input", {
+        attrs: {
+          type: "text",
+          theme: "field",
+          name: "textfield",
+          before: _vm.before,
+          after: _vm.after,
+          placeholder: _vm.placeholder,
+          icon: _vm.icon,
+          value: _vm.slugValue
+        },
+        on: { input: _vm.onInput }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+          return {
+            render: render,
+            staticRenderFns: staticRenderFns,
+            _compiled: true,
+            _scopeId: null,
+            functional: undefined
+          };
+        })());
+      
+    /* hot reload */
+    (function () {
+      if (module.hot) {
+        var api = require('vue-hot-reload-api');
+        api.install(require('vue'));
+        if (api.compatible) {
+          module.hot.accept();
+          if (!module.hot.data) {
+            api.createRecord('$1450e2', $1450e2);
+          } else {
+            api.reload('$1450e2', $1450e2);
+          }
+        }
+
+        
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
+      }
+    })();
 },{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _EpubExportField = _interopRequireDefault(require("./components/fields/EpubExportField.vue"));
+
+var _EpubFileNameField = _interopRequireDefault(require("./components/fields/EpubFileNameField.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* Panel code */
 panel.plugin("higgs/epub-export", {
   fields: {
-    epubExport: _EpubExportField.default
+    epubExport: _EpubExportField.default,
+    epubFileName: _EpubFileNameField.default
   }
 });
-},{"./components/fields/EpubExportField.vue":"components/fields/EpubExportField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./components/fields/EpubExportField.vue":"components/fields/EpubExportField.vue","./components/fields/EpubFileNameField.vue":"components/fields/EpubFileNameField.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9108,7 +9250,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52041" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57032" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

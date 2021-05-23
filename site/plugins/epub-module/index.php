@@ -42,7 +42,8 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'fields' => [
-		'epubExport' => __DIR__ . '/fields/epubExportField.php'
+		'epubExport' => __DIR__ . '/fields/epubExportField.php',
+		'epubFileName' => __DIR__ . '/fields/epubFileNameField.php'
 	],
 
 	/* Extensions */
