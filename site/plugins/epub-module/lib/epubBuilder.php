@@ -19,6 +19,7 @@ use XSLTProcessor;
  * $epubBuilder->createEpub();
  * 
  * Options:
+ * 'formatOutput': format generated XML files 
  * 'parent': Export folder page (default projectPage)
  */
 
@@ -303,7 +304,7 @@ class EpubBuilder {
 			/* Cover */
 			if($this->hasCover) {
 				$coverFile = $this->coverFile;
-				if(empty($coverFile) || !$coverFile->exists()) {
+				if(empty($coverFile)) {
 					array_push($this->errors, "Cover file does not exists");
 				} else {
 					/* cover.xhtml */

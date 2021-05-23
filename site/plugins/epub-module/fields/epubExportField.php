@@ -1,6 +1,7 @@
 <?php
 
 return [
+
 	'props' => [
 		'buttonLabel' => function($buttonLabel) {
 			return I18n::translate($buttonLabel, $buttonLabel);
@@ -12,7 +13,7 @@ return [
 			return option('higgs.epub-module.apiPrefix', 'higgs');
 		}
 	],
-	/* Field API */
+
 	'api' => function () {
 		
 		$apiPrefix = option('higgs.epub-module.apiPrefix', 'higgs');

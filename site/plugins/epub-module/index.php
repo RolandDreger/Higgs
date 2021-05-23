@@ -9,7 +9,7 @@ load([
 Kirby::plugin('higgs/epub-module', [
 	
 	'options' => [
-		'apiPrefix' => 'higgs' /* used as prefix for plugin api endpoints */
+		'apiPrefix' => 'higgs' /* used as a prefix for plugin api endpoints */
 	],
 
 	'snippets' => [

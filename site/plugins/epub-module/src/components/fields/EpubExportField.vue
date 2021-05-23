@@ -41,7 +41,6 @@ export default {
 			
 			const parentPagePath = this.$route.params.path;
 			if(!parentPagePath) {
-				this.help = 'Page could not found: ' + parentPagePath;
 				console.error('Page could not found: ' + parentPagePath);
 				return false;
 			}
