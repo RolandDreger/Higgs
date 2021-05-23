@@ -8919,11 +8919,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 var _default = {
   props: {
     label: String,
     buttonLabel: String,
     help: String,
+    tooltip: String,
     disabled: Boolean,
     required: Boolean,
     icon: String,
@@ -8954,7 +8956,9 @@ var _default = {
         var errorArray = resObj['data']['errors'];
 
         if (errorArray.length === 0) {
-          _this.help = 'ePub exported to content folder';
+          var epubUrl = resObj['data']['url'];
+          var epubFileName = resObj['data']['fileName'];
+          _this.help = "Exported to content folder. Download: <a href=\"".concat(epubUrl, "\" type=\"application/epub+zip\" download=\"").concat(epubFileName, "\">ePub</a>");
         } else {
           _this.help = 'Export failed';
 
@@ -8976,7 +8980,7 @@ var _default = {
         _this.disabled = false;
         setTimeout(function () {
           _this.help = _this.userHelp;
-        }, 3000);
+        }, 4000);
       }).catch(function (err) {
         console.log({
           'Error': err
@@ -9018,7 +9022,8 @@ exports.default = _default;
             theme: "positiv",
             buttonLabel: _vm.buttonLabel,
             disabled: _vm.disabled,
-            icon: _vm.icon
+            icon: _vm.icon,
+            tooltip: _vm.tooltip
           },
           on: { click: _vm.exportEpub }
         },

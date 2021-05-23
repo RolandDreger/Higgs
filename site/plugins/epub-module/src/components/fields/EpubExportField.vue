@@ -12,6 +12,7 @@
 			:buttonLabel="buttonLabel"  
 			:disabled="disabled"
 			:icon="icon"
+			:tooltip="tooltip"
 			@click="exportEpub"
 		>
 			<k-button-text>{{ buttonLabel }}</k-button-text>
@@ -25,6 +26,7 @@ export default {
 		label: String,
 		buttonLabel: String,
 		help: String,
+		tooltip: String,
 		disabled: Boolean,
 		required: Boolean,
 		icon: String,
@@ -51,7 +53,9 @@ export default {
 			.then(resObj => {
 				const errorArray = resObj['data']['errors'];
 				if(errorArray.length === 0) {
-					this.help = 'ePub exported to content folder';
+					const epubUrl = resObj['data']['url'];
+					const epubFileName = resObj['data']['fileName'];
+					this.help = `Exported to content folder. Download: <a href="${epubUrl}" type="application/epub+zip" download="${epubFileName}">ePub</a>`;
 				} else {
 					this.help = 'Export failed';
 					for(let err of errorArray) {
@@ -61,7 +65,7 @@ export default {
 				this.disabled = false;
 				setTimeout(() => { 
 					this.help = this.userHelp; 
-				}, 3000);
+				}, 4000);
 			})
 			.catch(err => {
 					console.log({ 'Error': err });

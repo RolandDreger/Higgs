@@ -55,4 +55,7 @@ columns:
             help: 
               en: ""
               de: ""
-            icon: upload 
+            icon: upload
+            tooltip: 
+              en: ""
+              de: ""

@@ -54,11 +54,13 @@ class EpubBuilder {
 	
 	public $parentPage;
 	public $epubName;
+	public $epubFileName;
 	public $epubVersion;
 	public $epubLang;
 	public $projectDate;
 	public $projectTitle;
-	
+	public $epubUrl;
+
 	public $metadataTitle;
 	public $metadataID;
 	public $metadataCreator;
@@ -132,7 +134,8 @@ class EpubBuilder {
 		} else {
 			$epubName = $projectPage->slug();
 		}
-		$this->epubName = $epubName . '.epub';
+		$this->epubName = $epubName;
+		$this->epubFileName = $epubName . '.epub';
 		
 		/* CSS Files */
 		$cssFilesField = $projectPage->epubCSSFiles();
@@ -222,32 +225,32 @@ class EpubBuilder {
 
 		$this->projectDate = strftime('%Y-%m-%dT%H:%M:%SZ'); /* '2021-04-01T10:22:53Z' */
 
-		$epubName = $this->epubName;
+		$epubFileName = $this->epubFileName;
 		$projectPage = $this->projectPage;
 		
 		/* Delete ePub (if already exists) */
-		$epubFile = $projectPage->file($epubName);
+		$epubFile = $projectPage->file($epubFileName);
 		if($epubFile !== null && $epubFile->exists()) {
 			$isDeleted = $epubFile->delete();
 			if(!$isDeleted) {
-				array_push($this->errors, "File could not be deleted: {$epubName}");
+				array_push($this->errors, "File could not be deleted: {$epubFileName}");
 				return $this;
 			}
 		}
 		
 		/* Create ePub (based on template) */
-		$epubFile = $projectPage->file($epubName);
+		$epubFile = $projectPage->file($epubFileName);
 		if(!$epubFile || !$epubFile->exists()) {
 			$templateFilePath = $this->templateFilePath;
 			$epubFile = File::create([
 				'source' => $templateFilePath,
 				'parent' => $projectPage,
-				'filename' => $epubName,
+				'filename' => $epubFileName,
 				'template' => 'epub',
 				'content' => []
 			]);
 			if(!$epubFile->exists()) {
-				array_push($this->errors, "File could not be created: {$epubName}");
+				array_push($this->errors, "File could not be created: {$epubFileName}");
 				return $this;
 			}
 		}
@@ -365,6 +368,8 @@ class EpubBuilder {
 				$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFileName, 'ops');
 				$epub->addFile($fontRealPath, $fontArchivePath);
 			}
+
+			$this->epubUrl = $epubFile->url();
 
 		} catch(Exception $error) {
 			array_push($this->errors, $error->getMessage());
