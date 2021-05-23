@@ -25,16 +25,16 @@ columns:
             label: 
               en: "Project ID"
               de: "Project-ID"
-          metadataIDIsISBN:
-            type: toggle
+          metadataIDType:
+            type: select
             label: 
-              en: "Project ID is ISBN number?"
-              de: "Project-ID ist ISBN-Nummer?"
-            text:
-              - en: "No"
-                de: "Nein"
-              - en: "Yes"
-                de: "Ja"
+              en: "Project ID Type"
+              de: "Project-ID Typ"
+            options:
+              - "ISBN"
+              - "ISSN"
+              - "DOI"
+              - "URI"
   - width: 2/3
     sections:
       metadataOptional:

@@ -62,7 +62,7 @@ class EpubBuilder {
 	public $metadataTitle;
 	public $metadataID;
 	public $metadataCreator;
-	public $metadataIDIsISBN;
+	public $metadataIDType;
 	public $metadataRights;
 	public $metadataContributor;
 	public $metadataDate;
@@ -202,14 +202,7 @@ class EpubBuilder {
 		}
 		$this->metadataID = $projectPage->metadataID()->value();
 		$this->metadataCreator = $projectPage->metadataCreator()->value();
-		$metadataIDIsISBNField = $projectPage->metadataIDIsISBN();
-		if($metadataIDIsISBNField->exists()) {
-			if($metadataIDIsISBNField->value() === 'true') {
-				$this->metadataIDIsISBN = true;
-			} else {
-				$this->metadataIDIsISBN = false;
-			}
-		}
+		$this->metadataIDType = $projectPage->metadataIDType()->value();
 		$this->metadataRights = $projectPage->metadataRights()->value();
 		$this->metadataContributor = $projectPage->metadataContributor()->value();
 		$this->metadataDate = $projectPage->metadataDate()->value();
@@ -559,8 +552,31 @@ class EpubBuilder {
 		/* Meta Elements (required) */
 		if($this->checkVersion(3)) {
 			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#opf_title'],['name' => 'property', 'value' => 'title-type']], 'main');
-			if($this->metadataIDIsISBN) {
-				$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#bookid'],['name' => 'property', 'value' => 'identifier-type'],['name' => 'scheme', 'value' => 'onix:codelist5']], '15');
+			if(!empty($this->metadataIDType)) {
+				$metadataIDType = $this->metadataIDType;
+				switch($metadataIDType) {
+					case 'ISBN':
+						$typeCode = '15';
+						$marcIdentifier = 'onix:codelist5';
+						break;
+					case 'ISSN':
+						$typeCode = '02';
+						$marcIdentifier = 'onix:codelist5';
+						break;
+					case 'DOI':
+						$typeCode = '06';
+						$marcIdentifier = 'onix:codelist5';
+						break;
+					case 'URI':
+						$typeCode = 'uri';
+						$marcIdentifier = 'marc:identifiers';
+						break;
+					default:
+						$typeCode = '';
+				}
+				if(!empty($typeCode)) {
+					$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'refines', 'value' => '#bookid'],['name' => 'property', 'value' => 'identifier-type'],['name' => 'scheme', 'value' => $marcIdentifier]], $typeCode);
+				}
 			}
 			$metaModifiedElement = $this->addElement($doc, $metadataElement, 'meta', [['name' => 'property', 'value' => 'dcterms:modified']], $this->projectDate);
 		}
