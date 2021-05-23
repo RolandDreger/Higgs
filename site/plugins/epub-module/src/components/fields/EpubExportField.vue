@@ -29,6 +29,7 @@ export default {
 		tooltip: String,
 		disabled: Boolean,
 		required: Boolean,
+		apiPrefix: String,
 		icon: String,
 		endpoints: Object
 	},
@@ -38,7 +39,7 @@ export default {
 	methods: {
 		exportEpub(event) {
 			
-			var parentPagePath = this.$route.params.path;
+			const parentPagePath = this.$route.params.path;
 			if(!parentPagePath) {
 				this.help = 'Page could not found: ' + parentPagePath;
 				console.error('Page could not found: ' + parentPagePath);
@@ -49,11 +50,14 @@ export default {
 			this.help = 'Export processing ...';
 			this.disabled = true;
 			
-			var postObj = { 
+			const postObj = { 
 				'page': parentPagePath
 			};
 			
-			this.$api.post(this.endpoints.field + '/export/epub', postObj)
+			const apiPrefix = this.apiPrefix;
+			const apiUrl = this.endpoints.field + `/${apiPrefix}/export/epub`;
+
+			this.$api.post(apiUrl, postObj)
 			.then(resObj => {
 				
 				const errorArray = resObj['data']['errors'];

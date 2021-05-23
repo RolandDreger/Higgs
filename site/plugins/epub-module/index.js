@@ -8928,6 +8928,7 @@ var _default = {
     tooltip: String,
     disabled: Boolean,
     required: Boolean,
+    apiPrefix: String,
     icon: String,
     endpoints: Object
   },
@@ -8952,7 +8953,9 @@ var _default = {
       var postObj = {
         'page': parentPagePath
       };
-      this.$api.post(this.endpoints.field + '/export/epub', postObj).then(function (resObj) {
+      var apiPrefix = this.apiPrefix;
+      var apiUrl = this.endpoints.field + "/".concat(apiPrefix, "/export/epub");
+      this.$api.post(apiUrl, postObj).then(function (resObj) {
         var errorArray = resObj['data']['errors'];
 
         if (errorArray.length === 0) {
