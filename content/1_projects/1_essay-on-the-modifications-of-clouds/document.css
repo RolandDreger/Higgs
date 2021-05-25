@@ -1,3 +1,7 @@
+html, body {
+	height: 100%;
+}
+
 body {
 	font-family: 'Vollkorn', 'Georgia', serif;
 	font-size: 1.2rem;
@@ -29,6 +33,14 @@ figcaption {
 	font-size: 1rem;
 }
 
+.cover {
+	height: 100%;
+}
+
+.cover img {
+	max-height: 100%;
+	max-width: 100%;
+}
 
 /* vollkorn-regular - latin */
 @font-face {

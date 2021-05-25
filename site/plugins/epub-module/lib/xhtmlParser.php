@@ -21,9 +21,14 @@ class XhtmlParser {
 	public $saveXMLOptions;
 	public $errors = [];
 	
+	private $phpVersionID;
 	private $formatOutput = false;
 
 	public function __construct($options = 0) {
+		/* PHP Version */
+		$versionArray = explode('.', PHP_VERSION);
+		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
+		/* Options */
 		$this->saveXMLOptions = $options;
 	}
 
@@ -58,15 +63,17 @@ class XhtmlParser {
 			return null;
 		}
 		
+		if($this->phpVersionID < 80000) {
+			$isEntityLoaderDisabledOldValue = libxml_disable_entity_loader(true);
+		}
+
 		/* 
 			Enables libxml errors handling  
 			(HTML5 elements – e.g. main, footer, ... – trigger error messages)
 		*/
-		$internalErrorsOptionValue = libxml_use_internal_errors();
-		if($internalErrorsOptionValue === false) {
-				libxml_use_internal_errors(true);
-		}
-
+		$internalErrorsOptionOldValue = libxml_use_internal_errors();
+		libxml_use_internal_errors(true);
+		
 		$htmDocument = new DOMDocument();
 
 		$htmDocument->xmlVersion = '1.0';
@@ -75,15 +82,22 @@ class XhtmlParser {
 		$htmDocument->preserveWhiteSpace = true;
 		$htmDocument->strictErrorChecking = false;
 
-		$htmDocument->loadHTML('<meta charset=\"UTF-8\"/>' . $html);
+		try {
+			
+			$htmDocument->loadHTML('<meta charset=\"UTF-8\"/>' . $html);
+			
+			$libxmlErrors = libxml_get_errors();
+			$this->errors = array_merge($this->errors, $libxmlErrors);
 
-		$libxmlErrors = libxml_get_errors();
-		$this->errors = array_merge($this->errors, $libxmlErrors);
-
-		libxml_clear_errors();
-	
-		if($internalErrorsOptionValue === false) {
-			libxml_use_internal_errors(false);
+			libxml_clear_errors();
+		} catch(Exception $error) {
+			$errorMessage = $error->getMessage();
+			array_push($this->errors, "XSL transformation of content failed. Error: {$errorMessage}");
+		} finally {
+			libxml_use_internal_errors($internalErrorsOptionOldValue);
+			if($this->phpVersionID < 80000) {
+				libxml_disable_entity_loader($isEntityLoaderDisabledOldValue);
+			}
 		}
 
 		return $htmDocument;
