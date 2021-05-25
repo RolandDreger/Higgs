@@ -121,8 +121,8 @@ class XhtmlParser {
 		
 		/* HTML Element */
 		$rootElement = $xhtmlDocument->documentElement;
-		$rootElement->setAttribute('xml:lang', $lang);
-		$rootElement->setAttribute('lang', $lang);
+		$rootElement->setAttribute('xml:lang', esc($lang, 'attr'));
+		$rootElement->setAttribute('lang', esc($lang, 'attr'));
 
 		/* HEAD Element */
 		$headElement = $xhtmlDocument->createElement('head');
