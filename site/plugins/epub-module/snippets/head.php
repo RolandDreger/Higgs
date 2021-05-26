@@ -1,5 +1,5 @@
 <head>
-	<meta charset="UFT-8" />
+	<meta charset="UTF-8" />
 	<title><?= $page->title(); ?></title>
 	<?php
 		
