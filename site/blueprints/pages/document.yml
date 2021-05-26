@@ -103,9 +103,9 @@ columns:
               de: Rolle
             options: query
             query: 
-              fetch: site.siteDocumentTypes.split
+              fetch: site.siteDocumentRoles.split
               value: "{{ arrayItem.value }}"
-              text: "{{ arrayItem.value.translate() }}"
+              text: "{{ arrayItem.value }}"
             help: 
               en: e.g. for role attribute in ePubs
               de: z.B. für role-Atribite in ePubs
