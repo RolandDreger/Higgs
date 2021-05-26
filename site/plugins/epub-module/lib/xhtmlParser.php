@@ -33,12 +33,20 @@ class XhtmlParser {
 	public function __construct($options = 0) {
 
 		/* PHP Version */
-		$versionArray = explode('.', PHP_VERSION);
-		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
+		$this->phpVersionID = $this->getPhpVersionID();
 
 		/* Options */
 		$this->saveXMLOptions = $options;
 	}
+
+	private function getPhpVersionID() {
+
+		$versionArray = explode('.', PHP_VERSION);
+		$phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
+
+		return $phpVersionID;
+	}
+
 
 	protected function createHtmlDocument($html = '') {
 		
@@ -228,7 +236,7 @@ class XhtmlParser {
 		return $bodyNode;
 	}
 
-	private function checkDoctype($xml, $isStrictCheck = true) {
+	protected function checkDoctype($xml, $isStrictCheck = true) {
 
 		/* XML String */
 		if(is_string($xml)) {
