@@ -50,7 +50,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✗
+Documentstatus: ✓
 
 ----
 
@@ -70,4 +70,4 @@ Documenttype: titlepage
 
 ----
 
-Documentrole: titlepage
+Documentrole: 

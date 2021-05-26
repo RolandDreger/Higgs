@@ -111,7 +111,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ?
+Documentstatus: ✓
 
 ----
 
@@ -131,4 +131,4 @@ Documenttype:
 
 ----
 
-Documentrole: 
+Documentrole: doc-glossary

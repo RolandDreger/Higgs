@@ -135,4 +135,4 @@ Documenttype:
 
 ----
 
-Documentrole: 
+Documentrole: doc-chapter

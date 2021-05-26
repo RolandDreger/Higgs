@@ -55,7 +55,7 @@ Metadataid: urn:isbn:9781234567890
 
 ----
 
-Metadataidtype: 
+Metadataidtype: ISBN
 
 ----
 

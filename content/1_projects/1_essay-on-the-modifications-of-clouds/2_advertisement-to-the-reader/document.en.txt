@@ -69,4 +69,4 @@ Documenttype: frontmatter, prologue
 
 ----
 
-Documentrole: 
+Documentrole: contentinfo

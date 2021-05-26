@@ -37,4 +37,4 @@ Documenttype: bodymatter
 
 ----
 
-Documentrole: bodymatter
+Documentrole: doc-chapter

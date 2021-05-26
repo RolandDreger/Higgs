@@ -142,4 +142,4 @@ Documenttype: preface
 
 ----
 
-Documentrole: preface
+Documentrole: doc-preface
