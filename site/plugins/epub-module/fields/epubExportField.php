@@ -36,7 +36,8 @@ return [
 
 					/* Create ePub from child pages */
 					$options = [
-						'formatOutput' => false
+						'formatOutput' => false,
+						'overwrite' => true
 					];
 
 					$epubBuilder = new Higgs\Epub\EpubBuilder($parentPage, $options);

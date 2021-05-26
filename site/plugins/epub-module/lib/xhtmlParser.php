@@ -55,7 +55,7 @@ class XhtmlParser {
 
 		/* Defens Against XML Entity Expansion */
 		if($this->phpVersionID < 80000) {
-			$isEntityLoaderDisabledOldValue = libxml_disable_entity_loader(true);
+			$isEntityLoaderDisabledPrevValue = libxml_disable_entity_loader(true);
 		}
 
 		/* 
@@ -90,7 +90,7 @@ class XhtmlParser {
 
 			libxml_use_internal_errors($internalErrorsOptionOldValue);
 			if($this->phpVersionID < 80000) {
-				libxml_disable_entity_loader($isEntityLoaderDisabledOldValue);
+				libxml_disable_entity_loader($isEntityLoaderDisabledPrevValue);
 			}
 
 		}

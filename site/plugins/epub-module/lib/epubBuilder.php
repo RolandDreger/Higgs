@@ -10,6 +10,7 @@ use File;
 use Remote;
 use Xml;
 use XSLTProcessor;
+use DateTime;
 use Kirby\Toolkit\Str;
 
 /**
@@ -26,6 +27,7 @@ use Kirby\Toolkit\Str;
  * Options:
  * 'formatOutput': format generated XML files 
  * 'parent': Export folder page (default projectPage)
+ * 'overwrite': Overwrite existing ePub
  * 
  * @author Roland Dreger <roland.dreger@a1.net>
  */
@@ -44,6 +46,7 @@ class EpubBuilder {
 	const COVER_DOCUMENT_NAME = 'cover.xhtml';
 
 	private $phpVersionID;
+	private $isToOverwrite;
 	private $projectPage;
 	private $formatOutput;
 	private $docPages = [];
@@ -88,6 +91,18 @@ class EpubBuilder {
 			trigger_error("First parameter must be an page object.");
 		}
 
+		/* PHP Version */
+		$versionArray = explode('.', PHP_VERSION);
+		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
+		
+		/* ePub Version */
+		$epubVersion = $projectPage->epubVersion();
+		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
+			$this->epubVersion = $epubVersion->value();
+		} else {
+			$this->epubVersion = '3.0';
+		}
+
 		/* Template Path */
 		$this->templateFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::TEMPLATE_FILE_RELATIVE_PATH;
 		if(!file_exists($this->templateFilePath)) {
@@ -106,24 +121,13 @@ class EpubBuilder {
 		}
 
 
-		/* PHP Version */
-		$versionArray = explode('.', PHP_VERSION);
-		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
-    
-		/* ePub Version */
-		$epubVersion = $projectPage->epubVersion();
-		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
-			$this->epubVersion = $epubVersion->value();
-		} else {
-			$this->epubVersion = '3.0';
-		}
-
-		
 		/* Source: Subpages are the content documents */
 		$this->projectPage = $projectPage;
 
 		/* Destination: Export folder page  */
 		$this->parentPage = $options['parent'] ?? $projectPage;
+
+		/* Format Output */
 		$optionFormatOutput = $options['formatOutput'];
 		if(empty($optionFormatOutput) || !is_bool($optionFormatOutput)) {
 			$this->formatOutput = false;
@@ -150,6 +154,14 @@ class EpubBuilder {
 		}
 		$this->epubName = $epubName;
 		$this->epubFileName = $epubName . '.epub';
+
+		/* Overwrite existing ePub */
+		$isToOverwrite = $options['overwrite'];
+		if(empty($isToOverwrite) || !is_bool($isToOverwrite)) {
+			$this->isToOverwrite = false;
+		} else {
+			$this->isToOverwrite = $isToOverwrite;
+		}
 		
 		/* CSS Files */
 		$cssFilesField = $projectPage->epubCSSFiles();
@@ -242,15 +254,19 @@ class EpubBuilder {
 
 		$epubFileName = $this->epubFileName;
 		$projectPage = $this->projectPage;
-		
-		/* Delete ePub (if already exists) */
-		$epubFile = $projectPage->file($epubFileName);
-		if($epubFile !== null && $epubFile->exists()) {
-			$isDeleted = $epubFile->delete();
-			if(!$isDeleted) {
-				array_push($this->errors, "File could not be deleted: {$epubFileName}");
-				return $this;
+
+		/* Check: Delete existing ePub? */
+		if($this->isToOverwrite === true) {
+			$epubFile = $projectPage->file($epubFileName);
+			if($epubFile !== null && $epubFile->exists()) {
+				$isDeleted = $epubFile->delete();
+				if(!$isDeleted) {
+					array_push($this->errors, "File could not be deleted: {$epubFileName}");
+					return $this;
+				}
 			}
+		} else { 
+			$epubFileName = $this->epubName . '_' . $this->getTimestamp() . '.epub';
 		}
 		
 		/* Create ePub (based on template) */
@@ -348,6 +364,9 @@ class EpubBuilder {
 				$pageUrl = $page->url() . '.xhtml';
 				$content = '';
 				
+				/* +++++++++++++++++++ */
+				/* + Content request + */
+				/* +++++++++++++++++++ */
 				$request = Remote::get($pageUrl);
 				if($request->code() === 200) {
 					$content = $request->content();
@@ -362,8 +381,11 @@ class EpubBuilder {
 					continue;
 				}
 
-				/* XSL Transformation of Content */
+				/* ++++++++++++++++++++++++++++++ */
+				/* + Content XSL Transformation + */
+				/* ++++++++++++++++++++++++++++++ */
 				$content = $this->transformContent($content);
+
 				$docArchivePath = $this->buildFilePath('', $docFileName, 'ops');
 				$epub->addFromString($docArchivePath, $content);
 				
@@ -397,9 +419,12 @@ class EpubBuilder {
 			$this->epubUrl = $epubFile->url();
 
 		} catch(Exception $error) {
+
 			array_push($this->errors, $error->getMessage());
 			return $this;
+
 		} finally {
+
 			/* Close ePub Archive */
 			$isClosed = $epub->close();
 			if(!$isClosed) {
@@ -441,63 +466,70 @@ class EpubBuilder {
 		
 		try {
 
-			/* Defens Against XML Entity Expansion */
+			/* Turn off entity loader (Defens against XML entity expansion) */
 			if($this->phpVersionID < 80000) {
-				$isEntityLoaderDisabledOldValue = libxml_disable_entity_loader(true);
+				$isEntityLoaderDisabledPrevValue = libxml_disable_entity_loader(true);
 			}
 
+			/* Load content string */
 			$isLoaded = $xmlDoc->loadXML($content, LIBXML_PARSEHUGE);
 			if(!$isLoaded) {
 				array_push($this->errors, "loadXML error: Could not load the given XML string");
 				return $content;
 			}
 			
-			/* Check: Doctype */
+			/* Check: Doctype (Defens against XML entity expansion) */
 			if($this->hasDoctype($xmlDoc)) {
 				array_push($this->errors, "Invalid XML: Detected use of illegal DOCTYPE");
 				return '';
 			}
 
+			/* Turn on entity loader (to be able to load XSL file) */
 			if($this->phpVersionID < 80000) {
-				$isEntityLoaderDisabledOldValue = libxml_disable_entity_loader(false);
+				libxml_disable_entity_loader(false);
 			}
 
+			/* Load XSL file */
 			$isLoaded = $xslDoc->load($xslFilePath);
 			if(!$isLoaded) {
 				array_push($this->errors, "load error: Could not load the XSL transformation file");
 				return $content;
 			}
 
-			$internalErrorsOptionOldValue = libxml_use_internal_errors();
-			libxml_use_internal_errors(true);
+			$internalErrorsOptionPrevValue = libxml_use_internal_errors(true);
 
+			/* Load stylesheet */
 			$wasImportOK = $xslProcessor->importStyleSheet($xslDoc);
 			if(!$wasImportOK) {
 				foreach(libxml_get_errors() as $error) {
 					$errorMessage = $error->message;
-					array_push($this->errors, "Libxml error: {$errorMessage}");
+					array_push($this->errors, "libxml error: {$errorMessage}");
 				}
 				libxml_clear_errors();
 				return $content;
 			} 
 			
+			/* Transform content */
 			$transformationResult = $xslProcessor->transformToXML($xmlDoc);
 			if(!$transformationResult) {
 				foreach(libxml_get_errors() as $error) {
 					$errorMessage = $error->message;
-					array_push($this->errors, "Libxml error: {$errorMessage}");
+					array_push($this->errors, "libxml error: {$errorMessage}");
 				}
 				libxml_clear_errors();
 				return $content;
 			}
 			
 		} catch(Exception $error) {
+
 			$errorMessage = $error->getMessage();
 			array_push($this->errors, "XSL transformation of content failed. Error: {$errorMessage}");
+
 		} finally {
-			libxml_use_internal_errors($internalErrorsOptionOldValue);
+
+			libxml_use_internal_errors($internalErrorsOptionPrevValue);
 			if($this->phpVersionID < 80000) {
-				libxml_disable_entity_loader($isEntityLoaderDisabledOldValue);
+				libxml_disable_entity_loader($isEntityLoaderDisabledPrevValue);
 			}
 		}
 		
@@ -576,7 +608,7 @@ class EpubBuilder {
 
 		/* Root Element */
 		$epubVersion = $this->epubVersion;
-		$rootElement = $this->addElement($doc, ['http://www.idpf.org/2007/opf', 'package'], $doc, [['unique-identifier', 'bookid', 'sec'], ['version', $epubVersion, 'attr']]);
+		$rootElement = $this->addElement($doc, ['http://www.idpf.org/2007/opf', 'package'], $doc, [['unique-identifier','bookid','sec'], ['version',$epubVersion,'attr']]);
 		$this->addAttribute($rootElement, 'xmlns:dc', 'http://purl.org/dc/elements/1.1/', 'sec');
 
 		/* ++++++++++++ */
@@ -591,28 +623,9 @@ class EpubBuilder {
 		/* Meta Elements (required) */
 		if($this->checkVersion(3)) {
 			$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['refines','#opf_title','sec'], ['property','title-type','sec']], 'main');
-			if(!empty($this->metadataIDType)) {
-				$metadataIDType = $this->metadataIDType;
-				switch($metadataIDType) {
-					case 'ISBN':
-						$typeCode = '15';
-						$marcIdentifier = 'onix:codelist5';
-						break;
-					case 'ISSN':
-						$typeCode = '02';
-						$marcIdentifier = 'onix:codelist5';
-						break;
-					case 'DOI':
-						$typeCode = '06';
-						$marcIdentifier = 'onix:codelist5';
-						break;
-					case 'URI':
-						$typeCode = 'uri';
-						$marcIdentifier = 'marc:identifiers';
-						break;
-					default:
-						$typeCode = '';
-				}
+			$metadataIDType = $this->metadataIDType;
+			if(!empty($metadataIDType)) {
+				$typeCode = $this->getIDTypeCode($metadataIDType);
 				if(!empty($typeCode)) {
 					$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['refines','#bookid','sec'],['property','identifier-type','sec'],['scheme',$marcIdentifier, 'sec']], $typeCode);
 				}
@@ -652,11 +665,9 @@ class EpubBuilder {
 		$manifestElement = $this->addElement($doc, 'manifest', $rootElement);
 
 		/* Table of Contents */
-		$tocNcxFileName = 'toc.ncx';
-		$this->addElement($doc, 'item', $manifestElement, [['id','ncx','sec'],['href',$tocNcxFileName,'href'],['media-type','application/x-dtbncx+xml','sec']]);
+		$this->addElement($doc, 'item', $manifestElement, [['id','ncx','sec'],['href','toc.ncx','href'],['media-type','application/x-dtbncx+xml','sec']]);
 		if($this->checkVersion(3)) {
-			$tocXhtmlFileName = 'toc.xhtml';
-			$this->addElement($doc, 'item', $manifestElement, [['id','nav','sec'],['href',$tocXhtmlFileName,'href'],['media-type','application/xhtml+xml','sec'], ['properties','nav','sec']]);
+			$this->addElement($doc, 'item', $manifestElement, [['id','nav','sec'],['href','toc.xhtml','href'],['media-type','application/xhtml+xml','sec'],['properties','nav','sec']]);
 		}
 
 		/* Content Documents */
@@ -715,7 +726,7 @@ class EpubBuilder {
 		/* Content Documents */
 		foreach($this->tocPages as $page) {
 			$pageHashID = $page->hashID();
-			$this->addElement($doc, 'itemref', $spineElement, [['idref',$pageHashID, 'attr']]);
+			$this->addElement($doc, 'itemref', $spineElement, [['idref',$pageHashID,'attr']]);
 		};
 
 		/* +++++++++ */
@@ -780,33 +791,34 @@ class EpubBuilder {
 		/* Title */
 		$projectTitle = $this->metadataTitle;
 		if(!empty($projectTitle)) {
-			$titleElement = $this->addElement($doc,'title', $headElement, [], $projectTitle);
+			$titleElement = $this->addElement($doc, 'title', $headElement, [], $projectTitle);
 		}
 
 		/* BODY Element */
-		$bodyElement = $this->addElement($doc,'body', $rootElement);
+		$bodyElement = $this->addElement($doc, 'body', $rootElement);
 
 		/* Project Title */
-		$h1Element = $this->addElement($doc,'h1', $bodyElement, [], $projectTitle);
+		$h1Element = $this->addElement($doc, 'h1', $bodyElement, [], $projectTitle);
 
 		/* +++++++++++++++++++ */
 		/* + Page Navigation + */
 		/* +++++++++++++++++++ */
-		$pageNavElement = $this->addElement($doc,'nav', $bodyElement, [['id','toc','sec'],['epub:type','toc','sec'],['role','doc-toc','sec']]);
+		$pageNavElement = $this->addElement($doc, 'nav', $bodyElement, [['id','toc','sec'],['epub:type','toc','sec'],['role','doc-toc','sec']]);
 		
 		$tocOlLevel1Element = $this->createTocList($doc, 'ol', 1);
 		$pageNavElement->appendChild($tocOlLevel1Element);
 
 		foreach($this->tocPages as $page) {
 			
+			$pageTitle = $page->title();
+
 			$levelNum = $this->getLevelNumber($page);
 			if(empty($levelNum)) {
-				array_push($this->errors, "Level is not specified for the document: {$page->title()}");
+				array_push($this->errors, "Level is not specified for the document: {$pageTitle}");
 				continue;
 			}
 			
 			$hrefValue = $this->getDocumentPath($page) . '#' . $page->hashID();
-			$pageTitle = $page->title();
 			$liElement = $this->createTocListItem($doc, 'li', $levelNum, $hrefValue, $pageTitle);
 						
 			/* First level ol element */
@@ -877,8 +889,8 @@ class EpubBuilder {
 	private function createTocList($doc, $tagName, $levelNum) {
 		
 		$olElement = $this->addElement($doc, $tagName, null, [
-			['class',"level-{$levelNum}",'attr'],
-			['data-level',$levelNum,'attr']
+			['class', "level-{$levelNum}", 'attr'],
+			['data-level', $levelNum, 'attr']
 		]);
 		
 		return $olElement;
@@ -888,7 +900,7 @@ class EpubBuilder {
 	private function createTocListItem($doc, $tagName, $levelNum, $hrefValue, $pageTitle) {
 		
 		$liElement = $this->addElement($doc,'li', null, [
-			['data-level',$levelNum,'attr']
+			['data-level', $levelNum, 'attr']
 		]);
 		
 		$aElement = $this->addElement($doc,'a', $liElement, [
@@ -901,7 +913,7 @@ class EpubBuilder {
 
 	private function createLandmarkList($doc, $tagName) {
 		
-		$olElement = $this->addElement($doc, $tagName, null);
+		$olElement = $this->addElement($doc, $tagName);
 		
 		return $olElement;
 	} /* END function createLandmarkList */
@@ -911,8 +923,8 @@ class EpubBuilder {
 		
 		$liElement = $this->addElement($doc,'li');
 		$aElement = $this->addElement($doc,'a', $liElement, [
-			['epub:type',$documentLandmark,'attr'],
-			['href',$hrefValue,'href']
+			['epub:type', $documentLandmark, 'attr'],
+			['href', $hrefValue, 'href']
 		], $textContent);
 
 		return $liElement;
@@ -1015,13 +1027,13 @@ class EpubBuilder {
 	private function createNavPointItem($doc, $id, $playOrder, $text, $src) {
 		
 		$navPointElement = $this->addElement($doc,'navPoint', null, [
-			['id',$id,'attr'],
-			['playOrder',$playOrder,'attr']
+			['id', $id, 'attr'],
+			['playOrder', $playOrder, 'attr']
 		]);
 		$navLabelElement = $this->addElement($doc,'navLabel', $navPointElement);
 		$textElement = $this->addElement($doc,'text', $navLabelElement, [], $text);
 		$contentElement = $this->addElement($doc,'content', $navPointElement, [
-			['src',$src,'src']
+			['src', $src, 'src']
 		]);
 		
 		return $navPointElement;
@@ -1062,6 +1074,7 @@ class EpubBuilder {
 		return $documentName;
 	} /* END function getDocumentName */
 
+
 	private function buildFilePath($folderPath = '', $fileName = '', $flag = '') {
 
 		
@@ -1093,10 +1106,11 @@ class EpubBuilder {
 		return false;
 	} /* END function checkVersion */
 
+
 	private function addElement($doc, $elementName, $parentElement = null, $attrArray = [], $textContent = '') {
 		
 		if(is_array($elementName)) {
-			$element = $doc->createElementNS($elementName[0],$elementName[1]);
+			$element = $doc->createElementNS($elementName[0], $elementName[1]);
 		} else {
 			$element = $doc->createElement($elementName);
 		}
@@ -1104,7 +1118,7 @@ class EpubBuilder {
 		foreach($attrArray as $attr) {
 			$attrName = $attr[0];
 			$attrValue = $attr[1] ?? '';
-			$attrType = $attr[2] ?? 'default';
+			$attrType = $attr[2] ?? '';
 			$this->addAttribute($element, $attrName, $attrValue, $attrType);
 		}
 
@@ -1119,6 +1133,7 @@ class EpubBuilder {
 		
 		return $element;
 	} /* END function addElement */
+
 
 	private function addAttribute($element, $name, $value, $type) {
 
@@ -1144,8 +1159,8 @@ class EpubBuilder {
 		if(is_array($name)) {
 			$namespace = $name[0];
 			$prefix = $name[1];
-			$localName = $this->getXMLAttributeName($name[2]);
-			$qName = $prefix . ':' . $localName;
+			$localName = $name[2];
+			$qName = $this->getXMLAttributeName($prefix . ':' . $localName);
 			$attr = $element->setAttributeNS($namespace, $qName, $sanitizedValue);
 		} else {
 			$qName = $this->getXMLAttributeName($name);
@@ -1155,6 +1170,34 @@ class EpubBuilder {
 		return $attr;
 	}
 
+	
+	private function getIDTypeCode($idType) {
+		
+		switch($idType) {
+			case 'ISBN':
+				$typeCode = '15';
+				$marcIdentifier = 'onix:codelist5';
+				break;
+			case 'ISSN':
+				$typeCode = '02';
+				$marcIdentifier = 'onix:codelist5';
+				break;
+			case 'DOI':
+				$typeCode = '06';
+				$marcIdentifier = 'onix:codelist5';
+				break;
+			case 'URI':
+				$typeCode = 'uri';
+				$marcIdentifier = 'marc:identifiers';
+				break;
+			default:
+				$typeCode = '';
+		}
+
+		return $typeCode;
+	}
+
+
 	private function sanitize($string) {
 
 		$decodedString = html_entity_decode($string, ENT_QUOTES, 'UTF-8');
@@ -1162,6 +1205,7 @@ class EpubBuilder {
 
 		return $sanitizedString;
 	}
+
 
 	private function getXMLElementName($string) {
 
@@ -1173,6 +1217,7 @@ class EpubBuilder {
 		return $string;
 	}
 
+
 	private function getXMLAttributeName($string) {
 
 		$string = trim($string);
@@ -1183,7 +1228,8 @@ class EpubBuilder {
 		return $string;
 	}
 
-	protected function hasDoctype($xml) {
+
+	private function hasDoctype($xml) {
 
 		/* XML String */
 		if(is_string($xml)) {
@@ -1205,5 +1251,14 @@ class EpubBuilder {
 		}
 
 		return false;
+	}
+
+
+	private function getTimestamp() {
+
+		$date = new DateTime();
+		$timestamp = $date->getTimestamp();
+
+		return $timestamp; 
 	}
 }
