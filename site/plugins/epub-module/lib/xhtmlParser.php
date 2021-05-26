@@ -48,7 +48,7 @@ class XhtmlParser {
 		}
 		
 		/* Check: Doctype */
-		if($this->hasDoctype($html)) {
+		if($this->checkDoctype($html)) {
 			array_push($this->errors, "Invalid XML: Detected use of illegal DOCTYPE");
 			return null;
 		}
@@ -75,7 +75,7 @@ class XhtmlParser {
 
 		try {
 			
-			$htmDocument->loadHTML('<meta charset=\"UTF-8\"/>' . $html);
+			$htmDocument->loadHTML('<meta charset=\"UTF-8\"/>' . $html, LIBXML_NONET);
 			
 			$libxmlErrors = libxml_get_errors();
 			$this->errors = array_merge($this->errors, $libxmlErrors);
@@ -228,7 +228,7 @@ class XhtmlParser {
 		return $bodyNode;
 	}
 
-	protected function hasDoctype($xml) {
+	private function checkDoctype($xml, $isStrictCheck = true) {
 
 		/* XML String */
 		if(is_string($xml)) {
@@ -244,7 +244,12 @@ class XhtmlParser {
 					continue;
 				}
 				if($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
-					return true;
+					if($isStrictCheck !== false) {
+						return true;
+					} 
+					else if($child->entities->length > 0) {
+						return true;
+					}
 				}
 			}
 		}

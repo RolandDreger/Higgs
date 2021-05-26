@@ -91,6 +91,9 @@ class EpubBuilder {
 			trigger_error("First parameter must be an page object.");
 		}
 
+		/* change to privat getters and setters */
+
+
 		/* PHP Version */
 		$versionArray = explode('.', PHP_VERSION);
 		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
@@ -376,7 +379,7 @@ class EpubBuilder {
 				}
 				
 				/* Check: Doctype */
-				if($this->hasDoctype($content)) {
+				if($this->checkDoctype($content)) {
 					array_push($this->errors, "Invalid XML: Detected use of illegal DOCTYPE");
 					continue;
 				}
@@ -452,6 +455,7 @@ class EpubBuilder {
 	 * 
 	 * @param {String} $content
 	 * @return {String}
+	 * @throws 
 	 */
 	private function transformContent($content) {
 
@@ -474,14 +478,14 @@ class EpubBuilder {
 			}
 
 			/* Load content string */
-			$isLoaded = $xmlDoc->loadXML($content, LIBXML_PARSEHUGE);
+			$isLoaded = $xmlDoc->loadXML($content, LIBXML_PARSEHUGE | LIBXML_NONET);
 			if(!$isLoaded) {
 				array_push($this->errors, "loadXML error: Could not load the given XML string");
 				return $content;
 			}
 			
 			/* Check: Doctype (Defens against XML entity expansion) */
-			if($this->hasDoctype($xmlDoc)) {
+			if($this->checkDoctype($xmlDoc)) {
 				array_push($this->errors, "Invalid XML: Detected use of illegal DOCTYPE");
 				return '';
 			}
@@ -492,7 +496,7 @@ class EpubBuilder {
 			}
 
 			/* Load XSL file */
-			$isLoaded = $xslDoc->load($xslFilePath);
+			$isLoaded = $xslDoc->load($xslFilePath, LIBXML_NONET);
 			if(!$isLoaded) {
 				array_push($this->errors, "load error: Could not load the XSL transformation file");
 				return $content;
@@ -1245,7 +1249,7 @@ class EpubBuilder {
 	}
 
 
-	private function hasDoctype($xml) {
+	private function checkDoctype($xml, $isStrictCheck = true) {
 
 		/* XML String */
 		if(is_string($xml)) {
@@ -1261,7 +1265,12 @@ class EpubBuilder {
 					continue;
 				}
 				if($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
-					return true;
+					if($isStrictCheck) {
+						return true;
+					} 
+					else if($child->entities->length > 0) {
+						return true;
+					}
 				}
 			}
 		}
