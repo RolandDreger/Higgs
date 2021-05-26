@@ -1,13 +1,19 @@
 <?php
 
 /**
+ * Generating valid XHTML nodes and documents from html strings.
+ * 
+ * DOCTYPE definitions are not allowed in input strings. (XXE attacks)
+ * 
  * Usage:
- * $parser = new Higgs\Epub\XhtmlParser(LIBXML_NSCLEAN);
+ * $parser = new Higgs\Epub\XhtmlParser();
  * $xhtml	= $parser->createXhtmlString($html);
  * 
  * Options for saveXML (otpional):
  * LIBXML_NOEMPTYTAG		Expand empty tags (e.g. <br/> to <br></br>)
  * (Option separator: | )
+ * 
+ * @author Roland Dreger <roland.dreger@a1.net>
  */ 
 
 namespace Higgs\Epub;
@@ -25,44 +31,29 @@ class XhtmlParser {
 	private $formatOutput = false;
 
 	public function __construct($options = 0) {
+
 		/* PHP Version */
 		$versionArray = explode('.', PHP_VERSION);
 		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
+
 		/* Options */
 		$this->saveXMLOptions = $options;
-	}
-
-	protected function getBodyNode($htmDocument) {
-
-		/* Check: Document available? */
-		if(empty($htmDocument)) {
-			array_push($this->errors, 'First parameter must be a document object');
-			return null;
-		}
-
-		/* Check: Document element available? */
-		if(empty($documentElement = $htmDocument->documentElement)) {
-			array_push($this->errors, 'Document element from HTML document not available');
-			return null;
-		}
-	
-		/* Check: Body element available? */
-		$bodyNode = $documentElement->getElementsByTagName('body')->item(0);
-		if(empty($bodyNode)) {
-			array_push($this->errors, 'Body element from HTML document not available');
-			return null;
-		}
-
-		return $bodyNode;
 	}
 
 	protected function createHtmlDocument($html = '') {
 		
 		if(!is_string($html)) {
-			array_push($this->errors, 'First argument must be an string: ' . $html);
+			array_push($this->errors, "First argument must be an string: {$html}");
 			return null;
 		}
 		
+		/* Check: Doctype */
+		if($this->hasDoctype($html)) {
+			array_push($this->errors, "Invalid XML: Detected use of illegal DOCTYPE");
+			return null;
+		}
+
+		/* Defens Against XML Entity Expansion */
 		if($this->phpVersionID < 80000) {
 			$isEntityLoaderDisabledOldValue = libxml_disable_entity_loader(true);
 		}
@@ -88,16 +79,20 @@ class XhtmlParser {
 			
 			$libxmlErrors = libxml_get_errors();
 			$this->errors = array_merge($this->errors, $libxmlErrors);
-
 			libxml_clear_errors();
+
 		} catch(Exception $error) {
+
 			$errorMessage = $error->getMessage();
 			array_push($this->errors, "XSL transformation of content failed. Error: {$errorMessage}");
+
 		} finally {
+
 			libxml_use_internal_errors($internalErrorsOptionOldValue);
 			if($this->phpVersionID < 80000) {
 				libxml_disable_entity_loader($isEntityLoaderDisabledOldValue);
 			}
+
 		}
 
 		return $htmDocument;
@@ -207,5 +202,53 @@ class XhtmlParser {
 		$xhtml = $xhtmlDocument->saveXML(null, $this->saveXMLOptions);
 		
 		return $xhtml;
+	}
+
+	protected function getBodyNode($htmDocument) {
+
+		/* Check: Document available? */
+		if(empty($htmDocument)) {
+			array_push($this->errors, 'First parameter must be a document object');
+			return null;
+		}
+
+		/* Check: Document element available? */
+		if(empty($documentElement = $htmDocument->documentElement)) {
+			array_push($this->errors, 'Document element from HTML document not available');
+			return null;
+		}
+	
+		/* Check: Body element available? */
+		$bodyNode = $documentElement->getElementsByTagName('body')->item(0);
+		if(empty($bodyNode)) {
+			array_push($this->errors, 'Body element from HTML document not available');
+			return null;
+		}
+
+		return $bodyNode;
+	}
+
+	protected function hasDoctype($xml) {
+
+		/* XML String */
+		if(is_string($xml)) {
+			$collapsedXml = preg_replace("/\s+/", '', $xml);
+			if(preg_match("/<!DOCTYPE/i", $collapsedXml)) {
+					return true;
+			}
+		} 
+		/* DOM Document */
+		else if(property_exists($xml, 'childNodes')) {
+			foreach($xml->childNodes as $child) {
+				if(!property_exists($child, 'nodeType')) {
+					continue;
+				}
+				if($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 }
