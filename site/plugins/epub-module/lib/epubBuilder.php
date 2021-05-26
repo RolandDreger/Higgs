@@ -466,6 +466,8 @@ class EpubBuilder {
 		
 		try {
 
+			$internalErrorsOptionPrevValue = libxml_use_internal_errors();
+
 			/* Turn off entity loader (Defens against XML entity expansion) */
 			if($this->phpVersionID < 80000) {
 				$isEntityLoaderDisabledPrevValue = libxml_disable_entity_loader(true);
@@ -496,7 +498,7 @@ class EpubBuilder {
 				return $content;
 			}
 
-			$internalErrorsOptionPrevValue = libxml_use_internal_errors(true);
+			libxml_use_internal_errors(true);
 
 			/* Load stylesheet */
 			$wasImportOK = $xslProcessor->importStyleSheet($xslDoc);
@@ -528,6 +530,7 @@ class EpubBuilder {
 		} finally {
 
 			libxml_use_internal_errors($internalErrorsOptionPrevValue);
+			
 			if($this->phpVersionID < 80000) {
 				libxml_disable_entity_loader($isEntityLoaderDisabledPrevValue);
 			}
