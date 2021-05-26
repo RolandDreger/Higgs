@@ -625,9 +625,10 @@ class EpubBuilder {
 			$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['refines','#opf_title','sec'], ['property','title-type','sec']], 'main');
 			$metadataIDType = $this->metadataIDType;
 			if(!empty($metadataIDType)) {
-				$typeCode = $this->getIDTypeCode($metadataIDType);
+				$typeCode = $this->getIDSpecifier($metadataIDType, 'code');
+				$identifier = $this->getIDSpecifier($metadataIDType, 'identifier');
 				if(!empty($typeCode)) {
-					$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['refines','#bookid','sec'],['property','identifier-type','sec'],['scheme',$marcIdentifier, 'sec']], $typeCode);
+					$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['refines','#bookid','sec'],['property','identifier-type','sec'],['scheme',$identifier, 'sec']], $typeCode);
 				}
 			}
 			$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['property','dcterms:modified','sec']], $this->projectDate);
@@ -1170,31 +1171,43 @@ class EpubBuilder {
 		return $attr;
 	}
 
-	
-	private function getIDTypeCode($idType) {
+
+	private function getIDSpecifier($idType, $flag) {
 		
 		switch($idType) {
 			case 'ISBN':
 				$typeCode = '15';
-				$marcIdentifier = 'onix:codelist5';
+				$identifier = 'onix:codelist5';
 				break;
 			case 'ISSN':
 				$typeCode = '02';
-				$marcIdentifier = 'onix:codelist5';
+				$identifier = 'onix:codelist5';
 				break;
 			case 'DOI':
 				$typeCode = '06';
-				$marcIdentifier = 'onix:codelist5';
+				$identifier = 'onix:codelist5';
 				break;
 			case 'URI':
 				$typeCode = 'uri';
-				$marcIdentifier = 'marc:identifiers';
+				$identifier = 'marc:identifiers';
 				break;
 			default:
 				$typeCode = '';
+				$identifier = '';
 		}
 
-		return $typeCode;
+		switch($flag) {
+			case 'code':
+				$output = $typeCode;
+				break;
+			case 'identifier':
+				$output = $identifier;
+				break;
+				default:
+				$output = '';
+		}
+
+		return $output;
 	}
 
 
