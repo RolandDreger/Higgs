@@ -24,6 +24,7 @@
     <xsl:param name="css-folder-path" select="'css'" />
     <xsl:param name="graphic-folder-path" select="'images'"/>
     <xsl:param name="path-delimiter" select="'/'"/>
+    <xsl:param name="epub-class-prefix" select="'epub-'"/>
     
     <xsl:output method="xml" doctype-system="http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd" doctype-public="-//W3C//DTD XHTML 1.1//EN" encoding="UTF-8"/>
     
@@ -104,45 +105,149 @@
         <xsl:value-of select="substring($string, $start-index, $stop-index)"/>
     </xsl:template>
     
+    
     <!--  XHTML 1.1: Not allowed elements -->
+    
+    <!--  Block elements  -->
     <xsl:template match="h:meta[@charset]">
         <meta http-equiv="content-type" content="text/html" />
     </xsl:template>
+    
+    <xsl:template match="h:article">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'article'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="h:aside">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'aside'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="h:canvas">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'canvas'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
     <xsl:template match="h:section">
         <div>
-            <xsl:apply-templates select="@*|node()"/>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'section'"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
+    
     <xsl:template match="h:header">
-        <div class="doc-header">
-            <xsl:apply-templates select="@*|node()"/>
+        <div class="epub-header">
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'header'"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
+    
     <xsl:template match="h:footer">
-        <div class="doc-footer">
-            <xsl:apply-templates select="@*|node()"/>
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'footer'"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
+    
     <xsl:template match="h:blockquote/text()">
-        <div class="blockquote-text">
+        <div class="epub-blockquote-text">
             <xsl:value-of select="."/>
         </div>
     </xsl:template>
+    
     <xsl:template match="h:blockquote/h:footer">
-        <div class="blockquote-footer">
-            <xsl:apply-templates select="@*|node()"/>
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'blockquote-footer'"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
+    
     <xsl:template match="h:figure">
-        <div class="figure">
-            <xsl:apply-templates select="@*|node()"/>
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'figure'"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
+    
     <xsl:template match="h:figcaption">
-        <div class="figcaption">
-            <xsl:apply-templates select="@*|node()"/>
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'figcaption'"/>
+            </xsl:apply-templates>
         </div>
     </xsl:template>
+    
+    <xsl:template match="h:nav">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'nav'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="h:output">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'output'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="h:details">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'details'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="h:summary">
+        <div>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'summary'"/>
+            </xsl:apply-templates>
+        </div>
+    </xsl:template>
+    
+    <xsl:template match="h:source"></xsl:template>
+    
+    
+    <!--  Inline elements  -->
+    <xsl:template match="h:mark">
+        <span>
+            <xsl:apply-templates select="@*|node()">
+                <xsl:with-param name="class" select="'mark'"/>
+            </xsl:apply-templates>
+        </span>
+    </xsl:template>
+    
+    
+    <!--  Class attribute  -->
+    <xsl:template match="@class">
+        <xsl:param name="class" select="''"/>
+        <xsl:attribute name="class">
+            <xsl:value-of select="."/>
+            <xsl:if test="boolean($class)">
+                <xsl:text> </xsl:text>
+                <xsl:value-of select="concat($epub-class-prefix,$class)"/>
+            </xsl:if>
+        </xsl:attribute>
+    </xsl:template>
+    
     
     <!--  XHTML 1.1: Not allowed attributes -->
     <xsl:template match="@epub:type"></xsl:template>
