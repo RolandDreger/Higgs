@@ -13,14 +13,21 @@ use XSLTProcessor;
 use Kirby\Toolkit\Str;
 
 /**
+ * Generating ePubs from page content via Kirby API
+ * (Used helper method: Remote::get)
+ * 
  * Usage:
  * $options = [];
  * $epubBuilder = new Higgs\Epub\EpubBuilder($page, $options);
  * $epubBuilder->createEpub();
  * 
+ * $errors = $epubBuilder->errors;
+ * 
  * Options:
  * 'formatOutput': format generated XML files 
  * 'parent': Export folder page (default projectPage)
+ * 
+ * @author Roland Dreger <roland.dreger@a1.net>
  */
 
 class EpubBuilder {
@@ -81,18 +88,6 @@ class EpubBuilder {
 			trigger_error("First parameter must be an page object.");
 		}
 
-		/* PHP Version */
-		$versionArray = explode('.', PHP_VERSION);
-		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
-    
-		/* ePub Version */
-		$epubVersion = $projectPage->epubVersion();
-		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
-			$this->epubVersion = $epubVersion->value();
-		} else {
-			$this->epubVersion = '3.0';
-		}
-
 		/* Template Path */
 		$this->templateFilePath = $projectPage->kirby()->roots()->plugins() . '/epub-module/' . self::TEMPLATE_FILE_RELATIVE_PATH;
 		if(!file_exists($this->templateFilePath)) {
@@ -110,10 +105,23 @@ class EpubBuilder {
 			trigger_error("XSL file does not exists");
 		}
 
-		/* Source: Page with content documents */
+
+		/* PHP Version */
+		$versionArray = explode('.', PHP_VERSION);
+		$this->phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
+    
+		/* ePub Version */
+		$epubVersion = $projectPage->epubVersion();
+		if($epubVersion->exists() && $epubVersion->isNotEmpty()) {
+			$this->epubVersion = $epubVersion->value();
+		} else {
+			$this->epubVersion = '3.0';
+		}
+
+		
+		/* Source: Subpages are the content documents */
 		$this->projectPage = $projectPage;
 
-		/* OPTIONS */
 		/* Destination: Export folder page  */
 		$this->parentPage = $options['parent'] ?? $projectPage;
 		$optionFormatOutput = $options['formatOutput'];
@@ -203,8 +211,9 @@ class EpubBuilder {
 			$this->epubLang = 'en';
 		}
 
-		/* Metadata */
-		
+		/* ++++++++++++ */
+		/* + Metadata + */
+		/* ++++++++++++ */
 		$this->metadataTitle = $projectPage->metadataTitle()->value(); 
 		if(empty($this->metadataTitle)) {
 			$this->metadataTitle = $projectPage->title();
@@ -432,6 +441,7 @@ class EpubBuilder {
 		
 		try {
 
+			/* Defens Against XML Entity Expansion */
 			if($this->phpVersionID < 80000) {
 				$isEntityLoaderDisabledOldValue = libxml_disable_entity_loader(true);
 			}
@@ -1173,7 +1183,7 @@ class EpubBuilder {
 		return $string;
 	}
 
-	private function hasDoctype($xml) {
+	protected function hasDoctype($xml) {
 
 		/* XML String */
 		if(is_string($xml)) {
