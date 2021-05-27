@@ -133,11 +133,7 @@ Epubcssfiles:
 
 Epubfontfiles:
 
-- vollkorn-italic.woff2
 - vollkorn-italic.woff
-- vollkorn-semibold.woff2
 - vollkorn-semibold.woff
-- vollkorn-regular.woff2
 - vollkorn-regular.woff
-- vollkorn-semibolditalic.woff2
 - vollkorn-semibolditalic.woff
