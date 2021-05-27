@@ -221,10 +221,7 @@ class EpubBuilder {
 		$this->hasCover = $this->getHasCover();
 		$this->coverFile = $this->getCoverFile($projectPage);
 
-
-		/* ++++++++++++ */
-		/* + Metadata + */
-		/* ++++++++++++ */
+		/* Metadata */
 		$this->metadataTitle = $this->getMetadataTitle($projectPage);
 		$this->metadataID = $this->getMetadataID($projectPage);
 		$this->metadataCreator = $this->getMetadataCreator($projectPage);
@@ -740,7 +737,6 @@ class EpubBuilder {
 			$isClosed = $epub->close();
 			if(!$isClosed) {
 				array_push($this->errors, 'Error closing ePub archive.');
-				return $this;
 			}
 		}
 

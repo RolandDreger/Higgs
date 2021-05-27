@@ -24,12 +24,12 @@ use DOMDocument;
 
 class XhtmlParser {
 
-	public $saveXMLOptions;
-	public $errors = [];
-	
 	private $phpVersionID;
 	private $formatOutput = false;
 
+	public $saveXMLOptions;
+	public $errors = [];
+	
 	public function __construct($options = 0) {
 
 		/* PHP Version */
