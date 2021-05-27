@@ -40,7 +40,7 @@ return [
 						'overwrite' => true
 					];
 
-					$epubBuilder = new Higgs\Epub\EpubBuilder($parentPage, $options);
+					$epubBuilder = new Higgs\Epub\EpubBuilder($parentPage, null, $options);
 					$epubBuilder->createEpub();
 					
 					$epubFileName = $epubBuilder->epubFileName;
