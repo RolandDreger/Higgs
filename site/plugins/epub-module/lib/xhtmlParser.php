@@ -88,7 +88,7 @@ class XhtmlParser {
 			$this->errors = array_merge($this->errors, $libxmlErrors);
 			libxml_clear_errors();
 
-		} catch(Exception $error) {
+		} catch(Error $error) {
 
 			$errorMessage = $error->getMessage();
 			array_push($this->errors, "XSL transformation of content failed. Error: {$errorMessage}");

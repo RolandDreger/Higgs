@@ -726,10 +726,9 @@ class EpubBuilder {
 			$this->setEpubUrl($epubFile);
 			$this->epubUrl = $this->getEpubUrl();
 
-		} catch(Exception $error) {
+		} catch(Error $error) {
 
 			array_push($this->errors, $error->getMessage());
-			return $this;
 
 		} finally {
 
@@ -830,7 +829,7 @@ class EpubBuilder {
 				return $content;
 			}
 			
-		} catch(Exception $error) {
+		} catch(Error $error) {
 
 			$errorMessage = $error->getMessage();
 			array_push($this->errors, "XSL transformation of content failed. Error: {$errorMessage}");
