@@ -1559,11 +1559,20 @@ class EpubBuilder {
 		return $string;
 	}
 
-
+	/**
+	 * DOCTYPE and ENTITY Check
+	 * @param String|DOMDocument|Node
+	 * 
+	 * @return Boolean true -> means not secure
+	 */
 	protected function checkDoctype($xml, $isStrictCheck = true) {
 
 		/* XML String */
 		if(is_string($xml)) {
+			/* Check: UTF-8 */
+			if(empty(preg_match('//u', $xml))) {
+				return true;
+			}
 			$collapsedXml = preg_replace("/\s+/", '', $xml);
 			if(preg_match("/<!DOCTYPE/i", $collapsedXml)) {
 				if($isStrictCheck) {
@@ -1627,6 +1636,7 @@ class EpubBuilder {
 		if($mimeType === 'application/octet-stream') {
 			$fileInfo = new SplFileInfo($filePath);
 			$fileExt = $fileInfo->getExtension();
+			$fileExt = strtolower($fileExt);
 			if(isset($mimeMap[$fileExt])) {
 				$mimeType = $mimeMap[$fileExt];
 			}

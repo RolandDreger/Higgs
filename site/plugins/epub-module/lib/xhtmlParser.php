@@ -239,6 +239,10 @@ class XhtmlParser {
 
 		/* XML String */
 		if(is_string($xml)) {
+			/* Check: UTF-8 */
+			if(empty(preg_match('//u', $xml))) {
+				return true;
+			}
 			$collapsedXml = preg_replace("/\s+/", '', $xml);
 			if(preg_match("/<!DOCTYPE/i", $collapsedXml)) {
 				if($isStrictCheck) {
