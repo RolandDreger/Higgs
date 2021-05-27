@@ -11,6 +11,7 @@ use Remote;
 use Xml;
 use XSLTProcessor;
 use DateTime;
+use SplFileInfo;
 
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
@@ -996,7 +997,7 @@ class EpubBuilder {
 			foreach($imageFiles as $imageFile) {
 				$imageHashID = $imageFile->hashID();
 				$imageArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $imageFile->filename(), 'manifest');
-				$imageMimeType = Mime::type($imageFile->realpath()) ?? '';
+				$imageMimeType = $this->getMimeType($imageFile->realpath()) ?? '';
 				$this->addElement($doc, 'item', $manifestElement, [['id',$imageHashID,'attr'],['href',$imageArchivePath,'href'],['media-type',$imageMimeType,'sec']]);
 			}
 		};
@@ -1007,7 +1008,7 @@ class EpubBuilder {
 			$coverFile = $this->coverFile;
 			$coverHashID = $coverFile->hashID();
 			$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFile->filename(), 'manifest');
-			$coverMimeType = Mime::type($coverFile->realpath()) ?? '';
+			$coverMimeType = $this->getMimeType($coverFile->realpath()) ?? '';
 			$this->addElement($doc, 'item', $manifestElement, [['id',$coverHashID,'attr'],['href',$coverArchivePath,'href'],['media-type',$coverMimeType,'sec']]);
 			/* cover.xhtml */
 			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
@@ -1025,7 +1026,7 @@ class EpubBuilder {
 		foreach($this->fontFiles as $fontFile) {
 			$fontHashID = $fontFile->hashID();
 			$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFile->filename(), 'manifest');
-			$fontMimeType = Mime::type($fontFile->realpath()) ?? '';
+			$fontMimeType = $this->getMimeType($fontFile->realpath());
 			$this->addElement($doc, 'item', $manifestElement, [['id',$fontHashID,'attr'],['href',$fontArchivePath,'href'],['media-type',$fontMimeType,'sec']]);
 		}
 
@@ -1593,6 +1594,50 @@ class EpubBuilder {
 		return false;
 	}
 
+	protected function getMimeType(string $filePath) {
+
+		/* 
+			Supported Media Types: 
+			https://www.w3.org/publishing/epub3/epub-spec.html#sec-core-media-types 
+		*/
+		$mimeMap = [
+			'eot' => 'application/vnd.ms-fontobject',
+			'gif' => 'image/gif',
+			'jpg' => 'image/jpeg',
+			'jpeg' => 'image/jpeg',
+			'png' => 'image/png',
+			'svg' => 'image/svg+xml',
+			'mpeg' => 'audio/mpeg',
+			'mp4' => 'audio/mp4',
+			'css' => 'text/css',
+			'ttf' => 'font/ttf',
+			'otf' => 'font/otf',
+			'woff' => 'font/woff',
+			'woff2' => 'font/woff2',
+			'xhtml' => 'application/xhtml+xml',
+			'js' => 'application/javascript',
+			'ncx' => 'application/x-dtbncx+xml',
+			'smil' => 'application/smil+xml',
+			'pls' => 'application/pls+xml'
+		];
+
+		$mimeType = Mime::type($filePath);
+
+		/* Fix for unknown file type (e.g. some fonts) */
+		if($mimeType === 'application/octet-stream') {
+			$fileInfo = new SplFileInfo($filePath);
+			$fileExt = $fileInfo->getExtension();
+			if(isset($mimeMap[$fileExt])) {
+				$mimeType = $mimeMap[$fileExt];
+			}
+		}
+
+		if(empty($mimeType)) {
+			$mimeType = '';
+		}
+
+		return $mimeType;
+	}
 
 	protected function getTimestamp() {
 
