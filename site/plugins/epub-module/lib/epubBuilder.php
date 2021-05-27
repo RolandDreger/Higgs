@@ -12,7 +12,10 @@ use Xml;
 use XSLTProcessor;
 use DateTime;
 use Kirby\Cms\Page;
+use Kirby\Cms\Pages;
+use Kirby\Cms\Files;
 use Kirby\Toolkit\Str;
+
 
 /**
  * Generating ePubs from page content via Kirby API
@@ -33,6 +36,7 @@ use Kirby\Toolkit\Str;
  * @author Roland Dreger <roland.dreger@a1.net>
  */
 
+
 class EpubBuilder {
 
 	const TEMPLATE_FILE_RELATIVE_PATH = 'assets/zip/template.epub';
@@ -45,6 +49,10 @@ class EpubBuilder {
 	const GRAPHIC_FOLDER_PATH = 'images';
 	const COVER_DOCUMENT_TITLE = 'Cover';
 	const COVER_DOCUMENT_NAME = 'cover.xhtml';
+	const DEFAULT_EPUB_VERSION = '3.0';
+	const DEFAULT_FORMAT_OUTPUT = false;
+	const DEFAULT_HAS_COVER = false;
+	const DEFAULT_EPUB_LANGUAGE = 'en';
 
 	private $projectPage;
 	private $phpVersionID;
@@ -52,10 +60,10 @@ class EpubBuilder {
 	private $xslFilePath;
 	private $formatOutput;
 	private $isToOverwrite;
-	private $docPages = [];
-	private $tocPages = [];
-	private $cssFiles = [];
-	private $fontFiles = [];
+	private $docPages;
+	private $tocPages;
+	private $cssFiles;
+	private $fontFiles;
 	private $hasCover;
 	private $coverFile;
 	private $coverMaxWidth;
@@ -140,73 +148,36 @@ class EpubBuilder {
 
 		/* Cover Image Settings */
 		$this->coverMaxWidth = $this->getCoverMaxWidth($projectPage);
-
-		
-
-
-		
-		$coverHeightField = $projectPage->epubCoverHeight();
-		if($coverHeightField->exists() && $coverHeightField->isNotEmpty()) {
-			$this->coverMaxHeight = $coverHeightField->toInt();
-		}
-		$coverQualityFild = $projectPage->epubCoverQuality();
-		if($coverQualityFild->exists() && $coverQualityFild->isNotEmpty()) {
-			$this->coverQuality = $coverQualityFild->value();
-		}
+		$this->coverMaxHeight = $this->getCoverMaxHeight($projectPage);
+		$this->coverQuality = $this->getCoverQuality($projectPage);
 
 		/* Content Image Settings */
-		$imageWidthField = $projectPage->epubImageWidth();
-		if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
-			$this->imageMaxWidth = $imageWidthField->toInt();
-		}
-		$imageHeightField = $projectPage->epubImageHeight();
-		if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
-			$this->imageMaxHeight = $imageHeightField->toInt();
-		}
-		$imageQualityField = $projectPage->epubImageQuality();
-		if($imageQualityField->exists() && $imageQualityField->isNotEmpty()) {
-			$this->imageQuality = $imageQualityField->value();
-		}
-		
+		$this->imageMaxWidth = $this->getImageMaxWidth($projectPage);
+		$this->imageMaxHeight = $this->getImageMaxHeight($projectPage);
+		$this->imageQuality = $this->getImageQuality($projectPage);
+
 		/* Cover File */
-		$hasCoverField = $projectPage->epubHasCoverImage();
-		if($hasCoverField->exists() && $hasCoverField->value() === 'true') {
-			$this->hasCover = true;
-		} else {
-			$this->hasCover = false;
-		}
-		$coverImageField = $projectPage->epubCoverImageFile();
-		if($coverImageField->exists() && $coverImageField->isNotEmpty()) {
-			$this->coverFile = $coverImageField->toFiles()->first();
-		}
-		
+		$this->hasCover = $this->getHasCover($projectPage);
+		$this->coverFile = $this->getCoverFile($projectPage);
+
 		/* ePub Language  */
-		$epubLanguage = $projectPage->epubLanguage();
-		if($epubLanguage->exists() && $epubLanguage->isNotEmpty()) {
-			$this->epubLang = $epubLanguage->value();
-		} else {
-			$this->epubLang = 'en';
-		}
+		$this->epubLang = $this->getEpubLang($projectPage);
 
 		/* ++++++++++++ */
 		/* + Metadata + */
 		/* ++++++++++++ */
-		$this->metadataTitle = $projectPage->metadataTitle()->value(); 
-		if(empty($this->metadataTitle)) {
-			$this->metadataTitle = $projectPage->title();
-		}
-		$this->metadataID = $projectPage->metadataID()->value();
-		$this->metadataCreator = $projectPage->metadataCreator()->value();
-		$this->metadataIDType = $projectPage->metadataIDType()->value();
-		$this->metadataRights = $projectPage->metadataRights()->value();
-		$this->metadataContributor = $projectPage->metadataContributor()->value();
-		$this->metadataDate = $projectPage->metadataDate()->value();
-		$this->medadataDescription = $projectPage->medadataDescription()->value();
+		$this->metadataTitle = $this->getMetadataTitle($projectPage);
+		$this->metadataID = $this->getMetadataID($projectPage);
+		$this->metadataCreator = $this->getMetadataCreator($projectPage);
+		$this->metadataIDType = $this->getMetadataIDType($projectPage);
+		$this->metadataRights = $this->getMetadataRights($projectPage);
+		$this->metadataContributor = $this->getMetadataContributor($projectPage);
+		$this->metadataDate = $this->getMetadataDate($projectPage);
+		$this->medadataDescription = $this->getMedadataDescription($projectPage);
 	}
 
 
 	protected function getParentPage($page, $options) {
-		
 		return $options['parent'] ?? $page;
 	}
 
@@ -220,7 +191,7 @@ class EpubBuilder {
 
 	protected function getEpubVersion($page) {
 		
-		$epubVersion = '';
+		$epubVersion = self::DEFAULT_EPUB_VERSION;
 
 		$epubVersionField = $page->epubVersion();
 		if($epubVersionField->exists() && $epubVersionField->isNotEmpty()) {
@@ -264,7 +235,7 @@ class EpubBuilder {
 
 	protected function getFormatOutput($options) {
 		
-		$formatOutput = false;
+		$formatOutput = self::DEFAULT_FORMAT_OUTPUT;
 
 		$optionFormatOutput = $options['formatOutput'];
 		if(!empty($optionFormatOutput) && is_bool($optionFormatOutput)) {
@@ -278,7 +249,7 @@ class EpubBuilder {
 		
 		$docPages = $page->index();
 		if($docPages->count() === 0) {
-			trigger_error('No descendant pages available.');
+			trigger_error('No descendant pages available.', E_USER_NOTICE);
 		}
 
 		return $docPages;
@@ -286,7 +257,7 @@ class EpubBuilder {
 
 	protected function getTocPages($page) {
 		
-		$tocPages = [];
+		$tocPages = new Pages();
 
 		$tocPagesField = $page->projectTableOfContent();
 		if($tocPagesField->exists() && $tocPagesField->isNotEmpty()) {
@@ -330,7 +301,7 @@ class EpubBuilder {
 
 	protected function getCssFiles($page) {
 
-		$cssFiles = [];
+		$cssFiles = new Files();
 
 		$cssFilesField = $page->epubCSSFiles();
 		if($cssFilesField->exists() && $cssFilesField->isNotEmpty()) {
@@ -342,31 +313,167 @@ class EpubBuilder {
 
 	protected function getFontFiles($page) {
 
-		$fontFiles = [];
+		$fontFiles = new Files();
 
 		$fontFilesField = $page->epubFontFiles();
 		if($fontFilesField->exists() && $fontFilesField->isNotEmpty()) {
 			$fontFiles = $fontFilesField->toFiles();
 		}
+
 		return $fontFiles;
 	}
 
 	protected function getCoverMaxWidth($page) {
 
-		$coverMaxWidth = 1200;
+		$coverMaxWidth = null;
 
 		$coverWidthField = $page->epubCoverWidth();
 		if($coverWidthField->exists() && $coverWidthField->isNotEmpty()) {
 			$coverMaxWidth = $coverWidthField->toInt();
 		}
+
 		return $coverMaxWidth;
 	}
 
+	protected function getCoverMaxHeight($page) {
+		
+		$coverMaxHeight = null;
 
+		$coverHeightField = $page->epubCoverHeight();
+		if($coverHeightField->exists() && $coverHeightField->isNotEmpty()) {
+			$coverMaxHeight = $coverHeightField->toInt();
+		}
 
+		return $coverMaxHeight;
+	}
 
+	protected function getCoverQuality($page) {
+		
+		$coverQuality = null;
 
+		$coverQualityFild = $page->epubCoverQuality();
+		if($coverQualityFild->exists() && $coverQualityFild->isNotEmpty()) {
+			$coverQuality = $coverQualityFild->value();
+		}
 
+		return $coverQuality;
+	}
+	
+	protected function getImageMaxWidth($page) {
+		
+		$imageMaxWidth = null;
+
+		$imageWidthField = $page->epubImageWidth();
+		if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
+			$imageMaxWidth = $imageWidthField->toInt();
+		}
+
+		return $imageMaxWidth;
+	}
+			
+	protected function getImageMaxHeight($page) {
+		
+		$imageMaxHeight = null;
+
+		$imageHeightField = $page->epubImageHeight();
+		if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
+			$imageMaxHeight = $imageHeightField->toInt();
+		}
+
+		return $imageMaxHeight;
+	}
+			
+	protected function getImageQuality($page){
+		
+		$imageQuality = null;
+
+		$imageQualityField = $page->epubImageQuality();
+		if($imageQualityField->exists() && $imageQualityField->isNotEmpty()) {
+			$imageQuality = $imageQualityField->value();
+		}
+
+		return $imageQuality;
+	}
+
+	protected function getHasCover($page) {
+		
+		$hasCover = self::DEFAULT_HAS_COVER;
+
+		$hasCoverField = $page->epubHasCoverImage();
+		if($hasCoverField->exists() && $hasCoverField->value() === 'true') {
+			$hasCover = true;
+		} 
+
+		return $hasCover;
+	}
+	
+	protected function getCoverFile($page){
+		
+		$coverFile = null;
+
+		$coverImageField = $page->epubCoverImageFile();
+		if($coverImageField->exists() && $coverImageField->isNotEmpty()) {
+			$coverFile = $coverImageField->toFiles()->first();
+		}
+
+		return $coverFile;
+	}
+
+	protected function getEpubLang($page) {
+		
+		$epubLang = self::DEFAULT_EPUB_LANGUAGE;
+		
+		$epubLanguageField = $page->epubLanguage();
+		if($epubLanguageField->exists() && $epubLanguageField->isNotEmpty()) {
+			$epubLang = $epubLanguageField->value();
+		} 
+
+		return $epubLang;
+	}
+
+	protected function getMetadataTitle($page) {
+
+		$metadataTitle = '';
+
+		$metadataTitleField = $page->metadataTitle();
+		if($metadataTitleField->exists() && $metadataTitleField->isNotEmpty()) {
+			$metadataTitle = $metadataTitleField->value(); 
+		}
+
+		if(empty($metadataTitle)) {
+			$metadataTitle = $page->title();
+		}
+
+		return $metadataTitle;
+	}
+
+	protected function getMetadataID($page) {
+		return $page->metadataID()->value();
+	}
+
+	protected function getMetadataCreator($page) {
+		return $page->metadataCreator()->value();
+	}
+
+	protected function getMetadataIDType($page) {
+		return $page->metadataIDType()->value();
+	}
+
+	protected function getMetadataRights($page) {
+		return $page->metadataRights()->value();
+	}
+
+	protected function getMetadataContributor($page) {
+		return $page->metadataContributor()->value();
+	}
+
+	protected function getMetadataDate($page) {
+		return $page->metadataDate()->value();
+	}
+
+	protected function getMedadataDescription($page) {
+		return $page->medadataDescription()->value();
+	}
 
 
 	/**
