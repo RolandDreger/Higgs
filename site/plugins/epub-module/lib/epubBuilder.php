@@ -15,6 +15,7 @@ use DateTime;
 use Kirby\Cms\Page;
 use Kirby\Cms\Pages;
 use Kirby\Cms\Files;
+use Kirby\Toolkit\Mime;
 use Kirby\Toolkit\Str;
 use Kirby\Exception\Exception;
 use Kirby\Exception\NotFoundException;
@@ -35,15 +36,17 @@ use Kirby\Exception\InvalidArgumentException;
  * Options:
  * 'formatOutput':	{String}	format generated XML documents 
  * 'overwrite': 		{String}	Overwrite existing ePub in destination folder
- * 'hasCover':			{String}	Include cover image and document (if not defined via blueprint)
- * 'epubVersion': 	{String}	ePub version nummer (2.0 or 3.0) (if not defined via blueprint)
- * 'epubLanguage':	{String}	ePub language code (e.g. 'en') (if not defined via blueprint)
+ * 
+ * Default values, if not defined via blueprint:
+ * 'hasCover':			{String}	Include cover image and document 
+ * 'epubVersion': 	{String}	ePub version nummer (2.0 or 3.0)
+ * 'epubLanguage':	{String}	ePub language code (e.g. 'en')
  * 'imageMaxWidth':	{Int}			Pixel value
- * 'imageMaxHeight'	{Number}	Pixel value
- * 'imageQuality'		{Int}			Numbers in the range from 10 to 100
- * 'coverMaxWidth'	{Int}			Pixel value
- * 'coverMaxHeight'	{Int}			Pixel value
- * 'coverQuality'		{Number}	Numbers in the range from 10 to 100
+ * 'imageMaxHeight':{Number}	Pixel value
+ * 'imageQuality':	{Int}			Numbers in the range from 10 to 100
+ * 'coverMaxWidth':	{Int}			Pixel value
+ * 'coverMaxHeight':{Int}			Pixel value
+ * 'coverQuality':	{Number}	Numbers in the range from 10 to 100
  * 
  * @author Roland Dreger <roland.dreger@a1.net>
  */
@@ -142,6 +145,10 @@ class EpubBuilder {
 			throw new InvalidArgumentException('First parameter must be an Kirby page object: ' . $projectPage);
 		}
 
+		/* 
+			Settings 
+			Priority: Blueprint -> Defaults -> Init Options -> Class Options  
+		*/
 		$this->settings = array_merge($this->options, $options, $this->defaults);
 
 		/* Project Page (Source) */
@@ -989,7 +996,7 @@ class EpubBuilder {
 			foreach($imageFiles as $imageFile) {
 				$imageHashID = $imageFile->hashID();
 				$imageArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $imageFile->filename(), 'manifest');
-				$imageMimeType = mime_content_type($imageFile->realpath()) ?? '';
+				$imageMimeType = Mime::type($imageFile->realpath()) ?? '';
 				$this->addElement($doc, 'item', $manifestElement, [['id',$imageHashID,'attr'],['href',$imageArchivePath,'href'],['media-type',$imageMimeType,'sec']]);
 			}
 		};
@@ -1000,7 +1007,7 @@ class EpubBuilder {
 			$coverFile = $this->coverFile;
 			$coverHashID = $coverFile->hashID();
 			$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFile->filename(), 'manifest');
-			$coverMimeType = mime_content_type($coverFile->realpath()) ?? '';
+			$coverMimeType = Mime::type($coverFile->realpath()) ?? '';
 			$this->addElement($doc, 'item', $manifestElement, [['id',$coverHashID,'attr'],['href',$coverArchivePath,'href'],['media-type',$coverMimeType,'sec']]);
 			/* cover.xhtml */
 			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
@@ -1018,7 +1025,7 @@ class EpubBuilder {
 		foreach($this->fontFiles as $fontFile) {
 			$fontHashID = $fontFile->hashID();
 			$fontArchivePath = $this->buildFilePath(self::FONT_FOLDER_PATH, $fontFile->filename(), 'manifest');
-			$fontMimeType = mime_content_type($fontFile->realpath()) ?? '';
+			$fontMimeType = Mime::type($fontFile->realpath()) ?? '';
 			$this->addElement($doc, 'item', $manifestElement, [['id',$fontHashID,'attr'],['href',$fontArchivePath,'href'],['media-type',$fontMimeType,'sec']]);
 		}
 
