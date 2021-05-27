@@ -39,7 +39,7 @@ class XhtmlParser {
 		$this->saveXMLOptions = $options;
 	}
 
-	private function getPhpVersionID() {
+	protected function getPhpVersionID() {
 
 		$versionArray = explode('.', PHP_VERSION);
 		$phpVersionID = ($versionArray[0] * 10000 + $versionArray[1] * 100 + $versionArray[2]);
@@ -47,11 +47,10 @@ class XhtmlParser {
 		return $phpVersionID;
 	}
 
-
 	protected function createHtmlDocument($html = '') {
 		
 		if(!is_string($html)) {
-			array_push($this->errors, "First argument must be an string: {$html}");
+			array_push($this->errors, "First argument must be an string");
 			return null;
 		}
 		
@@ -109,7 +108,7 @@ class XhtmlParser {
 	public function createXhtmlDocument($html = '', $lang = 'en') {
 
 		if(!is_string($html)) {
-			array_push($this->errors, 'First argument must be an string: ' . $html);
+			array_push($this->errors, 'First argument must be an string');
 			return null;
 		}
 
@@ -171,7 +170,7 @@ class XhtmlParser {
 	public function createXhtmlString($html = '') {
 		
 		if(!is_string($html)) {
-			array_push($this->errors, 'First argument must be an string: ' . $html);
+			array_push($this->errors, 'First argument must be an string');
 			return '';
 		}
 
@@ -201,7 +200,7 @@ class XhtmlParser {
 	public function createXhtmlDocumentString($html = '') {
 
 		if(!is_string($html)) {
-			array_push($this->errors, 'First argument must be an string: ' . $html);
+			array_push($this->errors, 'First argument must be an string');
 			return '';
 		}
 
