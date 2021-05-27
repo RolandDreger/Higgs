@@ -1382,7 +1382,12 @@ class EpubBuilder {
 		if(is_string($xml)) {
 			$collapsedXml = preg_replace("/\s+/", '', $xml);
 			if(preg_match("/<!DOCTYPE/i", $collapsedXml)) {
+				if($isStrictCheck) {
 					return true;
+				} 
+				else if(preg_match("/<!ENTITY/i", $collapsedXml)) {
+					return true;
+				}
 			}
 		} 
 		/* DOM Document */
