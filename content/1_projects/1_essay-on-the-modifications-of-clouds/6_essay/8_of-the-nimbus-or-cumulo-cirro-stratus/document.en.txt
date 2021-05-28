@@ -1,0 +1,122 @@
+Title: Of the Nimbus, or Cumulo-Cirro-Stratus
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>Clouds in any one of the preceding Modifications, at the same degree of elevation, or in two or more of them at different elevations, may increase so as completely to obscure the sky; and may at times put on an appearance of density which to the inexperienced observer indicates the speedy commencement of rain. It is nevertheless extremely probable, as well from attentive observation as from a consideration of the several modes of their production, that <em>Clouds, while in any of these states, do not at any time let fall rain.</em> </p><p>Before this effect takes place they have been uniformly found to undergo a change, attended with appearances sufficiently remarkable to constitute a distinct Modification. These appearances, when the rain happens over-head, are but imperfectly seen. We can then only observe, before the arrival of the denser and lower Clouds, or through their interstices, that there exists <em>at a greater altitude</em> a thin light veil, or at least a hazy turbidness. When this has considerably increased, we see the lower Clouds spread themselves, till they unite in all points and form one uniform Sheet. The rain then commences; and the lower clouds, arriving from the windward, move under this Sheet and are successively lost in it. When the latter cease to arrive, or when the Sheet breaks, [letting through the sunbeams,] every one's experience teaches him to expect an abatement or cessation of <em>the rain.</em> </p><p>But there often follows, what seems hitherto to have been unnoticed, an immediate and great addition to the quantity of <em>cloud.</em> At the same time the actual obscurity is lessened, because the arrangement which now returns, gives freer passage to the rays of light : for on the cessation of rain, the lower broken clouds which remain rise into Cumuli, and the superior sheet puts on the various forms of the Cirro-stratus, sometimes passing to the Cirro-cumulus.</p><p>If the interval be long before the next shower, the Cumulo-stratus usually makes its appearance; which it also does sometimes very suddenly after the first cessation. </p><p>But we see the nature of this process more perfectly in viewing a distant shower in profile. </p><p>If the Cumulus be the only cloud present at such a time, we may observe its superior part to become tufted with nascent Cirri. Several adjacent Clouds also approach and unite laterally by subsidence. </p><p>The Cirri increase, extending themselves upward and laterally, after which the shower is seen to commence. At other times, the converse takes place of what had been described relative to the cessation of rain. The Cirro-stratus is previously formed above the Cumulus, and their sudden union is attended with the production of Cirri and rain. </p><p>In either case the Cirri <em>vegetate</em>, as it were, in proportion to the quantity of rain falling, and give the Cloud a character by which it is easily known at great distances, and to which, in the language of Meteorology, we may appropriate the nimbus of the Latins.* </p><p>When one of these arrives hastily <em>with the wind</em> it brings but little rain, and frequently some hail or driven snow. </p><p>In heavy showers, the central Sheet once formed, is, as it were, warped to windward, the Cirri being propagated above and against the lower current, while the Cumuli arriving with the latter are successively <em>brought</em> to, and contribute to reinforce it.</p>"
+        },
+        "id": "39c39979-e827-467b-bad2-6a28066f7046",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "* Quails ubi ad terras abrupto sidere nimbus<br>It mare par medium, miseris heu prescia lange<br>Horrescunt corda agricolis.",
+            "citation": " — Virgil."
+        },
+        "id": "90173cd7-5b6a-4772-852a-392598ad4f62",
+        "isHidden": false,
+        "type": "quote"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "nimbus_or_rain_cloud.jpg"
+            ],
+            "src": "",
+            "alt": "Landscape with heavy shower",
+            "caption": "Nimbus or rain cloud",
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "19bff40e-9098-4970-a064-2565683555e9",
+        "isHidden": false,
+        "type": "image"
+    },
+    {
+        "content": {
+            "text": "<p>Such are the phænomena of <em>showers</em>. In continued gentle rains it does not appear necessary for the resolution of the Clouds that the different Modifications should come into actual contact. </p><p>It is sufficient that there exist two strata of Clouds, one passing beneath the other, and each continually tending to horizontal uniform diffusion.* It will rain during this state of the two strata, although they should be separated by an interval of many hundred feet in elevation. See an instance in De Luc,<em> Idées sur la Météorologie,</em> tom. ii. p. 52, &amp;c. [It is not to be supposed that the intermediate space is, on these occasions, at any time free from a conducting medium of diffused watery pariiicles, enabling the opposite Electricities to neutralize each other.] </p>"
+        },
+        "id": "0a9e386d-4a0c-4b55-b62c-a7b93c1ee681",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* The superior stratum is often seen, in this case, to partake of the Cirrus.</p>"
+        },
+        "id": "54ba6769-4273-43dc-855d-6bed72101590",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>As the masses of Cloud are always blended, and their arrangements broken up before rain comes on, so the reappearance of these is the signal for its cessation. The thin sheets of Cloud which pass over during a wet day, certainly receive from the humid atmosphere a supply proportionate to their consumption, while the latter prevents their increase in bulk. Hence a seeming paradox, which yet accords strictly with observation, that for any given hour of a wet day, or any given day of a wet season, <em>the more cloud the less rain.</em> Hence also arise some further reflections on the purpose answered by Clouds in the Economy of nature. Since rain may be produced by, and continue to fall from, the slightest obscuration of the sky by the Nimbus (or by <em>two sheets</em> in different states,) while the Cumulus or Cumulo-stratus, with the most dark and threatening aspect, shall pass over without letting fall a drop, until the change of state commences, it should seem that the latter are Reservoirs [water-waggons they are called by some] in which the water is collected from a large space of atmosphere for occasional and local irrigation in dry seasons, and by means of which it is also arrested at times in its descent in the midst of wet ones. In which so evident provision for the sustenance of all animal and vegetable life, as well as for the success of mankind in that pursuit so essential to their welfare, in temperate climates, of cultivating the earth, we may discover the wisdom and goodness of the Creator and Preserver of all things. </p><p>The Nimbus, although in itself one of the least beautiful Clouds, is yet now and then superbly decorated with its attendant the rainbow; which is seen in perfection when backed by the widely-extended uniform gloom of this Modification. </p><p>The relations of rain, and of periodical showers more especially, to the varying Temperature, Density, and Electricity of the atmosphere, will now probably obtain a fuller investigation, and with a better prospect of success, than heretofore. </p><p>As the establishing distinctive characters for Clouds has been heretofore deemed a desirable object, and it is consequently probable that the author's Modifications will begin to be noted in Meteorological registers as they occur, (a practice which may be productive of considerable advantage to science,) the following System of abbreviations may, perhaps, be found of some use in this respect. They will save room and the labour of writing, and types may be easily formed for printing them. These are advantages not to be despised, when observations are to be noted once or oftener in the day. It is only necessary that they be inserted in a column headed <em>Clouds;</em> that the Modifications which appear together be placed side by side, and those which succeed to each other in the order of the column, but separated by a line or space from the preceding and succeeding day's notations.</p>"
+        },
+        "id": "cbe038cd-33f1-4522-832e-3ac603ee3dad",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>∖ Cirrus: ∩ Cumulus: — Stratus: ∖∩ Cirro-cumulus: ∖_ Cirro-stratus: ∩_ Cumulo-stratus: ∖∩_ Cirro-cumulo-stratus, or Nimbus.</p>"
+        },
+        "id": "bfe2bcce-3f36-426d-80bd-192117f22ced",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>[In my first publication on Clouds, I was induced, by a supposed necessity arising from the novelty of the subject, to add to the definitions a set of plates, of the several modifications. I have now decided to omit these representations: being satisfied, both by reflection and experience, that the real student will acquire his knowledge in a more solid manner, by the observation of nature, without the aid of drawings, and that the more superficial are liable to be led into error by them.]*</p>"
+        },
+        "id": "e7f45241-7259-41bb-8c98-d5a7cc11ae1a",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* The author did not remain exclusively of tbis opinion, as is shown in a subsequent work (Seven Lectures on Meteorology, p. 196, note e). The date of the annotations to the pictures now published also proves the same fact. — Ed.</p>"
+        },
+        "id": "0be989e8-363c-4f67-bb69-9affeebfeb2c",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>In tracing the various appearances of clouds, we have only adverted to their connexion with the difierent states of the atmosphere, (on which, indeed, their diversity in a great measure depends,) having purposely avoided mixing difficult and doubtful explanation with a simple descriptive arrangement.</p>"
+        },
+        "id": "e4507a4e-4e67-4111-baab-d94dd61edc2c",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

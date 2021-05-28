@@ -1,0 +1,56 @@
+Title: Of the Aqueous Atmosphere
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>Having quoted so much of this essay as may suffice to exhibit the principles on which we shall proceed, it may be useful, before we do this, to recapitulate the following circumstances respecting the atmosphere of aqueous gas, or (for brevity) the Aqueous atmosphere. </p><p>1st. It is supplied by the process of Evaporation, which by this theory appears to be reduced to the immediate union of water with Caloric into a binary compound, <em>Aqueous gas.</em> </p><p>2ndly. The supply of vapour (by which term, for the purposes of Meteorology, we may denote aqueous gas) is regulated by the following circumstances: — 1. Temperature of the evaporating water ; being greater as this is higher, and <em>vice versá,</em> 2. Quantity of surface exposed. Since it is from the surface only of the mass that the vapour in common cases can escape, the supply is in direct proportion thereto. 3. Quantity of vapour already subsisting in the atmosphere: the evaporation being less (with an equal temperature and surface) in proportion as this is greater, and <em>vice versá.</em> </p><p>3rdly. The vapour thus thrown into the atmosphere is diffusible therein by its own elasticity : which suffices for its ascent to any height in a perfect calm. Yet, as in this case the <em>inertia</em> of the particles of air considerably resists its diffusion, so in the opposite one of a brisk current, the vapour, by the same rule, must in some measure be drawn along with the mass into which it enters. </p><p>4thly. The quantity of vapour which, under equal pressure, can subsist in a given mass of air, will be greater as the common temperature is higher, and <em>vice versá.*</em> </p>"
+        },
+        "id": "9c7ef40d-a9a5-47e3-ad17-a49cb6d0470c",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p><em>*</em> “The aqueous vapour atmospliere is variable in quantity according to temperature ; in the torrid zone its pressure on the surfetce of the earth is equal to the force of ⋅6, and from that to one inch of mercury. In these parts it rarely amounts to the pressure of ⋅6, but I have frequently observed it above half an inch in summer; in winter it is sometimes so low as to be of no more force than ⋅1 of an inch of mercury, or even half a tenth, in this latitude, and consequently much leas where the cold is more severe. This want of equilibrium in the aqueous vapour atmosphere is a principal cause of that constant inundation of it into the temperate and frigid zones, where it becomes in part condensed in its progress by the cold (like the vapour of distillation in the worm of a refrigeratory), and supplies the earth with rain and dew.” — See the Essays above quoted.</p>"
+        },
+        "id": "f59b1e60-19fa-45a6-b549-04a640496377",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Aqueous vapour is the only gas contained in the atmosphere which is subject to very sensible variations in quantity. These variations arise from its attraction for caloric being inferior to that of all the others. Hence, when a cold body, such as the glass of water in the experiment above quoted, is presented to the atmosphere, the other gases will only be cooled by it (and that at all known temperatures) ; but the vapour, after being more or less cooled, will begin to be decomposed, its caloric entering the body while the water is left on the surface. </p><p>The formation of Cloud is in all cases the <em>remote</em> consequence of a decomposition thus effected, the caloric escaping not into a solid or liquid, but into the surrounding gases.</p>"
+        },
+        "id": "c52aeb5b-ca45-4658-9f0b-6aeb997aafdf",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

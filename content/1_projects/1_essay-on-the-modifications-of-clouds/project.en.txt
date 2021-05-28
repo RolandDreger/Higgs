@@ -30,6 +30,18 @@ Projecttableofcontent:
   projects/essay-on-the-modifications-of-clouds/essay/of-the-cirro-stratus
 - >
   projects/essay-on-the-modifications-of-clouds/essay/of-the-cumulo-stratus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-nimbus-or-cumulo-cirro-stratus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-evaporation
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-aqueous-atmosphere
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-formation-of-dew
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-formation-of-the-stratus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-formation-of-the-cumulus
 
 ----
 

@@ -1,0 +1,56 @@
+Title: Of the Formation of the Stratus
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>The case which has been just stated, <em>of the decomposition of vapour by the atmosphere in which it is already diffused,</em> goes but a little way in explanation of the production of a Cloud consisting of visible drops, and confined to a certain space in the atmosphere : much less does it enable us to account for the diversity of its situations and appearances. In attempting tliis we will begin with the Stratus, as the most simple in structure, and the next step, as it were, in the progress of nubification.</p><p>When dew falls upon a surface the temperature of which is superior to that of the atmosphere, it is plain that it will not continue there, but will be evaporated again: and a body so circumstanced will continue to refiind into the atmosphere the whole of the water thus <em>gradually</em> deposited on it, so long as its substance can supply the requisite temperature to the surface. Moreover, water, either in mass or diffused among sand, clay, vegetable earth, &amp;c., will continue to be evaporated therefrom with a force proportioned to its temperature, so long as the latter continues above that point which counterbalances the pressure of the Aqueous atmosphere. </p><p>From these causes it happens, that after the earth has been superficially dried by a continuance of sunshine, and heated, together with the lakes and rivers, to a considerable depth, there is an almost continual emission of vapour into the atmosphere by night. </p><p>This nocturnal evaporation is usually most powerful in the autumn, about the time that the temperature of the nights undergoes a considerable and sometimes pretty sudden depression, attended with a calm. </p><p>In this state of things the vapour arising from the heated earth is condensed <em>in the act of diffusing itself:</em> the cold particles of water thus formed, in <em>descending,</em> meet the ascending stream of vapour, and condense a portion on their surfaces. If they touch the earth they are again evaporated, which is not necessarily the case if they alight on the herbage.* In this way an aggregate of visible drops is sooner or later formed: and as from the temperature thus communicated to the air next the earth, the vapour has still further and further to rise in order to be condensed, the cloud will be propagated upward in proportion. </p>"
+        },
+        "id": "c43f3923-3d78-42c8-9bf2-c08242c936a0",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* A plentiful dew may often be found on the grass after a Stratus.</p>"
+        },
+        "id": "6485dec7-9039-42f1-9390-9288943ce5a3",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Hence the Stratus most usually makes its appearance in the evening succeeding a clear warm day, and in that quiescent state of the atmosphere which attends a succession of these. Hence also the frequency of it during the penetration of the autumnal rains into the earth; while in Spring, when the latter is <em>acquiring</em> temperature together with the atmosphere, it is [more] rarely seen. </p>"
+        },
+        "id": "7ec52fc2-1fe6-433e-988b-bb56dfcb8580",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

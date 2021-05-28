@@ -1,0 +1,72 @@
+Title: Of the Formation of the Cumulus
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>When the sun's rays traverse a clear space of atmosphere, it is well known that they communicate no sensible increase of temperature thereto. It is by the contact, and what may be termed the <em>radiation,</em> of opaque substances exposed to the light, that Caloric is thrown into the atmosphere. </p><p>This eflfect is first produced on the air adjacent to the earth's surface ; and proceeds upward, more or less rapidly, according to the season and other attendant circumstances. In the morning, therefore. Evaporation usually prevails again; and the vapour, which continues to be thrown into air now increasing in temperature, is no longer condensed. On the contrary, it exerts its elastic force on that which the nocturnal temperature had not been able to decompose, and which consequently remained universally diffused. The latter, in rising <em>through the atmosphere</em> to give place to the supply from below, must necessarily change its climate, quit the lower air of equal temperature, and arrive among more elevated and colder air; the pressure from above still continuing unabated. The consequence is a partial decomposition, extending through the portion thus thrown up, and, in short, a recommencement in the superior region, of the same process which in the vicinity of the earth furnished the dew of the night. In this case, however, the particles of water cannot arrive at the earth, as they are necessarily evaporated again in their descent. </p><p>It appears that this second Evaporation takes place at that elevation where the temperature derived from the action of the sun's rays upon the earth, and decreasing upward, becomes just sufficient to counterbalance the pressure of the superior vapour.</p><p>Here is formed a sort of boundary between the region of cloud and the region of permanent vapour, which for the present purpose, and until we are furnished with a nomenclature for the whole science of Meteorology, may be denominated the Vapour plane. </p><p>Immediately above the Vapour plane, then, the formation of the Cumulus commences (as soon as a sufficient quantity of vapour has been thrown up) by the mixture of descending minute drops of water with vapour newly formed and just diffiising itself, as in the case of the Stratus before described. </p><p>A continuance of this process might be expected to produce a uniform sheet of cloud; in short, a Stratus, only differing in situation from the true one. Instead of which we see the first-formed small masses become so many centres, towards which all the water afterwards precipitated appears to be attracted from the space surrounding them ; and this attraction becomes more powerful as the cloud increases in magnitude, insomuch that the small clouds previously formed disappear when a large one approaches them in its increase, and seem to vanish instead of joining it. This is probably owing to the small drops composing them having passed in a loose manner and successively, by attraction, into the large one. </p><p>Are the distinct masses into which the drops form themselves, in this case, due to the attraction of aggregation alone, or is the operation of any other cause to be admitted? </p><p>A rigid mathematician would perhaps answer the latter clause in the negative; and with such a conclusion we should have great reason to remain satisfied, as cutting short much of the inquiry that is to follow, were it not that it leaves us quite in the dark, both as to the cause of the variety so readily observable in clouds, and that of their long suspension, not to insist on several facts contained in the former part of this paper, which would then remain unaccounted for. </p><p>The operation of one simple principle would produce an effect at all times <em>uniform</em>, and varjring only in degree. We should then see no diversity in clouds but in their magnitude; and the same attraction that could bring minute drops of water together through a considerable space of atmosphere in a few minutes, ought not to end there, but to effect their perfect union into larger, and finally into rain. </p><p>In admitting the constant operation of Electricity, which is at times so manifestly accumulated in clouds, upon their forms and arrangements, we shall not much overstep the limits of experimental inquiry, since it has been ascertained by several eminent philosophers, that “clouds, as well as rain, snow, and hail, that fall from them, are almost always electrified.”* </p>"
+        },
+        "id": "26f4fd6a-95c4-429e-80be-268bdf25f761",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* Cavallo. Complete Treatise on Electricity, vol i. p. 74.</p>"
+        },
+        "id": "e3b50126-a2bb-42bf-bd89-c072f6f1d46c",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>An insulated Conductor formed of solid matter retains the charge given to it so much the longer, as it is more nearly spherical, and free from points and projecting parts. The particles of water, when charged, appear to make an effort to separate from each other, or, in other words, become mutually repulsive. Moreover, when a small conducting substance is brought within the reach of a large one similarly electrified, the latter, instead of repelling, will throw the small one into an opposite state, and then attract it. From these and other well-known facts in Electricity it would not be difficult to show, that an assemblage of particles of water floating in the atmosphere and similarly electrified, ought to arrange themselves in a spherical aggregate, into which all the surrounding particles of water (within a certain distance) should be attracted; at the same time the drops composing such aggregate should be absolutely prevented from uniting with each other <em>during the equilibrium of their electricity.</em> </p><p>To apply this reasoning to the formation of the Cumulus, we may, in the first place, admit that the commencement of distinct aggregation, in the descending particles of water, is due to their mutual attraction ; by virtue of which small bodies, floating in any medium, tend to coalesce. The masses thus formed, however, often increase more rapidly than could be expected from the effect of simple attraction exercised at great distances. And when the cloud has arrived at a considerable size, its protuberances are seen to form, and successively sink down into the mass, in a manner which forces one to suppose a shower of invisible drops rushing upon it from all parts. </p><p>In unsettled weather the rapid formation of large Cumuli has been observed to clear the sky of a considerable hazy whiteness ; which on the other hand has been found to ensue upon their <em>dispersion.*</em> </p>"
+        },
+        "id": "c370164a-1278-46cf-a322-4626afcd4907",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* That clouds are not always <em>evaporated</em> when they disappear, but aometimes dispersed so as to become invisible as distinct aggregates, is a fact pretty well ascertained by observation. This happens sometimes by the approach of other clouds; at others, the evaporation of part of a Cumulus is followed by the dispersion of the remainder. The criterion used was the speedy production of transparency ia the one case, and of hazy turbidness in the other.</p>"
+        },
+        "id": "df3bf5bf-b7f4-4234-bbe5-a7ffb38bfea1",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>On these considerations we are obliged to admit as a co-operating cause of the increase of this cloud, that sort of attraction which large insulated conducting masses exercise, when charged, on the smaller ones which lie within their influence. Instead of a <em>spherical</em> aggregate, however, we have only a sort of hemisphere ; because that part of the cloud which presents itself toward the earth can receive no addition from beneath ; there being in that direction no condensed water. On the contrary, the mass must be continually suffering a diminution there, by the tendency of the cloud to subside and of the vapour plane to rise, during the increase of the diurnal temperature. It is this evaporation that cuts off all the Cumuli visible at one time in the same plane ; and it is reasonable to conclude that much of the vapour thus produced is again condensed without quitting the cloud, as its course would naturally be mostly upward. Thus the drops of which a Cumulus consists may become larger the longer it is suspended, and the electricity stronger from the comparative diminution of surface. </p><p>Such is probably the manner in which this curious structure is raised, while the base is continually escaping from beneath it. That we may not, however, be accused of building a castle in the air by attempting further conjectures, we may leave the present Modification, after recapitulating some of its circumstances which appear to be accounted for. </p><p>The Cumulus is formed only in the daytime, because the direct action of the sun‘s rays upon the earth can alone put the atmosphere into that state of inequality of temperature which has been described. It evaporates in the evening from the cessation of this inequality, the superior atmosphere having become warmer, the inferior colder, attended with a decrease of the superficial Evaporation. It begins to form some hours after sunrise, because the vapour requires that space of time to become elevated by the gradual accession from below. When a <em>Stratus</em> covers the ground at sunrise, however, we often see it collect into Cumuli upon the Evaporation of that part of it which is immediately contiguous to the earth. And this ought to happen; for the Cloud is then insulated, the vapour plane is established, and everything in the same state (except in point of elevation) as in the ordinary mode of production of the Cumulus. </p><p>Lastly, the Cumulus, however dense it becomes, does not afford Bain, because it consists of drops similarly electrified and repelling each other ; and is moreover continually evaporating from the plane of its Base. The change of form which comes on before it falls in Eain, and which indicates a disturbance of its Electrical state, will be noticed hereafter.</p>"
+        },
+        "id": "4262d667-5ef1-4209-9ff4-ff3f26893f7d",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

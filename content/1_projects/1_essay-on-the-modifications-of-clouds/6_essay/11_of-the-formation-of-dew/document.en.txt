@@ -1,0 +1,40 @@
+Title: Of the Formation of Dew
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>Dew is the <em>immediate</em> result of this decomposition. The particles of water constituting it are, singly, invisible, on account of their extreme minuteness.</p><p>The approach of dew is, nevertheless, discoverable by a dark hazy appearance, verging from purple to faint red, extending from the horizon to a small distance upward, and most conspicuous over valleys and large pieces of water. </p><p>The theory of dew seems to be simply this : — During the heat of the day a great quantity of vapour is thrown into the atmosphere from the surface of the earth and waters. When the evening returns, if the vapour has not been carried off in part by currents, it will often happen that more remains diffused in the general atmosphere than the temperature of the night will permit to subsist under the ftdl pressure of the aqueous atmosphere. A decomposition of the latter then commences, and is continued until the general temperature and aqueous pressure arrive at an equilibrium, or until the returning sun puts an end to the process. The caloric of the decomposed vapour goes to maintain the general temperature; while the water is separated in drops; which, minute as they are, arrive successively at the earth in the space of a few hours. That the ordinary production of dew is by a <em>real</em> descent of water from the atmosphere, and not by decomposition of vapour on surfaces previously cooled, (as in the experiment already mentioned,) any one may readily be convinced by observing in what abundance it is collected by substances which are wholly unfit to carry off the requisite quantity of caloric for the latter effect.</p>"
+        },
+        "id": "7921c374-b756-4b94-8b45-49548869c787",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 
