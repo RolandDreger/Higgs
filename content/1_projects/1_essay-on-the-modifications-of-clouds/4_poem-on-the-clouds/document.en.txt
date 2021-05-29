@@ -126,7 +126,7 @@ Documentcontent:
 
 ----
 
-Documentstatus: release
+Documentstatus: publish
 
 ----
 
