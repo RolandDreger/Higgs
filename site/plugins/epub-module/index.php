@@ -9,7 +9,7 @@ load([
 Kirby::plugin('higgs/epub-module', [
 	
 	'options' => [
-		'apiPrefix' => 'higgs' /* used as a prefix for plugin api endpoints */
+		'apiPrefix' => 'higgs' /* prefix for plugin api endpoints */
 	],
 
 	'snippets' => [
@@ -35,9 +35,10 @@ Kirby::plugin('higgs/epub-module', [
 	'blueprints' => [
 		'tabs/epub/metadata' => __DIR__ . '/blueprints/tabs/metadata.yml',
 		'tabs/epub/settings' => __DIR__ . '/blueprints/tabs/settings.yml',
+		'sections/epub/docment' => __DIR__ . '/blueprints/sections/document.yml',
+		'sections/epub/tableOfContents' => __DIR__ . '/blueprints/sections/tableOfContents.yml',
 		'sections/epub/metadata/required' => __DIR__ . '/blueprints/sections/metadata/required.yml',
 		'sections/epub/metadata/optional' => __DIR__ . '/blueprints/sections/metadata/optional.yml',
-		'sections/epub/tableOfContents' => __DIR__ . '/blueprints/sections/tableOfContents.yml',
 		'sections/epub/settings/general' => __DIR__ . '/blueprints/sections/settings/general.yml',
 		'sections/epub/settings/cover' => __DIR__ . '/blueprints/sections/settings/cover.yml',
 		'sections/epub/settings/images' => __DIR__ . '/blueprints/sections/settings/images.yml',
@@ -53,7 +54,6 @@ Kirby::plugin('higgs/epub-module', [
 		'epubFileName' => __DIR__ . '/fields/epubFileNameField.php'
 	],
 
-	/* Extensions */
 	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php',
 	'pageMethods' => include __DIR__ . '/extensions/pageMethods.php',
 	'fileMethods' => include __DIR__ . '/extensions/fileMethods.php'

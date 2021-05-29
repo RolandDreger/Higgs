@@ -1,0 +1,90 @@
+type: fields
+fields:
+  documentLevel:
+    type: select
+    label: 
+      en: "Level"
+      de: "Ebene"
+    default: 'level-1'
+    required: false
+    options: 
+      'level-1': 1
+      'level-2': 2
+      'level-3': 3
+    help: 
+      en: Level in Table of Contents
+      de: Ebene im Inhaltsverzeichnis
+
+  documentIsTitleVisible:
+    type: toggle
+    label: 
+      en: "Title visible"
+      de: "Titel ausgeben"
+    default: true
+    text:
+      - en: "No"
+        de: "Nein"
+      - en: "Yes"
+        de: "Ja"
+
+  documentPart:
+    # Translations from languages files
+    type: select
+    label: 
+      en: "Part"
+      de: "Teil"
+    default: 'bodymatter'
+    required: true
+    options: query
+    query: 
+      fetch: site.siteDocumentParts.split
+      value: "{{ arrayItem.value }}"
+      text: "{{ arrayItem.value.translate() }}"
+    help: 
+      en: e.g. for parsX export
+      de: z.B. für parsX-Export
+
+  documentLandmark:
+    # Translations from languages files
+    type: select
+    label: 
+      en: Landmark
+      de: Landmark
+    options: query
+    query: 
+      fetch: site.siteDocumentLandmarks.split
+      value: "{{ arrayItem.value }}"
+      text: "{{ arrayItem.value.translate() }}"
+    help: 
+      en: e.g. for landmarks in ePubs
+      de: z.B. für Landmarks in ePubs
+
+  documentType:
+    # Translations from languages files
+    type: multiselect
+    label: 
+      en: Type
+      de: Typ
+    options: query
+    query: 
+      fetch: site.siteDocumentTypes.split
+      value: "{{ arrayItem.value }}"
+      text: "{{ arrayItem.value.translate() }}"
+    help: 
+      en: e.g. for epub:type attribute in ePubs
+      de: z.B. für epub:type-Attribut in ePubs
+      
+  documentRole:
+    # Translations from languages files
+    type: select
+    label: 
+      en: Role
+      de: Rolle
+    options: query
+    query: 
+      fetch: site.siteDocumentRoles.split
+      value: "{{ arrayItem.value }}"
+      text: "{{ arrayItem.value }}"
+    help: 
+      en: e.g. for role attribute in ePubs
+      de: z.B. für role-Atribite in ePubs
