@@ -1,0 +1,40 @@
+Title: Imprint
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>London:</p><p>Savill and Edwards, Printers, Chandos Street, Covent Garden.</p>"
+        },
+        "id": "c0c9e6b3-3be6-498f-90ce-a943c2afc5f1",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-1
+
+----
+
+Documentpart: backmatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

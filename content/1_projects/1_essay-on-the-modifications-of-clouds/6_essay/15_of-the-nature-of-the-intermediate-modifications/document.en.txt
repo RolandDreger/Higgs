@@ -1,0 +1,56 @@
+Title: Of the Nature of the Intermediate Modifications
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>The conversion of the Cirrus into the Cirro-cumulus is a phenomenon which at some seasons may be daily traced, and which serves to confirm the opinion that there exists somewhat of the same difierence between the Cumulus and the Cirrus, as between a <em>charged</em> and a <em>transmitting</em>, or an influenced conductor, among solid bodies. On this supposition, the orbicular arrangement of the particles ought to take place as soon as the mass has ceased to conduct from particle to particle, or to be so acted on by a contiguous conductor, as to have a <em>plus</em> and <em>minus</em> state within itself. And as this sort of communication in a cloud may be as slow as in other imperfect conductors, the equilibrium among the particles may be restored at one extremity some time before the other has ceased to transmit; whence a visible progress of the change, which may be traced in a Cirrus of sufficient length. </p><p>That an extensive horizontal Cirrus should become divided across its length, and that these divided parts should assume more or less of a round form, is also consistent with the idea of a change of this sort.* It is not so easy to give a reason why these small orbicular masses should remain in close arrangement, or even in contact, for several hours, forming a system of small clouds which yet do not interfere with each other or nin together into one, but remain as it were in readiness to re-form the Cirrus; which sometimes happens very suddenly, though they more frequently evaporate by degrees.</p>"
+        },
+        "id": "8d05eef7-53e3-4d28-adce-01259d4021d1",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* A quickly evaporating Cumulos sometimes leaves a regular Cirrus behind, formed out of the remnant of the cloud, which, in the intermediate state, and just when it begins to show the sky through it, exactly represents the pores and fibre of <em>sponge,</em> [What is also curious, this appearance is a decided indication of drought approaching.]</p>"
+        },
+        "id": "db7a3403-29c0-49a2-b097-8f11d0d5fcd0",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>The same remark applies to the curious, and as it were capricious divisions and subdivisions, both longitudinal and transverse, which happen in the Cirro-stratus when this cloud is verging towards the Cirro-cumulus. In general, nevertheless, its appearance is sufficiently distinct from that of the Cirrus and Cirro-cumulus. The Cirrus by the great extent in proportion to its mass, its distinct lines and angular flexures, and the Cirro-cumulus by the roundness and softness of its forms, indicates an essential difierence in the state of the containing atmosphere. The Cirro-stratus appears to be always in a subsiding state, and to be more feebly acted on by Electricity than the preceding Modifications. Indeed, the lower atmosphere is usually pretty much charged with dew or haze at the time of its appearance, and therefore in a state to conduct a charge to the earth.</p>"
+        },
+        "id": "a56c5503-561e-46e2-b450-e7264f7b05f7",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

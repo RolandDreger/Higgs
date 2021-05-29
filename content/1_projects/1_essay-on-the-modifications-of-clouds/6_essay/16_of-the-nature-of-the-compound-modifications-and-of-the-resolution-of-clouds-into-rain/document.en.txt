@@ -1,0 +1,49 @@
+Title: Of the Nature of the Compound Modifications, and of the Resolution of Clouds into Rain
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>From the theory of Evaporation it appears that no permanent cloud can be formed in the atmosphere, however low the temperature, without a sufficient pressure from vapour previously diffused. Hence, although in cold weather the breath and perspiration of animals, as also water at a certain excess of temperature, occasion a visible cloud, yet this cloud speedily evaporates again at all times, except when precipitation is actually going on at large in the atmosphere next the ground; when it is only <em>dispersed</em> therein. By comparing the different effects of a clear frosty air, and of a misty though much warmer one, on the perspiration and breath of horses warmed by labour, we may be assisted in reasoning on the great case of Evaporation, which, in some sense, is the <em>perspiration</em> of the earth. </p><p>The most powerful predisposing cause of Evaporation appears to be a superior current in the atmosphere, coming from a region where the low temperature ofthe surface, or its dry state, occasions a comparative deficiency of vapour. Hence, after heavy rain in winter, we see the sudden Evaporation, first of the remaining clouds, then of the water on the ground, followed by a brisk Northerly wind and sharp frost. </p><p>The very snow which had fallen on its arrival sometimes totally evaporates during the prevalence of such a wind. On the contrary, the first appearance of clouds forming in cold weather gives us to expect a speedy remission of the frost, although the cause is not generally known to be a change to a Southerly direction already begun in the superior atmosphere; which consequently brings on an excess of vapour. </p><p>This excess of vapour coming with a superior current, may be placed next to depression of temperature among the causes of Eain. The simultaneous decomposition of the higher <em>imported</em> vapour, and of that which is formed on the spot, or already difiused in the inferior current, would necessarily produce two orders of cloud; difiering more or less in Electricity as well as in other respects. To the slow action of these upon each other, while Evaporation continues below, may be attributed the singular union which constitutes the Cumulo-stratus. It is too early to attempt to define the precise mode of this action, or to say by what change of state a Cumulus already formed is thrown into this Modification. That the latter phenomenon is an Electrical eflfect, no one who has had an opportunity to see its rapid progress during the approach of a thunderstorm can reasonably doubt.</p><p>To assert that rain is in almost every instance the result of the Electrical action of clouds upon each other, might appear to many too speculative, were we even to bring the authority of Kirwan for it, which is decidedly in favour of this idea of the process; yet it is in a great measure confirmed by observations made in various ways upon the Electrical state of clouds and of rain —  not to insist on the probability that a thunderstorm is only a more sudden and sensible display of those energies which, according to the order observable in the Creation in other respects, ought to be incessantly and silently operating for general and beneficial purposes. </p><p>In the formation of the Nimbus, two circumstances claim particular attention: the spreading of the superior masses of cloud in all directions, until they become, like the Stratus, one uniform sheet; and the rapid motion and visible decrease of the Cumulus when brought under the latter. The Cirri, also, which so frequently stretch from the superior sheet upward, and resemble erected hairs, carry so much the appearance of temporary conductors of Electricity extricated by the sudden union of its minute drops into the vastly larger ones which form the rain, that one is in a manner compelled, when viewing this phenomenon, to indulge a little in Electrical speculations. By one experiment of Cavallo’s, with a kite carrying three himdred and sixty feet of conducting string, in an interval between two showers, and kept up during rain, it seems that the superior clouds possessed a positive Electricity <em>before</em> the rain, which on the arrival of a large Cumulus gave place to a very strong negative, continuing as long as it was over the kite. We are not, however, warranted from this to conclude the Cumulus which brings on rain to be always negative; as the same effect might ensue from a positive Cumulus uniting with a negative Stratus. Yet the general negative state of the lower <em>atmosphere</em> during rain, and the positive indications commonly given by the true Stratus, render this the more probable opinion. It is not, however, absolutely necessary to determine this, seeing there is sufficient evidence in favour of the conclusion, that clouds formed in different parts of the atmosphere operate on each other, when brought near, occasioning their destruction by each other ; an effect which can only be attributed to their possessing beforehand, or acquiring at the moment, the opposite Electricities. </p><p>It may be objected that this explanation is better suited to the case of a shower than to that of continued rain, for which it does not seem sufficient. If it should appear, nevertheless, that the supply of each kind of cloud may be kept up in proportion to the consumption, the objection will be answered. Now it is a well-known fact, that Evaporation from the surface of the earth and water returns and continues during rain, and consequently affords the lower clouds, while the upper may be recruited from vapour brought by the superior current, and continually subsiding in the form of dew; as is evident both from the turbidness of the atmosphere in rainy seasons, and from the plentiful deposition of dew in the nocturnal intervals of rain. Neither is it pretended that Electricity is any further concerned in the production of rain than as a secondary agent, which modifies the effect of the two grand predisposing causes — <em>a falling temperature and the influx of vapour. </em></p>"
+        },
+        "id": "8ca441d2-24ea-4fb9-b2ed-7792374c085b",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "level": "h3",
+            "text": "The end."
+        },
+        "id": "0666c7aa-bc32-49ab-b32b-07bb4e835cf9",
+        "isHidden": false,
+        "type": "heading"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 

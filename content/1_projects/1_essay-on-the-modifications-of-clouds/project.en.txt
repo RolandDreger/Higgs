@@ -42,6 +42,14 @@ Projecttableofcontent:
   projects/essay-on-the-modifications-of-clouds/essay/of-the-formation-of-the-stratus
 - >
   projects/essay-on-the-modifications-of-clouds/essay/of-the-formation-of-the-cumulus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-formation-of-the-cirrus
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-nature-of-the-intermediate-modifications
+- >
+  projects/essay-on-the-modifications-of-clouds/essay/of-the-nature-of-the-compound-modifications-and-of-the-resolution-of-clouds-into-rain
+- >
+  projects/essay-on-the-modifications-of-clouds/imprint
 
 ----
 

@@ -1,0 +1,56 @@
+Title: Of the Formation of the Cirrus
+
+----
+
+Documenttext:
+
+[
+    {
+        "content": {
+            "text": "<p>It must have been owing entirely to the want of distinctive characters for clouds, and the consequent neglect of observing their changes, that the nature of this Modification more especially has not engaged the attention of Electricians. The attraction of aggregation operating on solid particles diffused in fluids, does indeed produce a great variety of ramifications in the process of crystallization; but these are either uniform in each substance, or have a limited number of changes. And in no instance do we see the same substance, separated from the same medium and unconfined in its movements, rival the numerous metamorphoses of the Cirrus. </p><p>The great elevation of these clouds in their ordinary mode of appearance has been ascertained both by geometrical observations,* and by viewing them from the summits of the highest mountains, when they appear as if seen from the plain. A more easy and not less convincing proof may be had by noting the time during which they continue to reflect the different coloured rays after sunset; which they do incomparably longer than any others. The same conflguration of Cirrus has been observed in the same quarter of the sky for two successive days, during which a smart breeze from the opposite quarter prevailed below. </p>"
+        },
+        "id": "acb242ea-710c-42af-9d47-671aee437f40",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>* “The small white streaks of condensed vapour which appear on the face of the sky in serene weather, I have, by several careful observations, found to be from three to five miles above the earth's surfece.” — Dalton.</p>"
+        },
+        "id": "51cb6dc0-5bea-4c73-8876-a8b7c9c47bf2",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>It is therefore probable that this Modification collects its water in a comparatively calm region; which is sometimes incumbent on the current next the earth, and almost out of the reach of its <em>daily</em> variations in temperature and quantity of vapour; but at other times is interposed between the latter and a supervening current from another climate : in which case it may be affected by both currents. </p><p>The Cumulus has been just now considered as an insulated body, consisting of moveable parts which accommodate themselves to the state of a <em>retained</em> Electricity. We shall attempt to explain the nature of the Cirrus by comparing it to those imperfect conductors, which being interposed between Electrics and Conductors, or between the latter in different states, serve to restore by degrees the equilibrium of the Electric fluid. </p><p>If a lock of hair be properly fixed on the prime conductor and electrified <em>plus</em>, the hairs will be separately extended at as great a distance from each other as possible; in which state they will continue for some time. The reason appears to be, that the contiguous air is then <em>minus;</em> and consequently these two moveable substances put themselves into the state most favourable to a communication which is going on slowly between bad conductors. </p><p>The same appearances will take place if the lock be electrified minm, the contiguous air being plus; and in each case the hairs will move from a body similarly electrified and brought near them, and <em>towards</em> one contrariwise electrified. Moreover, if we could insulate such a charged lock in the midst of a perfectly tranquil atmosphere of sufficient extent, in which particles of conducting matter were suspended, it is plain the latter would be attracted by it so long as the charge continued; after which they would be at large as before. </p><p>Dry air being an electric, and moist air but an indifferent conductor, it is reasonable to suppose that an immediate communication of Electricity between masses of air differently charged can scarcely happen to any great extent, except by the intimate mixture of such masses; an effect which may possibly follow in some cases, and occasion strong winds and commotions in the atmosphere. If we consider how frequently, and to what an extent, the Electricity of the air is disturbed (as appears from numerous experiments) by evaporation, by the formation and passage of clouds, by elevation or depression of temperature, (by friction upon surfaces of ice ?) it seems probable that the particles of water floating in a calm space may be frequently converted into conductors ; by which the equilibrium is in part restored after such disturbance. </p><p>Viewing the Cirrus in this light, it becomes important for those who are well versed in electricity to study its appearances, and compare them with the changes that ensue in the atmosphere. A number of observations, made hitherto chiefly in one place, and without system or aid from concurrent ones in others, have furnished the preceding data, which may serve as hints for future investigation. </p><p>At present we can only conjecture that the local detached Cirri which ramify <em>in all directions,</em> are collecting particles of water from the surrounding space; and at the same time equalizing their own electricity with that of the air or vapour. </p><p>That when numerous oblique short tufts appear, they are conducting between the air above and that below them. </p><p>That a decided direction of the extremities of pendent or erected Cirri from the mass they join towards any quarter, is occasioned by the different Electricity of a current of air whch is pressing upon the space they are contained in. This is the most important point to attend to, as these <em>tails</em> sometimes veer half round the compass in the course of a few hours: and many observations have confirmed the fact that they point <em>towards the coming wind,</em> and are larger and lower as this is about to be stronger. </p><p>Lastly, the Cirri in parallel lines, stretching from horizon to horizon, denote a communication of Electricity carried on through these clouds over the place of observation; the two predisposed masses of atmosphere being very distant, and the intermediate lower atmosphere not in a state to conduct it. It is at least a circumstance well deserving inquiry, by what means the clouds in stormy seasons become arranged in these elevated parallel bars; which must be at least sixty miles long, and are probably much more, considering their elevation and that both extremities are often invisible.</p>"
+        },
+        "id": "017f8a1d-a163-4be2-842d-3abc7540e13c",
+        "isHidden": false,
+        "type": "text"
+    }
+]
+
+----
+
+Documentstatus: ✓
+
+----
+
+Documentlevel: level-2
+
+----
+
+Documentpart: bodymatter
+
+----
+
+Documentlandmark: 
+
+----
+
+Documenttype: 
+
+----
+
+Documentrole: 
