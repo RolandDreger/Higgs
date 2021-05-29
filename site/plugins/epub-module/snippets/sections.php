@@ -22,7 +22,7 @@
 			</header>
 		<?php endif; ?>
 		<?php /* Content */ ?>
-		<?= $targetPage->documentText()->toXhtml('blocks'); ?>
+		<?= $targetPage->documentContent()->toXhtml('blocks'); ?>
 		<?php /* Subpages */ ?>
 		<?php 
 			snippet('xhtml/sections', [

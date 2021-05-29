@@ -20,6 +20,6 @@
 				<?= $targetPage->title()->toXhtml('text', 'h1', ['epub:type' => 'title']); ?>
 			</header>
 		<?php endif; ?>
-		<?= $targetPage->documentText()->toXhtml('blocks'); ?>
+		<?= $targetPage->documentContent()->toXhtml('blocks'); ?>
 	</section>
 <?php endforeach; ?>
