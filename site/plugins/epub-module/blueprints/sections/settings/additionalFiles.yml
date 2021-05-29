@@ -1,0 +1,32 @@
+type: fields
+fields:
+  epubFilesHeadline:
+    type: headline
+    label: 
+      en: "Additional files"
+      de: "Zusätzliche Dateien"
+    numbered: false
+  epubCSSFiles:
+    type: files
+    label:
+      en: "Stylesheets"
+      de: "Stylesheets"
+    layout: list
+    link: false
+    multiple: true
+    search: true
+    query: page.files.template('css')
+    uploads:
+      template: css
+  epubFontFiles:
+    type: files
+    label:
+      en: "Fonts"
+      de: "Schriften"
+    layout: list
+    link: false
+    multiple: true
+    search: true
+    query: page.files.template('font')
+    uploads:
+      template: font

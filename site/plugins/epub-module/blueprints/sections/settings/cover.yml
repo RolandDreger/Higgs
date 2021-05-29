@@ -1,0 +1,70 @@
+type: fields
+fields:
+  epubCoverHeadline:
+    type: headline
+    label: 
+      en: "Cover"
+      de: "Titelbild"
+    numbered: false
+  epubHasCoverImage:
+    type: toggle
+    label: 
+      en: "Include Cover"
+      de: "Titelbild einfügen"
+    text:
+      - en: "No"
+        de: "Nein"
+      - en: "Yes"
+        de: "Ja"
+  epubCoverImageFile:
+    type: files
+    label: 
+      en: "Image File"
+      de: "Bilddatei"
+    layout: cards
+    size: small
+    image:
+      ratio: 1/1
+      cover: false
+    max: 1
+    text: "{{ file.filename }} ({{ file.dimensions }})"
+    template: cover
+    when: 
+      epubHasCoverImage: true
+  epubCoverWidth:
+    type: number
+    label: 
+      en: "Maximum Width"
+      de: "Maximale Breite"
+    width: 1/2
+    min: 10
+    max: 3000
+    after: "px"
+    default: 600
+    when: 
+      epubHasCoverImage: true
+  epubCoverHeight:
+    type: number
+    label: 
+      en: "Maximum Height"
+      de: "Maximale Höhe (max)"
+    width: 1/2
+    min: 10
+    max: 3000
+    after: "px"
+    default: 600
+    when: 
+      epubHasCoverImage: true
+  epubCoverQuality:
+    type: range
+    label: 
+      en: "Image Quality"
+      de: "Bildqualität"
+    step: 10
+    min: 10
+    max: 100
+    default: 80
+    before: min
+    after: max
+    when: 
+      epubHasCoverImage: true

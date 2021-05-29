@@ -1,0 +1,30 @@
+type: fields
+fields:
+  metadataRequiredHeadline:
+    type: headline
+    label:
+      en: "Required"
+      de: "Verpflichtende Angaben"
+    numbered: false
+  metadataTitle:
+    type: text
+    label: 
+      en: "Project Title"
+      de: "Projecttitel"
+    default: "{{ page.title }}"
+    placeholder: "{{ page.title }}"
+  metadataID:
+    type: text
+    label: 
+      en: "Project ID"
+      de: "Project-ID"
+  metadataIDType:
+    type: select
+    label: 
+      en: "Project ID Type"
+      de: "Project-ID Typ"
+    options:
+      - "ISBN"
+      - "ISSN"
+      - "DOI"
+      - "URI"

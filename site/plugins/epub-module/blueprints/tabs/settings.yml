@@ -1,0 +1,16 @@
+label:
+  en: "ePub"
+  de: "ePub"
+columns:
+  - width: 1/4
+    sections:
+      epubSettingsGeneral: sections/epub/settings/general
+  - width: 1/4
+    sections:
+      epubSettingsCover: sections/epub/settings/cover 
+  - width: 1/4
+    sections:
+      epubSettingsImages: sections/epub/settings/images
+  - width: 1/4
+    sections:
+      epubSettingsAdditionalFiles: sections/epub/settings/additionalFiles

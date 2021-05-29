@@ -1,0 +1,52 @@
+type: fields
+fields:
+  metadataOptionalHeadline:
+    type: headline
+    label:
+      en: "Optional"
+      de: "Optionale Angaben"
+    width: 1/1
+    numbered: false
+  metadataCreator:
+    type: text
+    label: 
+      en: "Creator(s)"
+      de: "Autor:innen"
+    width: 1/2
+  metadataRights:
+    type: text
+    label: 
+      en: "Copyrights"
+      de: "Urheberrechte"
+    width: 1/2
+  metadataPublisher:
+    type: text
+    label: 
+      en: "Publisher"
+      de: "Herausgeber/Verlag"
+    width: 1/2
+  metadataContributor:
+    type: text
+    label: 
+      en: "Contributors"
+      de: "Mitwirkende"
+    width: 1/2
+  metadataDate:
+    type: date
+    label: 
+      en: "Publishing Date"
+      de: "Erscheinungsdatum"
+    width: 1/2
+    display: DD-MM-YYYY
+    format: Y-m-d
+    time: false
+  medadataDescription:
+    type: textarea
+    label:
+      en: "Content Description"
+      de: "Inhaltliche Beschreibung"
+    width: 1/1
+    buttons: false
+    help:
+      en: "Short description of the project."
+      de: "Kurze Beschreibung des Projekts."

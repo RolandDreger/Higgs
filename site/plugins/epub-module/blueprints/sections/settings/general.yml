@@ -1,0 +1,36 @@
+type: fields
+fields:
+  epubHeadline:
+    type: headline
+    label: 
+      en: "General Settings"
+      de: "Allgemeine Einstellungen"
+    numbered: false
+  epubName:
+    type: epubFileName
+    label:
+      en: "File Name"
+      de: "Dateiname"
+    placeholder: "{{ page.slug }}"
+    after: ".epub"
+    converter: slug
+  epubVersion:
+    type: select
+    label:
+      en: Version
+      de: Version
+    options:
+      - "2.0"
+      - "3.0"
+    default: "3.0"
+  epubLanguage:
+    type: select
+    label:
+      en: "Language"
+      de: "Sprache"
+    options: query
+    query: 
+      fetch: kirby.languages
+      text: "{{ item.name }}"
+      value: "{{ item.code }}"
+    default: kirby.language.code

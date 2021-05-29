@@ -33,8 +33,15 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'blueprints' => [
-		'tabs/metadata' => __DIR__ . '/blueprints/tabs/metadata.yml',
-		'tabs/epub' => __DIR__ . '/blueprints/tabs/epub.yml',
+		'tabs/epub/metadata' => __DIR__ . '/blueprints/tabs/metadata.yml',
+		'tabs/epub/settings' => __DIR__ . '/blueprints/tabs/settings.yml',
+		'sections/epub/metadata/required' => __DIR__ . '/blueprints/sections/metadata/required.yml',
+		'sections/epub/metadata/optional' => __DIR__ . '/blueprints/sections/metadata/optional.yml',
+		'sections/epub/tableOfContents' => __DIR__ . '/blueprints/sections/tableOfContents.yml',
+		'sections/epub/settings/general' => __DIR__ . '/blueprints/sections/settings/general.yml',
+		'sections/epub/settings/cover' => __DIR__ . '/blueprints/sections/settings/cover.yml',
+		'sections/epub/settings/images' => __DIR__ . '/blueprints/sections/settings/images.yml',
+		'sections/epub/settings/additionalFiles' => __DIR__ . '/blueprints/sections/settings/additionalFiles.yml',
 		'files/epub' => __DIR__ . '/blueprints/files/epub.yml',
 		'files/css' => __DIR__ . '/blueprints/files/css.yml',
 		'files/font' => __DIR__ . '/blueprints/files/font.yml',

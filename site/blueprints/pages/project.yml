@@ -14,5 +14,5 @@ tabs:
     icon: text
 
   projectEPub: 
-    extends: tabs/epub
+    extends: tabs/settings/epub
     icon: settings

@@ -1,0 +1,39 @@
+type: fields
+fields:
+  epubImageHeadline:
+    type: headline
+    label: 
+      en: "Content Images"
+      de: "Inhaltsbilder"
+    numbered: false
+  epubImageWidth:
+    type: number
+    label: 
+      en: "Maximum Width"
+      de: "Maximale Breite"
+    width: 1/2
+    min: 10
+    max: 3000
+    after: "px"
+    default: 600
+  epubImageHeight:
+    type: number
+    label: 
+      en: "Maximum Height"
+      de: "Maximale Höhe (max)"
+    width: 1/2
+    min: 10
+    max: 3000
+    after: "px"
+    default: 600
+  epubImageQuality:
+    type: range
+    label: 
+      en: "Image Quality"
+      de: "Bildqualität"
+    step: 10
+    min: 10
+    max: 100
+    default: 80
+    before: min
+    after: max

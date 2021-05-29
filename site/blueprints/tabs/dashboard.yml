@@ -4,21 +4,7 @@ label:
 columns:
   - width: 2/4
     sections:
-      projectTableOfContentSection:
-        type: fields
-        fields:
-          projectTableOfContent:
-            type: pages
-            label: 
-              en: "Table of Contents"
-              de: "Inhaltsverzeichnis"
-            text: "{{ page.documentLevel.translate() }} {{ page.title }}  {{ page.documentStatus }}"
-            info: "{{ page.documentPart.translate().upper() }}"
-            image: 
-              query: page.image
-            query: page.children
-            subpages: true
-            search: true
+      projectTableOfContentSection: sections/epub/tableOfContents
   - width: 1/4
     sections:
       projectInfoSection:
