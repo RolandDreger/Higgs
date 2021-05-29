@@ -14,7 +14,7 @@ return [
 		return 'x' . bin2hex(mhash(MHASH_MD5, $this->id()));
 	},
 	/**
-	 * Get status icon for document 
+	 * Get status icon for page 
 	 * 
 	 * Usage (in blueprint):
 	 * ...
