@@ -2,7 +2,7 @@ Title: Imprint
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {

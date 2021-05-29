@@ -2,7 +2,7 @@ Title: Of the Nature of the Compound Modifications, and of the Resolution of Clo
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {

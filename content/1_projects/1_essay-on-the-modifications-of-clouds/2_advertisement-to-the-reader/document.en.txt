@@ -2,7 +2,7 @@ Title: Advertisement To The Reader
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {

@@ -2,7 +2,7 @@ Title: Essay on the Modifications of Clouds
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {
@@ -45,6 +45,23 @@ Documenttext:
         "id": "b6dfef48-b245-41af-9c86-0ff033fc0b16",
         "isHidden": false,
         "type": "text"
+    },
+    {
+        "content": {
+            "location": "kirby",
+            "image": [
+                "forms_assumed_by_clouds_when_gathering_for_a_thunderstorm.jpg"
+            ],
+            "src": "",
+            "alt": "Zwei Personen an der Küste vor einem Gewitter",
+            "caption": "Forms assumed by clouds when gathering for a thunderstorm.",
+            "link": "",
+            "ratio": "",
+            "crop": "false"
+        },
+        "id": "a2a0a219-e91e-40c5-8e5b-fc84c27aa1d5",
+        "isHidden": false,
+        "type": "image"
     }
 ]
 

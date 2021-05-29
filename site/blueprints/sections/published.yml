@@ -3,6 +3,8 @@ headline:
   en: "Documents"
   de: "Drafts"
 layout: list
+image: 
+  cover: true
 status: published
 text: "{{ page.title }}"
 create: 'Document'

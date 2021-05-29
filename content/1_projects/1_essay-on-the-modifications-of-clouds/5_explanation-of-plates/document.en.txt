@@ -2,7 +2,7 @@ Title: Explanation of plates
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {

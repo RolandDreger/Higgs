@@ -75,7 +75,7 @@ Metadataid: urn:isbn:9781234567890
 
 ----
 
-Metadataidtype: ISBN
+Metadataidtype: 
 
 ----
 
@@ -115,13 +115,11 @@ Epublanguage: en
 
 ----
 
-Epubhascoverimage: true
+Epubhascoverimage: false
 
 ----
 
-Epubcoverimagefile:
-
-- cover.jpg
+Epubcoverimagefile: 
 
 ----
 
@@ -129,7 +127,7 @@ Epubcoverheight: 1200
 
 ----
 
-Epubcoverquality: 80
+Epubcoverquality: 100
 
 ----
 

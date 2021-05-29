@@ -1,10 +1,10 @@
 type: fields
 fields: 
-  documentText:
+  documentContent:
     type: blocks
     label: 
       en: "Content"
-      de: "Inhalt"
+      de: "Content"
     autofocus: true
     pretty: true 
     fieldsets:

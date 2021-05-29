@@ -2,7 +2,7 @@ Title: Essay
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {

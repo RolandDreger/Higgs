@@ -2,7 +2,7 @@ Title: Of the Nimbus, or Cumulo-Cirro-Stratus
 
 ----
 
-Documenttext:
+Documentcontent:
 
 [
     {

@@ -4,7 +4,7 @@ columns:
   - width: 2/3
     sections:
       documentContent:
-        extends: sections/content
+        extends: sections/document/content
 
       documentPublishedDocumentsLevel1:
         extends: sections/published
@@ -29,12 +29,12 @@ columns:
   - width: 1/3
     sections:
       documentSettings:
-        extends: sections/epub/document
+        extends: sections/epub/settings/document
         
-      documentFiles:
+      documentGraphics:
+        type: files
         headline: 
           en: Graphic files
           de: Grafikdateien
-        type: files
         layout: list
         template: blocks/image

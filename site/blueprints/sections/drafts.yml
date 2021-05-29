@@ -4,5 +4,7 @@ headline:
   de: "Entwürfe"
 layout: list
 status: drafts
+image: 
+  cover: true
 text: "{{ page.title }}"
 create: 'Document'
