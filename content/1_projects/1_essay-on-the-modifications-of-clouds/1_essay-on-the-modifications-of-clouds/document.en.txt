@@ -50,7 +50,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: publish
 
 ----
 

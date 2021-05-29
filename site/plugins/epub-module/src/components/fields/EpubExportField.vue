@@ -1,13 +1,13 @@
 <template>
 	<k-field 
-		class="k-export-fied" 
+		class="k-epub-export-fied" 
 		:label="label" 
 		:disabled="disabled"
 		:required="required"
 		:help="help"
 	>
 		<k-button 
-			class="k-export-button" 
+			class="k-epub-export-button" 
 			theme="positiv"
 			:buttonLabel="buttonLabel"  
 			:disabled="disabled"
@@ -91,7 +91,7 @@ export default {
 
 <style lang="scss">
 	
-	.k-export-button {
+	.k-epub-export-button {
 		width: 100%;
 		text-align: left;
 		vertical-align: middle;
@@ -99,7 +99,7 @@ export default {
 		box-shadow: var(--box-shadow-item);
 	}
 
-	.k-export-button span:first-child {
+	.k-epub-export-button span:first-child {
 		width: 38px;
 		height: 38px;
 		background-color: #2b2b2b;
@@ -107,13 +107,13 @@ export default {
 		color:#fff;
 	}
 
-	.k-export-button:focus span:first-child,
-	.k-export-button:active span:first-child,
-	.k-export-button:hover span:first-child {
+	.k-epub-export-button:focus span:first-child,
+	.k-epub-export-button:active span:first-child,
+	.k-epub-export-button:hover span:first-child {
 		background-color: #4271ae;
 	}
 
-	.k-export-button span:last-child {
+	.k-epub-export-button span:last-child {
 		margin-left: 0.5rem;
 	}
 	

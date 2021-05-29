@@ -34,7 +34,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: publish
 
 ----
 

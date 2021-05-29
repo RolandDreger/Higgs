@@ -1,5 +1,25 @@
 type: fields
 fields:
+  documentStatus:
+    type: select
+    label: 
+      en: "Status"
+      de: "Status"
+    default: 'edit'
+    required: false
+    options: 
+      'edit': 
+        en: "Edit"
+        de: "Bearbeiten"
+      'review': 
+        en: "Review"
+        de: "Überprüfen"
+      'release':
+        en: "Release"
+        de: "Freigeben"
+      'publish': 
+        en: "Publish"
+        de: "Publizieren"
   documentLevel:
     type: select
     label: 

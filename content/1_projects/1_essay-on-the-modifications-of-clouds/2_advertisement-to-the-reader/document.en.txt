@@ -49,7 +49,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: publish
 
 ----
 

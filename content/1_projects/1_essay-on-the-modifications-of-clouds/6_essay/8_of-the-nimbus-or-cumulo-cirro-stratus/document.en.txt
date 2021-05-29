@@ -99,7 +99,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: publish
 
 ----
 

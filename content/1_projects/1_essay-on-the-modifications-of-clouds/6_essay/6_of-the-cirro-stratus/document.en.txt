@@ -33,7 +33,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: edit
 
 ----
 

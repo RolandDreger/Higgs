@@ -42,7 +42,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: publish
 
 ----
 

@@ -115,7 +115,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✗
+Documentstatus: edit
 
 ----
 

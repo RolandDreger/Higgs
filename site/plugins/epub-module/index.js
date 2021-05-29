@@ -9012,7 +9012,7 @@ exports.default = _default;
   return _c(
     "k-field",
     {
-      staticClass: "k-export-fied",
+      staticClass: "k-epub-export-fied",
       attrs: {
         label: _vm.label,
         disabled: _vm.disabled,
@@ -9024,7 +9024,7 @@ exports.default = _default;
       _c(
         "k-button",
         {
-          staticClass: "k-export-button",
+          staticClass: "k-epub-export-button",
           attrs: {
             theme: "positiv",
             buttonLabel: _vm.buttonLabel,
@@ -9257,7 +9257,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51739" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59151" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

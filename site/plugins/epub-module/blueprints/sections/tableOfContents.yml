@@ -5,10 +5,10 @@ fields:
 		label: 
 			en: "Table of Contents"
 			de: "Inhaltsverzeichnis"
-		text: "{{ page.documentLevel.translate() }} {{ page.title }}  {{ page.documentStatus }}"
+		text: "{{ page.documentLevel.translate() }} {{ page.title }}"
 		info: "{{ page.documentPart.translate().upper() }}"
 		image: 
-			query: page.image
+			query: page.statusIcon("svg")
 		query: page.children
 		subpages: true
 		search: true

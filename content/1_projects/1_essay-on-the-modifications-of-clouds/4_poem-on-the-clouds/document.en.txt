@@ -126,7 +126,7 @@ Documenttext:
 
 ----
 
-Documentstatus: ✓
+Documentstatus: release
 
 ----
 
