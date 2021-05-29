@@ -15,11 +15,11 @@
 		}
 	?>
 	<section <?= Xml::attr($sectionAttrArray); ?>>
-		<?php /* Title */ ?>
-		<header>
-			<?= $targetPage->title()->toXhtml('text', 'h1', ['epub:type' => 'title']); ?>
-		</header>
-		<?php /* Content */ ?>
+		<?php if($targetPage->documentIsTitleVisible()->value() !== 'false'): ?>
+			<header>
+				<?= $targetPage->title()->toXhtml('text', 'h1', ['epub:type' => 'title']); ?>
+			</header>
+		<?php endif; ?>
 		<?= $targetPage->documentText()->toXhtml('blocks'); ?>
 	</section>
 <?php endforeach; ?>

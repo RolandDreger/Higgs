@@ -130,6 +130,10 @@ Documentlevel: level-1
 
 ----
 
+Documentistitlevisible: true
+
+----
+
 Documentpart: frontmatter
 
 ----

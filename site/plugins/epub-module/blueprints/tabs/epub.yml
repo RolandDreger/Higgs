@@ -58,7 +58,7 @@ columns:
               en: "Include Cover"
               de: "Titelbild einfügen"
             text:
-              - en: "Nope"
+              - en: "No"
                 de: "Nein"
               - en: "Yes"
                 de: "Ja"

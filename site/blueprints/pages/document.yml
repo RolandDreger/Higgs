@@ -51,6 +51,17 @@ columns:
             help: 
               en: Level in Table of Contents
               de: Ebene im Inhaltsverzeichnis
+          documentIsTitleVisible:
+            type: toggle
+            label: 
+              en: "Title visible"
+              de: "Titel ausgeben"
+            default: true
+            text:
+              - en: "No"
+                de: "Nein"
+              - en: "Yes"
+                de: "Ja"
           documentPart:
             # Translations from languages files
             type: select

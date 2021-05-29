@@ -57,6 +57,10 @@ Documentlevel: level-2
 
 ----
 
+Documentistitlevisible: true
+
+----
+
 Documentpart: bodymatter
 
 ----

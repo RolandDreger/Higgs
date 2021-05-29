@@ -7,9 +7,17 @@ Documenttext:
 [
     {
         "content": {
-            "text": "<p>London:</p><p>Savill and Edwards, Printers, Chandos Street, Covent Garden.</p>"
+            "text": "<p>London:</p>"
         },
-        "id": "c0c9e6b3-3be6-498f-90ce-a943c2afc5f1",
+        "id": "16fd55c1-8823-42ed-9c18-3a19650c88dc",
+        "isHidden": false,
+        "type": "text"
+    },
+    {
+        "content": {
+            "text": "<p>Savill and Edwards, Printers, Chandos Street, Covent Garden.</p>"
+        },
+        "id": "8ae18a47-4822-441b-8786-4d2c6fcfed68",
         "isHidden": false,
         "type": "text"
     }
@@ -25,16 +33,20 @@ Documentlevel: level-1
 
 ----
 
+Documentistitlevisible: false
+
+----
+
 Documentpart: backmatter
 
 ----
 
-Documentlandmark: 
+Documentlandmark: imprint
 
 ----
 
-Documenttype: 
+Documenttype: imprint
 
 ----
 
-Documentrole: 
+Documentrole: doc-credits
