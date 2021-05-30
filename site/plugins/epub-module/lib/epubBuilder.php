@@ -944,9 +944,13 @@ class EpubBuilder {
 			}
 			$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['property','dcterms:modified','sec']], $this->getProjectDate());
 		}
+
+		/* Meta Element Cover */
+		if($this->checkVersion(3) && $this->getHasCover() && !empty($this->coverFile)) {
+			$metaCoverElement = $this->addElement($doc, 'meta', $metadataElement, [['name','cover','sec'], ['content','cover-image','sec']]);
+		}
 		
 		/* Dublin Core Metadata Terms (optional) */
-
 		if(!empty($this->metadataCreator)) {
 			$dcCreatorElement = $this->addElement($doc, 'dc:creator', $metadataElement, [['id','opf_author1','sec']], $this->metadataCreator);
 		}
@@ -1004,7 +1008,7 @@ class EpubBuilder {
 			$coverHashID = $coverFile->hashID();
 			$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFile->filename(), 'manifest');
 			$coverMimeType = $this->getMimeType($coverFile->realpath()) ?? '';
-			$this->addElement($doc, 'item', $manifestElement, [['id',$coverHashID,'attr'],['href',$coverArchivePath,'href'],['media-type',$coverMimeType,'sec']]);
+			$this->addElement($doc, 'item', $manifestElement, [['id','cover-image','sec'],['href',$coverArchivePath,'href'],['media-type',$coverMimeType,'sec'],['properties','cover-image','sec']]);
 			/* cover.xhtml */
 			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
 			$this->addElement($doc, 'item', $manifestElement, [['id','cover','sec'],['href',$coverHrefValue,'href'],['media-type','application/xhtml+xml','sec']]);
