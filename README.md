@@ -1,5 +1,5 @@
 # Higgs
-Simple web-based publishing system built on top of [Kirby](https://getkirby.com/).
+Simple web-based publishing system built on top of the flat file content management system [Kirby](https://getkirby.com/).
 
 
 ## 1. Notice
