@@ -24,6 +24,6 @@ Support development: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donatio
 Follow on [Twitter](https://twitter.com/Roland_Dreger) 
 
 
-## 5. Authors
+## 5. Author
 
 Roland Dreger, www.rolanddreger.net
