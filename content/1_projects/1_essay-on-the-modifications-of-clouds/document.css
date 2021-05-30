@@ -1,9 +1,16 @@
+
+:root {
+	--base-font-family: "Vollkorn", "Georgia", serif;
+	--heading-font-family: "Vollkorn", "Georgia", serif;
+}
+
+
 html, body {
 	height: 100%;
 }
 
 body {
-	font-family: 'Vollkorn', 'Georgia', serif;
+	font-family: var(--base-font-family);
 	font-size: 1.2rem;
 	-ms-hyphens: auto;
 	-webkit-hyphens: auto;
@@ -11,6 +18,10 @@ body {
 	hyphens: auto;
 	font-kerning: normal;
 	text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--heading-font-family);
 }
 
 section {
