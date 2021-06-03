@@ -613,6 +613,7 @@ class EpubBuilder {
 					return $this;
 				}
 				$xmlString = $tocXhtmlDoc->saveXML();
+				$xmlString = $this->transformContent($xmlString);
 				$tocXhtmlArchivePath = $this->buildFilePath('', 'toc.xhtml', 'ops');
 				$epub->addFromString($tocXhtmlArchivePath, $xmlString);
 			}
@@ -1084,10 +1085,8 @@ class EpubBuilder {
 		$dom->xmlVersion = '1.0';
 		$dom->encoding = 'UTF-8';
 
-		$dtd = $dom->createDocumentType('html', '', '');
-
 		/* Create XHTML Document */
-		$doc = $dom->createDocument(null, 'html', $dtd);
+		$doc = $dom->createDocument(null, 'html');
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
 		$doc->formatOutput = $this->getFormatOutput();
@@ -1122,7 +1121,7 @@ class EpubBuilder {
 			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName);
 			$this->addElement($doc, 'link', $headElement, [['href',$cssArchivePath,'href'],['rel','stylesheet','sec']]);
 		}
-		
+
 		/* BODY Element */
 		$bodyElement = $this->addElement($doc, 'body', $rootElement);
 
