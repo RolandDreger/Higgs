@@ -877,7 +877,7 @@ class EpubBuilder {
 		/* Stylsheets */
 		foreach($this->cssFiles as $css) {
 			$cssFileName = $css->filename();
-			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName, 'ops');
+			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName);
 			$this->addElement($doc, 'link', $headElement, [['href',$cssArchivePath,'href'],['rel','stylesheet','sec']]);
 		}
 
@@ -1115,7 +1115,14 @@ class EpubBuilder {
 		if(!empty($projectTitle)) {
 			$titleElement = $this->addElement($doc, 'title', $headElement, [], $projectTitle);
 		}
-
+		
+		/* Stylsheets */
+		foreach($this->cssFiles as $css) {
+			$cssFileName = $css->filename();
+			$cssArchivePath = $this->buildFilePath(self::STYLESHEET_FOLDER_PATH, $cssFileName);
+			$this->addElement($doc, 'link', $headElement, [['href',$cssArchivePath,'href'],['rel','stylesheet','sec']]);
+		}
+		
 		/* BODY Element */
 		$bodyElement = $this->addElement($doc, 'body', $rootElement);
 
