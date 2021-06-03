@@ -1039,6 +1039,11 @@ class EpubBuilder {
 			$this->addElement($doc, 'itemref', $spineElement, [['idref','cover','sec']]);
 		}
 
+		/* Table of Contents */
+		if($this->checkVersion(3)) {
+			$this->addElement($doc, 'itemref', $spineElement, [['idref','nav','sec'],['linear','no','sec']]);
+		}
+		
 		/* Content Documents */
 		foreach($this->tocPages as $page) {
 			$pageHashID = $page->hashID();
