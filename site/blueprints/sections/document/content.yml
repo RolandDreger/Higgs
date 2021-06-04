@@ -18,6 +18,14 @@ fields:
           - text
           - list
           - quote
+          button:
+            name: Button
+            icon: bold
+            fields:
+              link:
+                type: url
+              text:
+                type: text
       codeGroup:
         type: group
         label: 

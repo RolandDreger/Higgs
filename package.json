@@ -1,7 +1,9 @@
 {
   "scripts": {
     "devEpubModule": "parcel watch site/plugins/epub-module/src/index.js --no-source-maps -d ./site/plugins/epub-module/",
-    "buildEpubModule": "parcel build site/plugins/epub-module/src/index.js --no-source-maps --experimental-scope-hoisting -d ./site/plugins/epub-module/"
+    "buildEpubModule": "parcel build site/plugins/epub-module/src/index.js --no-source-maps --experimental-scope-hoisting -d ./site/plugins/epub-module/",
+    "devPanelModule": "parcel watch site/plugins/panel-module/src/index.js --no-source-maps -d ./site/plugins/panel-module/",
+    "buildPanelModule": "parcel build site/plugins/panel-module/src/index.js --no-source-maps --experimental-scope-hoisting -d ./site/plugins/panel-module/"
   },
   "posthtml": {
     "recognizeSelfClosing": true
@@ -9,7 +11,7 @@
   "devDependencies": {
     "@vue/component-compiler-utils": "^3.2.0",
     "sass": "^1.33.0",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.13"
   },
   "dependencies": {
     "vue": "^2.6.12",

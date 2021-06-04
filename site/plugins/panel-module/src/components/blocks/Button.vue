@@ -1,3 +1,19 @@
+<template>
+	<input
+		type="text"
+		placeholder="Button text ..."
+		:value="content.text"
+		@input="update({ text: $event.target.value })"
+	/>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style>
 .k-block-type-button button {
 	border: 2px solid #000;
 	display: inline-flex;
@@ -13,3 +29,4 @@
 	outline: 0;
 	border-color: var(--color-focus);
 }
+</style>

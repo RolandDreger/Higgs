@@ -62,6 +62,15 @@ Documentcontent:
         "id": "a2a0a219-e91e-40c5-8e5b-fc84c27aa1d5",
         "isHidden": false,
         "type": "image"
+    },
+    {
+        "content": {
+            "link": "https://www.rolanddreger.net",
+            "text": "Roland Dreger"
+        },
+        "id": "2bf22c95-0441-429f-a266-d4357679cc5b",
+        "isHidden": false,
+        "type": "button"
     }
 ]
 
