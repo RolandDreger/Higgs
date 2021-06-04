@@ -184,7 +184,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
+},{"./bundle-url":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../../../../node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
 var Vue // late bind
 var version
 var map = Object.create(null)
@@ -459,7 +459,7 @@ function patchScopedSlots (instance) {
   }
 }
 
-},{}],"../node_modules/vue/dist/vue.runtime.esm.js":[function(require,module,exports) {
+},{}],"../../../../node_modules/vue/dist/vue.runtime.esm.js":[function(require,module,exports) {
 var global = arguments[3];
 "use strict";
 
@@ -469,8 +469,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 /*!
- * Vue.js v2.6.12
- * (c) 2014-2020 Evan You
+ * Vue.js v2.6.13
+ * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
 
@@ -2182,13 +2182,17 @@ function assertProp(prop, name, value, vm, absent) {
     }
 
     for (var i = 0; i < type.length && !valid; i++) {
-      var assertedType = assertType(value, type[i]);
+      var assertedType = assertType(value, type[i], vm);
       expectedTypes.push(assertedType.expectedType || '');
       valid = assertedType.valid;
     }
   }
 
-  if (!valid) {
+  var haveExpectedTypes = expectedTypes.some(function (t) {
+    return t;
+  });
+
+  if (!valid && haveExpectedTypes) {
     warn(getInvalidTypeMessage(name, value, expectedTypes), vm);
     return;
   }
@@ -2202,9 +2206,9 @@ function assertProp(prop, name, value, vm, absent) {
   }
 }
 
-var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol)$/;
+var simpleCheckRE = /^(String|Number|Boolean|Function|Symbol|BigInt)$/;
 
-function assertType(value, type) {
+function assertType(value, type, vm) {
   var valid;
   var expectedType = getType(type);
 
@@ -2220,7 +2224,12 @@ function assertType(value, type) {
   } else if (expectedType === 'Array') {
     valid = Array.isArray(value);
   } else {
-    valid = value instanceof type;
+    try {
+      valid = value instanceof type;
+    } catch (e) {
+      warn('Invalid prop type: "' + String(type) + '" is not a constructor', vm);
+      valid = false;
+    }
   }
 
   return {
@@ -2228,15 +2237,16 @@ function assertType(value, type) {
     expectedType: expectedType
   };
 }
+
+var functionTypeCheckRE = /^\s*function (\w+)/;
 /**
  * Use function string name to check built-in types,
  * because a simple equality check will fail when running
  * across different vms / iframes.
  */
 
-
 function getType(fn) {
-  var match = fn && fn.toString().match(/^\s*function (\w+)/);
+  var match = fn && fn.toString().match(functionTypeCheckRE);
   return match ? match[1] : '';
 }
 
@@ -2261,18 +2271,16 @@ function getTypeIndex(type, expectedTypes) {
 function getInvalidTypeMessage(name, value, expectedTypes) {
   var message = "Invalid prop: type check failed for prop \"" + name + "\"." + " Expected " + expectedTypes.map(capitalize).join(', ');
   var expectedType = expectedTypes[0];
-  var receivedType = toRawType(value);
-  var expectedValue = styleValue(value, expectedType);
-  var receivedValue = styleValue(value, receivedType); // check if we need to specify expected value
+  var receivedType = toRawType(value); // check if we need to specify expected value
 
-  if (expectedTypes.length === 1 && isExplicable(expectedType) && !isBoolean(expectedType, receivedType)) {
-    message += " with value " + expectedValue;
+  if (expectedTypes.length === 1 && isExplicable(expectedType) && isExplicable(typeof value) && !isBoolean(expectedType, receivedType)) {
+    message += " with value " + styleValue(value, expectedType);
   }
 
   message += ", got " + receivedType + " "; // check if we need to specify received value
 
   if (isExplicable(receivedType)) {
-    message += "with value " + receivedValue + ".";
+    message += "with value " + styleValue(value, receivedType) + ".";
   }
 
   return message;
@@ -2288,9 +2296,10 @@ function styleValue(value, type) {
   }
 }
 
+var EXPLICABLE_TYPES = ['string', 'number', 'boolean'];
+
 function isExplicable(value) {
-  var explicitTypes = ['string', 'number', 'boolean'];
-  return explicitTypes.some(function (elem) {
+  return EXPLICABLE_TYPES.some(function (elem) {
     return value.toLowerCase() === elem;
   });
 }
@@ -2512,7 +2521,7 @@ function nextTick(cb, ctx) {
 var initProxy;
 
 if ("development" !== 'production') {
-  var allowedGlobals = makeMap('Infinity,undefined,NaN,isFinite,isNaN,' + 'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' + 'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,' + 'require' // for Webpack/Browserify
+  var allowedGlobals = makeMap('Infinity,undefined,NaN,isFinite,isNaN,' + 'parseFloat,parseInt,decodeURI,decodeURIComponent,encodeURI,encodeURIComponent,' + 'Math,Number,Date,Array,Object,Boolean,String,RegExp,Map,Set,JSON,Intl,BigInt,' + 'require' // for Webpack/Browserify
   );
 
   var warnNonPresent = function (target, key) {
@@ -3028,6 +3037,12 @@ function isWhitespace(node) {
 /*  */
 
 
+function isAsyncPlaceholder(node) {
+  return node.isComment && node.asyncFactory;
+}
+/*  */
+
+
 function normalizeScopedSlots(slots, normalSlots, prevSlots) {
   var res;
   var hasNormalSlots = Object.keys(normalSlots).length > 0;
@@ -3077,7 +3092,8 @@ function normalizeScopedSlot(normalSlots, key, fn) {
     var res = arguments.length ? fn.apply(null, arguments) : fn({});
     res = res && typeof res === 'object' && !Array.isArray(res) ? [res] // single vnode
     : normalizeChildren(res);
-    return res && (res.length === 0 || res.length === 1 && res[0].isComment // #9658
+    var vnode = res && res[0];
+    return res && (!vnode || vnode.isComment && !isAsyncPlaceholder(vnode) // #9658, #10391
     ) ? undefined : res;
   }; // this is a slot using the new v-slot syntax without scope. although it is
   // compiled as a scoped slot, render fn users would expect it to be present
@@ -3157,7 +3173,7 @@ function renderList(val, render) {
  */
 
 
-function renderSlot(name, fallback, props, bindObject) {
+function renderSlot(name, fallbackRender, props, bindObject) {
   var scopedSlotFn = this.$scopedSlots[name];
   var nodes;
 
@@ -3173,9 +3189,9 @@ function renderSlot(name, fallback, props, bindObject) {
       props = extend(extend({}, bindObject), props);
     }
 
-    nodes = scopedSlotFn(props) || fallback;
+    nodes = scopedSlotFn(props) || (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
   } else {
-    nodes = this.$slots[name] || fallback;
+    nodes = this.$slots[name] || (typeof fallbackRender === 'function' ? fallbackRender() : fallbackRender);
   }
 
   var target = props && props.slot;
@@ -3225,6 +3241,8 @@ function checkKeyCodes(eventKeyCode, key, builtInKeyCode, eventKeyName, builtInK
   } else if (eventKeyName) {
     return hyphenate(eventKeyName) !== key;
   }
+
+  return eventKeyCode === undefined;
 }
 /*  */
 
@@ -3712,9 +3730,9 @@ function createComponent(Ctor, data, context, children, tag) {
   return vnode;
 }
 
-function createComponentInstanceForVnode(vnode, // we know it's MountedComponentVNode but flow doesn't
-parent // activeInstance in lifecycle state
-) {
+function createComponentInstanceForVnode( // we know it's MountedComponentVNode but flow doesn't
+vnode, // activeInstance in lifecycle state
+parent) {
   var options = {
     _isComponent: true,
     _parentVnode: vnode,
@@ -3841,7 +3859,7 @@ function _createElement(context, tag, data, children, normalizationType) {
 
     if (config.isReservedTag(tag)) {
       // platform built-in elements
-      if ("development" !== 'production' && isDef(data) && isDef(data.nativeOn)) {
+      if ("development" !== 'production' && isDef(data) && isDef(data.nativeOn) && data.tag !== 'component') {
         warn("The .native modifier for v-on is only valid on components but it was used on <" + tag + ">.", context);
       }
 
@@ -4165,12 +4183,6 @@ function resolveAsyncComponent(factory, baseCtor) {
 
     return factory.loading ? factory.loadingComp : factory.resolved;
   }
-}
-/*  */
-
-
-function isAsyncPlaceholder(node) {
-  return node.isComment && node.asyncFactory;
 }
 /*  */
 
@@ -4553,7 +4565,7 @@ function updateChildComponent(vm, propsData, listeners, parentVnode, renderChild
 
   var newScopedSlots = parentVnode.data.scopedSlots;
   var oldScopedSlots = vm.$scopedSlots;
-  var hasDynamicScopedSlot = !!(newScopedSlots && !newScopedSlots.$stable || oldScopedSlots !== emptyObject && !oldScopedSlots.$stable || newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key); // Any static slot children from the parent may have changed during parent's
+  var hasDynamicScopedSlot = !!(newScopedSlots && !newScopedSlots.$stable || oldScopedSlots !== emptyObject && !oldScopedSlots.$stable || newScopedSlots && vm.$scopedSlots.$key !== newScopedSlots.$key || !newScopedSlots && vm.$scopedSlots.$key); // Any static slot children from the parent may have changed during parent's
   // update. Dynamic scoped slots may also have changed. In such cases, a forced
   // update is necessary to ensure correctness.
 
@@ -5025,11 +5037,8 @@ Watcher.prototype.run = function run() {
       this.value = value;
 
       if (this.user) {
-        try {
-          this.cb.call(this.vm, value, oldValue);
-        } catch (e) {
-          handleError(e, this.vm, "callback for watcher \"" + this.expression + "\"");
-        }
+        var info = "callback for watcher \"" + this.expression + "\"";
+        invokeWithErrorHandling(this.cb, this.vm, [value, oldValue], this.vm, info);
       } else {
         this.cb.call(this.vm, value, oldValue);
       }
@@ -5262,6 +5271,8 @@ function initComputed(vm, computed) {
         warn("The computed property \"" + key + "\" is already defined in data.", vm);
       } else if (vm.$options.props && key in vm.$options.props) {
         warn("The computed property \"" + key + "\" is already defined as a prop.", vm);
+      } else if (vm.$options.methods && key in vm.$options.methods) {
+        warn("The computed property \"" + key + "\" is already defined as a method.", vm);
       }
     }
   }
@@ -5403,11 +5414,10 @@ function stateMixin(Vue) {
     var watcher = new Watcher(vm, expOrFn, cb, options);
 
     if (options.immediate) {
-      try {
-        cb.call(vm, watcher.value);
-      } catch (error) {
-        handleError(error, vm, "callback for immediate watcher \"" + watcher.expression + "\"");
-      }
+      var info = "callback for immediate watcher \"" + watcher.expression + "\"";
+      pushTarget();
+      invokeWithErrorHandling(cb, vm, [watcher.value], vm, info);
+      popTarget();
     }
 
     return function unwatchFn() {
@@ -5745,10 +5755,10 @@ function pruneCache(keepAliveInstance, filter) {
   var _vnode = keepAliveInstance._vnode;
 
   for (var key in cache) {
-    var cachedNode = cache[key];
+    var entry = cache[key];
 
-    if (cachedNode) {
-      var name = getComponentName(cachedNode.componentOptions);
+    if (entry) {
+      var name = entry.name;
 
       if (name && !filter(name)) {
         pruneCacheEntry(cache, key, keys, _vnode);
@@ -5758,10 +5768,10 @@ function pruneCache(keepAliveInstance, filter) {
 }
 
 function pruneCacheEntry(cache, key, keys, current) {
-  var cached$$1 = cache[key];
+  var entry = cache[key];
 
-  if (cached$$1 && (!current || cached$$1.tag !== current.tag)) {
-    cached$$1.componentInstance.$destroy();
+  if (entry && (!current || entry.tag !== current.tag)) {
+    entry.componentInstance.$destroy();
   }
 
   cache[key] = null;
@@ -5777,6 +5787,33 @@ var KeepAlive = {
     exclude: patternTypes,
     max: [String, Number]
   },
+  methods: {
+    cacheVNode: function cacheVNode() {
+      var ref = this;
+      var cache = ref.cache;
+      var keys = ref.keys;
+      var vnodeToCache = ref.vnodeToCache;
+      var keyToCache = ref.keyToCache;
+
+      if (vnodeToCache) {
+        var tag = vnodeToCache.tag;
+        var componentInstance = vnodeToCache.componentInstance;
+        var componentOptions = vnodeToCache.componentOptions;
+        cache[keyToCache] = {
+          name: getComponentName(componentOptions),
+          tag: tag,
+          componentInstance: componentInstance
+        };
+        keys.push(keyToCache); // prune oldest entry
+
+        if (this.max && keys.length > parseInt(this.max)) {
+          pruneCacheEntry(cache, keys[0], keys, this._vnode);
+        }
+
+        this.vnodeToCache = null;
+      }
+    }
+  },
   created: function created() {
     this.cache = Object.create(null);
     this.keys = [];
@@ -5788,6 +5825,7 @@ var KeepAlive = {
   },
   mounted: function mounted() {
     var this$1 = this;
+    this.cacheVNode();
     this.$watch('include', function (val) {
       pruneCache(this$1, function (name) {
         return matches(val, name);
@@ -5798,6 +5836,9 @@ var KeepAlive = {
         return !matches(val, name);
       });
     });
+  },
+  updated: function updated() {
+    this.cacheVNode();
   },
   render: function render() {
     var slot = this.$slots.default;
@@ -5830,12 +5871,9 @@ var KeepAlive = {
         remove(keys, key);
         keys.push(key);
       } else {
-        cache[key] = vnode;
-        keys.push(key); // prune oldest entry
-
-        if (this.max && keys.length > parseInt(this.max)) {
-          pruneCacheEntry(cache, keys[0], keys, this._vnode);
-        }
+        // delay setting the cache until update
+        this.vnodeToCache = vnode;
+        this.keyToCache = key;
       }
 
       vnode.data.keepAlive = true;
@@ -5910,7 +5948,7 @@ Object.defineProperty(Vue.prototype, '$ssrContext', {
 Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
-Vue.version = '2.6.12';
+Vue.version = '2.6.13';
 /*  */
 // these are reserved for web because they are directly compiled away
 // during template compilation
@@ -5931,7 +5969,7 @@ var convertEnumeratedValue = function (key, value) {
   : key === 'contenteditable' && isValidContentEditableValue(value) ? value : 'true';
 };
 
-var isBooleanAttr = makeMap('allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' + 'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' + 'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' + 'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' + 'required,reversed,scoped,seamless,selected,sortable,translate,' + 'truespeed,typemustmatch,visible');
+var isBooleanAttr = makeMap('allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' + 'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' + 'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' + 'muted,nohref,noresize,noshade,novalidate,nowrap,open,pauseonexit,readonly,' + 'required,reversed,scoped,seamless,selected,sortable,' + 'truespeed,typemustmatch,visible');
 var xlinkNS = 'http://www.w3.org/1999/xlink';
 
 var isXlink = function (name) {
@@ -6051,7 +6089,7 @@ var namespaceMap = {
 var isHTMLTag = makeMap('html,body,base,head,link,meta,style,title,' + 'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' + 'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' + 'a,b,abbr,bdi,bdo,br,cite,code,data,dfn,em,i,kbd,mark,q,rp,rt,rtc,ruby,' + 's,samp,small,span,strong,sub,sup,time,u,var,wbr,area,audio,map,track,video,' + 'embed,object,param,source,canvas,script,noscript,del,ins,' + 'caption,col,colgroup,table,thead,tbody,td,th,tr,' + 'button,datalist,fieldset,form,input,label,legend,meter,optgroup,option,' + 'output,progress,select,textarea,' + 'details,dialog,menu,menuitem,summary,' + 'content,element,shadow,template,blockquote,iframe,tfoot'); // this map is intentionally selective, only covering SVG elements that may
 // contain child elements.
 
-var isSVG = makeMap('svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' + 'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' + 'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view', true);
+var isSVG = makeMap('svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' + 'foreignobject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' + 'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view', true);
 
 var isReservedTag = function (tag) {
   return isHTMLTag(tag) || isSVG(tag);
@@ -6259,7 +6297,7 @@ var emptyNode = new VNode('', {}, []);
 var hooks = ['create', 'activate', 'update', 'remove', 'destroy'];
 
 function sameVnode(a, b) {
-  return a.key === b.key && (a.tag === b.tag && a.isComment === b.isComment && isDef(a.data) === isDef(b.data) && sameInputType(a, b) || isTrue(a.isAsyncPlaceholder) && a.asyncFactory === b.asyncFactory && isUndef(b.asyncFactory.error));
+  return a.key === b.key && a.asyncFactory === b.asyncFactory && (a.tag === b.tag && a.isComment === b.isComment && isDef(a.data) === isDef(b.data) && sameInputType(a, b) || isTrue(a.isAsyncPlaceholder) && isUndef(b.asyncFactory.error));
 }
 
 function sameInputType(a, b) {
@@ -7198,7 +7236,7 @@ function updateAttrs(oldVnode, vnode) {
     old = oldAttrs[key];
 
     if (old !== cur) {
-      setAttr(elm, key, cur);
+      setAttr(elm, key, cur, vnode.data.pre);
     }
   } // #4391: in IE9, setting type can reset value for input[type=radio]
   // #6666: IE/Edge forces progress value down to 1 before setting a max
@@ -7221,8 +7259,8 @@ function updateAttrs(oldVnode, vnode) {
   }
 }
 
-function setAttr(el, key, value) {
-  if (el.tagName.indexOf('-') > -1) {
+function setAttr(el, key, value, isInPre) {
+  if (isInPre || el.tagName.indexOf('-') > -1) {
     baseSetAttr(el, key, value);
   } else if (isBooleanAttr(key)) {
     // set attribute for blank value
@@ -9074,7 +9112,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"components/fields/EpubFileNameField.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../../../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../../../node_modules/vue/dist/vue.runtime.esm.js"}],"components/fields/EpubFileNameField.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9213,7 +9251,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"components/fields/EpubTableOfContentsField.vue":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../../../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../../../node_modules/vue/dist/vue.runtime.esm.js"}],"components/fields/EpubTableOfContentsField.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9273,7 +9311,7 @@ render._withStripped = true
       
       }
     })();
-},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../node_modules/vue-hot-reload-api/dist/index.js","vue":"../node_modules/vue/dist/vue.runtime.esm.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../../../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../../../node_modules/vue/dist/vue.runtime.esm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _EpubExportField = _interopRequireDefault(require("./components/fields/EpubExportField.vue"));
@@ -9320,7 +9358,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52739" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55363" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
