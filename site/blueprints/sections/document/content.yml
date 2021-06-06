@@ -18,6 +18,7 @@ fields:
           - text
           - list
           - quote
+          - paragraph
       codeGroup:
         type: group
         label: 
