@@ -1,0 +1,24 @@
+name: field.blocks.paragraph.name
+icon: code
+preview: box
+wysiwyg: true
+fields:
+  paragraphClass:
+    label: 
+      en: "Class Attribute"
+      de: "Class Attribut"
+    type: text
+  paragraphText:
+    type: writer
+    label: 
+      en: "Paragraph Text"
+      de: "Absatztext"
+    icon: text
+    inline: true
+    placeholder: 
+      en: "Text ..."
+      de: "Text ..."
+    marks:
+      - bold
+      - underline
+      - italic

@@ -1,7 +1,7 @@
-import ButtonBlock from "./components/blocks/Button.vue";
+import ParagraphBlock from "./components/blocks/ParagraphBlock.vue";
 
-panel.plugin('higgs/button-block', {
+panel.plugin('higgs/panel-module', {
 	blocks: {
-		button: ButtonBlock
+		paragraph: ParagraphBlock
 	}
 });

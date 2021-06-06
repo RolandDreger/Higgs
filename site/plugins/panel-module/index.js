@@ -8922,7 +8922,7 @@ if (inBrowser) {
 
 var _default = Vue;
 exports.default = _default;
-},{}],"components/blocks/Button.vue":[function(require,module,exports) {
+},{}],"components/blocks/ParagraphBlock.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8938,29 +8938,55 @@ exports.default = void 0;
 //
 //
 //
-var _default = {};
+//
+//
+//
+//
+//
+//
+var _default = {
+  name: 'Paragraph',
+  computed: {
+    paragraphTextField: function paragraphTextField() {
+      return this.field("paragraphtext");
+    }
+  }
+};
 exports.default = _default;
-        var $c04f62 = exports.default || module.exports;
+        var $5c8dfb = exports.default || module.exports;
       
-      if (typeof $c04f62 === 'function') {
-        $c04f62 = $c04f62.options;
+      if (typeof $5c8dfb === 'function') {
+        $5c8dfb = $5c8dfb.options;
       }
     
         /* template */
-        Object.assign($c04f62, (function () {
+        Object.assign($5c8dfb, (function () {
           var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("input", {
-    attrs: { type: "text", placeholder: "Button text ..." },
-    domProps: { value: _vm.content.text },
-    on: {
-      input: function($event) {
-        return _vm.update({ text: $event.target.value })
-      }
-    }
-  })
+  return _c(
+    "div",
+    { staticClass: "k-block-type-paragraph" },
+    [
+      _c("k-writer", {
+        ref: "textbox",
+        staticClass: "k-block-type-paragraph-text",
+        attrs: {
+          placeholder: _vm.paragraphTextField.placeholder || "Text ...",
+          inline: true,
+          marks: _vm.paragraphTextField.marks,
+          value: _vm.content.paragraphtext
+        },
+        on: {
+          input: function($event) {
+            return _vm.$emit("update", { paragraphtext: $event })
+          }
+        }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8982,9 +9008,9 @@ render._withStripped = true
         if (api.compatible) {
           module.hot.accept();
           if (!module.hot.data) {
-            api.createRecord('$c04f62', $c04f62);
+            api.createRecord('$5c8dfb', $5c8dfb);
           } else {
-            api.reload('$c04f62', $c04f62);
+            api.reload('$5c8dfb', $5c8dfb);
           }
         }
 
@@ -8998,16 +9024,16 @@ render._withStripped = true
 },{"_css_loader":"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"../../../../node_modules/vue-hot-reload-api/dist/index.js","vue":"../../../../node_modules/vue/dist/vue.runtime.esm.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-var _Button = _interopRequireDefault(require("./components/blocks/Button.vue"));
+var _ParagraphBlock = _interopRequireDefault(require("./components/blocks/ParagraphBlock.vue"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-panel.plugin('higgs/button-block', {
+panel.plugin('higgs/panel-module', {
   blocks: {
-    button: _Button.default
+    paragraph: _ParagraphBlock.default
   }
 });
-},{"./components/blocks/Button.vue":"components/blocks/Button.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./components/blocks/ParagraphBlock.vue":"components/blocks/ParagraphBlock.vue"}],"../../../../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9035,7 +9061,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55210" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52398" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

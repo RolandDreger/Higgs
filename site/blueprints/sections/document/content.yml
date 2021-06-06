@@ -18,14 +18,7 @@ fields:
           - text
           - list
           - quote
-          button:
-            name: Button
-            icon: bold
-            fields:
-              link:
-                type: url
-              text:
-                type: text
+          - paragraph
       codeGroup:
         type: group
         label: 
