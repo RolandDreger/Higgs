@@ -1,5 +1,6 @@
+<?php $class = $block->paragraphClass(); ?>
 <?php if($block->paragraphText()->isNotEmpty()): ?>
-	<p class="<?= $block->paragraphClass(); ?>">
+	<p <?php if($class->isNotEmpty()) echo 'class="' . $class . '"'; ?>>
 		<?= $block->paragraphText(); ?>
 	</p>
 <?php endif;?>
