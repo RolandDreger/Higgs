@@ -8,9 +8,7 @@ load([
 
 Kirby::plugin('higgs/epub-module', [
 	
-	'options' => [
-		'apiPrefix' => 'higgs' /* prefix for plugin api endpoints */
-	],
+	'options' => include __DIR__ . '/config/options.php',
 
 	'snippets' => [
 		'xhtml/content-type' => __DIR__ . '/snippets/content-type.php',
