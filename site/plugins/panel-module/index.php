@@ -8,11 +8,7 @@ Kirby::plugin('higgs/panel-module', [
 		'blocks/paragraph' => __DIR__ . '/snippets/blocks/paragraph.php'
 	],
 	'translations' => [
-		'en' => [
-			'field.blocks.paragraph.name' => 'Paragraph'
-		],
-		'de' => [
-			'field.blocks.paragraph.name' => 'Absatz'
-		]
+		'en' => include __DIR__ . '/translations/en.php',
+		'de' => include __DIR__ . '/translations/de.php'
 	]
 ]);
