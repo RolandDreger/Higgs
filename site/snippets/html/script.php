@@ -1,1 +1,4 @@
-<script src="<?= url('/assets/js/script.js'); ?>" type="module"></script>
+<?= js([
+	'assets/js/index.js',
+	'@auto'
+]) ?>
