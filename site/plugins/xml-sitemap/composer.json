@@ -1,0 +1,15 @@
+{
+	"name": "higgs/xml-sitemap",
+	"description": "Kirby Plugin to generate XML sitemap",
+	"type": "kirby-plugin",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Roland Dreger",
+			"email": "roland.dreger@a1.net"
+		}
+	],
+	"require": {
+		"getkirby/composer-installer": "^1.1"
+	}
+}
