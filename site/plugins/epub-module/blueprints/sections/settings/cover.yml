@@ -26,7 +26,7 @@ fields:
     image:
       ratio: 1/1
       cover: false
-    max: 1
+    multiple: false
     text: "{{ file.filename }} ({{ file.dimensions }})"
     template: cover
     when: 
