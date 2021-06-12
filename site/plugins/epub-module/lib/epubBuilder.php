@@ -1142,7 +1142,7 @@ class EpubBuilder {
 
 			$levelNum = $this->getLevelNumber($page);
 			if(empty($levelNum)) {
-				array_push($this->errors, "Level is not specified for the document: {$pageTitle}");
+				array_push($this->errors, "Level not specified: {$pageTitle}");
 				continue;
 			}
 			
@@ -1308,7 +1308,7 @@ class EpubBuilder {
 
 			$levelNum = $this->getLevelNumber($page);
 			if(empty($levelNum)) {
-				array_push($this->errors, "Level is not specified for the document: {$page->title()}");
+				array_push($this->errors, "Level not specified: {$page->title()}");
 				continue;
 			}
 
@@ -1370,12 +1370,21 @@ class EpubBuilder {
 
 	protected function getLevelNumber($page) {
 		
-		$levelNum = intval(preg_replace('/\D+/', '', $page->documentLevel()));
-		if(!is_numeric($levelNum) || $levelNum < 1) {
-			return;
+		if($page->documentLevel()->exists()) {
+			$levelNum = intval(preg_replace('/\D+/', '', $page->documentLevel()));
+			if(is_numeric($levelNum) && $levelNum > 0) {
+				return $levelNum;
+			} else {
+				return 0;
+			}
+		} else {
+			$depth = $page->depth() - $this->projectPage->depth();
+			if($depth > 0) {
+				return $depth;
+			}
 		}
-
-		return $levelNum;
+		
+		return null;
 	} /* END function getLevelNumber */
 
 
