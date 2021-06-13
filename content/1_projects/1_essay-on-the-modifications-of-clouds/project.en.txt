@@ -107,7 +107,7 @@ Epubname:
 
 ----
 
-Epubversion: 3.0
+Epubversion: 
 
 ----
 

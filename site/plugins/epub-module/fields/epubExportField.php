@@ -43,8 +43,8 @@ return [
 					$epubBuilder = new Higgs\Epub\EpubBuilder($parentPage, null, $options);
 					$epubBuilder->createEpub();
 					
-					$epubFileName = $epubBuilder->epubFileName;
-					$epubUrl = $epubBuilder->epubUrl;
+					$epubFileName = $epubBuilder->getEpubFileName();
+					$epubUrl = $epubBuilder->getEpubUrl();
 					$errors = $epubBuilder->errors;
 					
 					return ['data' => [

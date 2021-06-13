@@ -35,19 +35,19 @@ use Kirby\Exception\InvalidArgumentException;
  * $errors = $epubBuilder->errors;
  * 
  * Options:
- * 'formatOutput':	{String}	format generated XML documents 
- * 'overwrite': 		{String}	Overwrite existing ePub in destination folder
+ * 'formatOutput':		{String}			format generated XML documents 
+ * 'overwrite': 			{String}			Overwrite existing ePub in destination folder
  * 
  * Default values, if not defined via blueprint:
- * 'hasCover':			{String}	Include cover image and document 
- * 'epubVersion': 	{String}	ePub version nummer (2.0 or 3.0)
- * 'epubLanguage':	{String}	ePub language code (e.g. 'en')
- * 'imageMaxWidth':	{Int}			Pixel value
- * 'imageMaxHeight':{Number}	Pixel value
- * 'imageQuality':	{Int}			Numbers in the range from 10 to 100
- * 'coverMaxWidth':	{Int}			Pixel value
- * 'coverMaxHeight':{Int}			Pixel value
- * 'coverQuality':	{Number}	Numbers in the range from 10 to 100
+ * 'hasCover':				{String}			Include cover image and document 
+ * 'epubVersion': 		{String}			ePub version nummer (2.0 or 3.0)
+ * 'epubLanguage':		{String}			ePub language code (e.g. 'en')
+ * 'imageMaxWidth':		{Int|null}		Pixel value
+ * 'imageMaxHeight':	{Number|null}	Pixel value
+ * 'imageQuality':		{Int|null}		Numbers in the range from 10 to 100
+ * 'coverMaxWidth':		{Int|null}		Pixel value
+ * 'coverMaxHeight':	{Int|null}		Pixel value
+ * 'coverQuality':		{Number|null}	Numbers in the range from 10 to 100
  * 
  * @author Roland Dreger <roland.dreger@a1.net>
  */
@@ -67,69 +67,60 @@ class EpubBuilder {
 	const COVER_DOCUMENT_NAME = 'cover.xhtml';
 	
 	protected $defaults = [
-		'parentPageID' => '',
-		'epubName' => '',
-		'epubFileName' => '',
+		'epubName' => 'higgs-ebook',
 		'epubUrl' => '',
-		'projectDate' => ''
-	];
-
-	protected $options = [
-		'formatOutput' => false,
-		'hasCover' => false, 
+		'projectDate' => '',
+		'formatOutput' => false, 
 		'overwrite' => false,
+		'hasCover' => false,
 		'epubVersion' => '3.0',
 		'epubLang' => 'en',
-		'imageMaxWidth' => null,
-		'imageMaxHeight' => null,
-		'imageQuality' => null,
 		'coverMaxWidth' => null,
 		'coverMaxHeight' => null,
-		'coverQuality' => null
+		'coverQuality' => null,
+		'imageMaxWidth' => null,
+		'imageMaxHeight' => null,
+		'imageQuality' => null
 	];
-
-	protected $settings = [];
 	
-	private $projectPage;
-	private $parentPage;
-	private $phpVersionID;
-	private $templateFilePath;
-	private $xslFilePath;
-	private $docPages;
-	private $tocPages;
-	private $cssFiles;
-	private $fontFiles;
-	private $coverFile;
-	
-	/* Settings */
-	public $parentPageID;
-	public $epubName;
-	public $epubFileName;
-	public $epubUrl;
-	public $projectDate;
-	
-	/* Options */
-	public $overwrite;
-	public $formatOutput;
-	public $epubVersion;
-	public $epubLang;
-	public $hasCover;
-	public $coverMaxWidth;
-	public $coverMaxHeight;
-	public $coverQuality;
-	public $imageMaxWidth;
-	public $imageMaxHeight;
-	public $imageQuality;
+	protected $projectPage;
+	protected $parentPage;
+	protected $phpVersionID;
+	protected $coverFile;
+	protected $templateFilePath;
+	protected $xslFilePath;
+	protected $docPages;
+	protected $tocPages;
+	protected $cssFiles;
+	protected $fontFiles;
+	protected $parentPageID;
+	protected $epubName;
+	protected $epubFileName;
+	protected $epubUrl;
+	protected $projectDate;
+	protected $hasCover;
+	protected $epubVersion;
+	protected $epubLang;
+	protected $coverMaxWidth;
+	protected $coverMaxHeight;
+	protected $coverQuality;
+	protected $imageMaxWidth;
+	protected $imageMaxHeight;
+	protected $imageQuality;
 
 	/* Metadata */
-	public $metadataTitle;
-	public $metadataID;
-	public $metadataCreator;
-	public $metadataIDType;
-	public $metadataRights;
-	public $metadataContributor;
-	public $metadataDate;
-	public $medadataDescription;
+	protected $metadataTitle;
+	protected $metadataID;
+	protected $metadataCreator;
+	protected $metadataIDType;
+	protected $metadataRights;
+	protected $metadataContributor;
+	protected $metadataDate;
+	protected $medadataDescription;
+
+	/* Options (Instance) */
+	protected $overwrite;
+	protected $formatOutput;
 
 	public $errors = [];
 
@@ -140,98 +131,89 @@ class EpubBuilder {
 	 * @param {Kirby\Cms\Page} Parent Page (Destination). Location for created ePub file (default projectPage).
 	 * @param {Array} $options 
 	 */
-	public function __construct($projectPage, $parentPage = null, $options = []) {
-		
-		if(!$projectPage || !($projectPage instanceof Page)) {
-			throw new InvalidArgumentException('First parameter must be an Kirby page object: ' . $projectPage);
-		}
+	public function __construct(Page $projectPage, Page $parentPage = null, array $options = []) {
 
-		/* 
-			Settings 
-			Priority: Blueprint -> Defaults -> Init Options -> Class Options  
-		*/
-		$this->settings = array_merge($this->options, $options, $this->defaults);
-
-		/* Project Page (Source) */
+		/* 1. Project Page (Source) */
 		$this->projectPage = $projectPage;
 
-		/* Parent Page (Destination) */
-		$this->parentPage = $parentPage ?? $projectPage;
-		$this->parentPageID = $this->parentPage->id();
-	
-		/* PHP Version */
+		/* 2. Parent Page (Destination) */
+		$parentPage = $parentPage ?? $projectPage;
+		$this->parentPage = $parentPage;
+		$this->setParentPageID($parentPage);
+		
+		/* 3. ePub Version */
+		$this->setEpubVersion($projectPage);
+
+		/* 4. PHP Version */
 		$this->phpVersionID = $this->getPhpVersionID();
 		
-		/* ePub Version */
-		$this->setEpubVersion($projectPage);
-		$this->epubVersion = $this->getEpubVersion();
-
-		/* ePub Language */
-		$this->setEpubLang($projectPage);
-		$this->epubLang = $this->getEpubLang();
-
 		/* Template Path */
 		$this->templateFilePath = $this->getTemplateFilePath($projectPage);
 		
 		/* XSL Path */
 		$this->xslFilePath = $this->getXslFilePath($projectPage);
-
+		
 		/* Content Pages (all descendants) */
 		$this->docPages = $this->getDocPages($projectPage); 
 
 		/* Table of Contents pages */
 		$this->tocPages = $this->getTocPages($projectPage);
 
-		/* ePub Name */
-		$this->setEpubName($projectPage);
-		$this->epubName = $this->getEpubName();
-		$this->setEpubFileName($projectPage);
-		$this->epubFileName = $this->getEpubFileName();
+		/* ePub Language */
+		$this->setEpubLang($projectPage);
 
+		/* ePub Name */
+		$this->setEpubName('', $projectPage);
+		
 		/* Overwrite existing ePub */
-		$this->overwrite = $this->getOverwrite();
+		$this->setOverwrite($options['overwrite']);
 
 		/* Output format */
-		$this->formatOutput = $this->getFormatOutput();
+		$this->setFormatOutput($options['formatOutput']);
 
 		/* CSS Files */
-		$this->cssFiles = $this->getCssFiles($projectPage);
+		$this->setCssFiles($projectPage);
 
 		/* Font Files */
-		$this->fontFiles = $this->getFontFiles($projectPage);
+		$this->setFontFiles($projectPage);
 
 		/* Cover Image Settings */
 		$this->setCoverMaxWidth($projectPage);
-		$this->coverMaxWidth = $this->getCoverMaxWidth();
 		$this->setCoverMaxHeight($projectPage);
-		$this->coverMaxHeight = $this->getCoverMaxHeight();
 		$this->setCoverQuality($projectPage);
-		$this->coverQuality = $this->getCoverQuality();
 		
 		/* Content Image Settings */
 		$this->setImageMaxWidth($projectPage);
-		$this->imageMaxWidth = $this->getImageMaxWidth();
 		$this->setImageMaxHeight($projectPage);
-		$this->imageMaxHeight = $this->getImageMaxHeight();
 		$this->setImageQuality($projectPage);
-		$this->imageQuality = $this->getImageQuality();
 		
 		/* Cover File */
 		$this->setHasCover($projectPage);
-		$this->hasCover = $this->getHasCover();
-		$this->coverFile = $this->getCoverFile($projectPage);
-
+		$this->setCoverFile($projectPage);
+		
 		/* Metadata */
-		$this->metadataTitle = $this->getMetadataTitle($projectPage);
-		$this->metadataID = $this->getMetadataID($projectPage);
-		$this->metadataCreator = $this->getMetadataCreator($projectPage);
-		$this->metadataIDType = $this->getMetadataIDType($projectPage);
-		$this->metadataRights = $this->getMetadataRights($projectPage);
-		$this->metadataContributor = $this->getMetadataContributor($projectPage);
-		$this->metadataDate = $this->getMetadataDate($projectPage);
-		$this->medadataDescription = $this->getMedadataDescription($projectPage);
+		$this->setMetadataTitle($projectPage);
+		$this->setMetadataID($projectPage);
+		$this->setMetadataCreator($projectPage);
+		$this->setMetadataIDType($projectPage);
+		$this->setMetadataRights($projectPage);
+		$this->setMetadataContributor($projectPage);
+		$this->setMetadataDate($projectPage);
+		$this->setMedadataDescription($projectPage);
 	}
 
+	public function getParentPageID() {
+		return $this->parentPageID;
+	}
+
+	protected function setParentPageID() {
+
+		$parentPage = $this->parentPage;
+		if($parentPage && ($parentPage instanceof Page)) {
+			$this->parentPageID = $this->parentPage->id();
+		}
+	}
+	
 	protected function getPhpVersionID() {
 
 		$versionArray = explode('.', PHP_VERSION);
@@ -240,25 +222,27 @@ class EpubBuilder {
 		return $phpVersionID;
 	}
 
-	protected function getEpubVersion() {
-		return $this->settings['epubVersion'];
+	public function getEpubVersion() {
+		return $this->epubVersion;
 	}
 
-	protected function setEpubVersion($page) {
+	protected function setEpubVersion(Page $page) {
 
 		$epubVersionField = $page->epubVersion();
 		if($epubVersionField->exists() && $epubVersionField->isNotEmpty()) {
 			$epubVersion = $epubVersionField->value();
 			if($epubVersion === '2.0' || $epubVersion === '3.0') {
-				$this->settings['epubVersion'] = $epubVersion;
+				$this->epubVersion = $epubVersion;
 			} else {
 				throw new InvalidArgumentException("Invalid ePub version: {$epubVersion}. Allowed values: 2.0 or 3.0");
 			}
-		} 
+		} else {
+			$this->epubVersion = $this->defaults['epubVersion'];
+		}
 	}
 
-	protected function getTemplateFilePath($page) {
-		
+	protected function getTemplateFilePath(Page $page) {
+
 		$templateFilePath = $page->kirby()->roots()->plugins() . '/epub-module/' . self::TEMPLATE_FILE_RELATIVE_PATH;
 		if(!file_exists($templateFilePath)) {
 			throw new NotFoundException("Template file does not exists");
@@ -267,7 +251,7 @@ class EpubBuilder {
 		return $templateFilePath;
 	}
 
-	protected function getXslFilePath($page) {
+	protected function getXslFilePath(Page $page) {
 
 		$xslFilePath = $page->kirby()->roots()->plugins() . '/epub-module/';
 
@@ -285,8 +269,8 @@ class EpubBuilder {
 		return $xslFilePath;
 	}
 	
-	protected function getDocPages($page) {
-		
+	protected function getDocPages(Page $page) {
+
 		$docPages = $page->index();
 		if($docPages->count() === 0) {
 			throw new Exception('No descendant pages available');
@@ -295,8 +279,8 @@ class EpubBuilder {
 		return $docPages;
 	}
 
-	protected function getTocPages($page) {
-		
+	protected function getTocPages(Page $page) {
+
 		$tocPages = new Pages();
 
 		$tocPagesField = $page->projectTableOfContent();
@@ -307,47 +291,70 @@ class EpubBuilder {
 		return $tocPages;
 	}
 
-	protected function getEpubName() {
-		return $this->settings['epubName'];
+	public function getEpubName() {
+		return $this->epubName;
 	}
 
-	protected function setEpubName($page) {
+	public function setEpubName(string $name = '', Page $page = null) {
 		
-		$epubNameField = $page->epubName();
-		if($epubNameField->exists() && $epubNameField->isNotEmpty()) {
-			$this->settings['epubName'] = preg_replace('/\.epub$/', '', $epubNameField->value());
-		} else {
-			$this->settings['epubName'] = $page->slug();
+		if(!empty($name)) {
+			$this->epubName = preg_replace('/\.epub$/', '', $name);
+			return;
 		}
+
+		if($page) {
+			$epubNameField = $page->epubName();
+			if($epubNameField->exists() && $epubNameField->isNotEmpty()) {
+				$this->epubName = preg_replace('/\.epub$/', '', $epubNameField->value());
+			} else {
+				$this->epubName = $page->slug();
+			}
+			return;
+		}
+		
+		$this->epubName = $this->defaults['epubName'];
 	}
 
-	protected function getEpubFileName() {
-		return $this->settings['epubFileName'];
+	public function getEpubFileName() {
+		return $this->getEpubName() . '.epub';
 	}
 
-	protected function setEpubFileName($page) {
-		$epubName = $this->getEpubName();
-		$this->settings['epubFileName'] = $epubName . '.epub';
-	}
-
-	protected function getEpubUrl() {
-		return $this->settings['epubUrl'];
+	public function getEpubUrl() {
+		return $this->epubUrl;
 	}
 	
-	protected function setEpubUrl($file) {
-		$this->settings['epubUrl'] = $file->url();
+	protected function setEpubUrl(file $file) {
+		$this->epubUrl = $file->url();
 	}
 
-	protected function getOverwrite() {
-		return $this->settings['overwrite'];
+	public function getOverwrite() {
+		return $this->overwrite;
 	}
 
-	protected function getFormatOutput() {
-		return $this->settings['formatOutput'];
+	public function setOverwrite($overwrite = null) {
+
+		if(empty($overwrite) || !is_bool($overwrite)) {
+			$overwrite = $this->defaults['overwrite'];
+		}
+
+		$this->overwrite = $overwrite;
 	}
 
-	protected function getProjectDate() {
-		return $this->settings['projectDate'];
+	public function getFormatOutput() {
+		return $this->formatOutput;
+	}
+
+	public function setFormatOutput($formatOutput = null) {
+
+		if(empty($formatOutput) || !is_bool($formatOutput)) {
+			$formatOutput = $this->defaults['formatOutput'];
+		}
+
+		$this->formatOutput = $formatOutput;
+	}
+
+	public function getProjectDate() {
+		return $this->projectDate;
 	}
 
 	/**
@@ -356,12 +363,19 @@ class EpubBuilder {
 	 * Format: '2021-04-01T10:22:53Z'
 	 * @return string
 	 */
-	protected function setProjectDate() {
-		$this->settings['projectDate'] = strftime('%Y-%m-%dT%H:%M:%SZ'); 
+	public function setProjectDate(string $date = '') {
+		if(empty($date)) {
+			$this->projectDate = strftime('%Y-%m-%dT%H:%M:%SZ'); 
+		} else {
+			$this->projectDate = $date;
+		}
 	}
 
+	public function getCssFiles() {
+		return $this->cssFiles;
+	}
 
-	protected function getCssFiles($page) {
+	protected function setCssFiles(Page $page) {
 
 		$cssFiles = new Files();
 
@@ -370,10 +384,14 @@ class EpubBuilder {
 			$cssFiles = $cssFilesField->toFiles();
 		}
 
-		return $cssFiles;
+		$this->cssFiles = $cssFiles;
 	}
 
-	protected function getFontFiles($page) {
+	public function getFontFiles() {
+		return $this->fontFiles;
+	}
+
+	public function setFontFiles(Page $page) {
 
 		$fontFiles = new Files();
 
@@ -382,99 +400,120 @@ class EpubBuilder {
 			$fontFiles = $fontFilesField->toFiles();
 		}
 
-		return $fontFiles;
+		$this->fontFiles = $fontFiles;
 	}
 
-	protected function getCoverMaxWidth() {
-		return $this->settings['coverMaxWidth'];
+	public function getCoverMaxWidth() {
+		return $this->coverMaxWidth;
 	}
 
-	protected function setCoverMaxWidth($page) {
+	protected function setCoverMaxWidth(Page $page) {
 
 		$coverWidthField = $page->epubCoverWidth();
 		if($coverWidthField->exists() && $coverWidthField->isNotEmpty()) {
-			$this->settings['coverMaxWidth'] = $coverWidthField->toInt();
+			$this->coverMaxWidth = $coverWidthField->toInt();
+		} else {
+			$this->coverMaxWidth = $this->defaults['coverMaxWidth'];
 		}
 	}
 	
-	protected function getCoverMaxHeight() {
-		return $this->settings['coverMaxHeight'];
+	public function getCoverMaxHeight() {
+		return $this->coverMaxHeight;
 	}
 
-	protected function setCoverMaxHeight($page) {
+	protected function setCoverMaxHeight(Page $page) {
 
 		$coverHeightField = $page->epubCoverHeight();
 		if($coverHeightField->exists() && $coverHeightField->isNotEmpty()) {
-			$this->settings['coverMaxHeight'] = $coverHeightField->toInt();
+			$this->coverMaxHeight = $coverHeightField->toInt();
+		} else {
+			$this->coverMaxHeight = $this->defaults['coverMaxHeight'];
 		}
 	}
 
-	protected function getCoverQuality() {
-		return $this->settings['coverQuality'];
+	public function getCoverQuality() {
+		return $this->coverQuality;
 	}
 	
-	protected function setCoverQuality($page) {
+	protected function setCoverQuality(Page $page) {
 
 		$coverQualityFild = $page->epubCoverQuality();
 		if($coverQualityFild->exists() && $coverQualityFild->isNotEmpty()) {
-			$this->settings['coverQuality'] = $coverQualityFild->value();
+			$this->coverQuality = $coverQualityFild->value();
+		} else {
+			$this->coverQuality = $this->defaults['coverQuality'];
 		}
 	}
 
-	protected function getImageMaxWidth() {
-		return $this->settings['imageMaxWidth'];
+	public function getImageMaxWidth() {
+		return $this->imageMaxWidth;
 	}
 			
-	protected function setImageMaxWidth($page) {
+	protected function setImageMaxWidth(Page $page) {
 
 		$imageWidthField = $page->epubImageWidth();
 		if($imageWidthField->exists() && $imageWidthField->isNotEmpty()) {
-			$this->settings['imageMaxWidth'] = $imageWidthField->toInt();
+			$this->imageMaxWidth = $imageWidthField->toInt();
+		} else {
+			$this->imageMaxWidth = $this->defaults['imageMaxWidth'];
 		}
 	}
 	
 	protected function getImageMaxHeight() {
-		return $this->settings['imageMaxHeight'];
+		return $this->imageMaxHeight;
 	}
 			
-	protected function setImageMaxHeight($page) {
+	protected function setImageMaxHeight(Page $page) {
 
 		$imageHeightField = $page->epubImageHeight();
 		if($imageHeightField->exists() && $imageHeightField->isNotEmpty()) {
-			$this->settings['imageMaxHeight'] = $imageHeightField->toInt();
+			$this->imageMaxHeight = $imageHeightField->toInt();
+		} else {
+			$this->imageMaxHeight = $this->defaults['imageMaxHeight'];
 		}
 	}
 	
-	protected function getImageQuality(){
-		return $this->settings['imageQuality'];
+	public function getImageQuality(){
+		return $this->imageQuality;
 	}
 	
-	protected function setImageQuality($page) {
+	protected function setImageQuality(Page $page) {
 
 		$imageQualityField = $page->epubImageQuality();
 		if($imageQualityField->exists() && $imageQualityField->isNotEmpty()) {
-			$this->settings['imageQuality'] = $imageQualityField->value();
+			$this->imageQuality = $imageQualityField->value();
+		} else {
+			$this->imageQuality = $this->defaults['imageQuality'];
 		}
 	}
 
-	protected function getHasCover() {
-		return $this->settings['hasCover'];
+	public function getHasCover() {
+		if(!isset($this->hasCover)) {
+			return $this->defaults['hasCover'];
+		}
+		return $this->hasCover;
 	}
 
-	protected function setHasCover($page) {
-		
+	protected function setHasCover(Page $page) {	
+
 		$hasCoverField = $page->epubHasCoverImage();
 		if($hasCoverField->exists() && $hasCoverField->isNotEmpty()) {
 			if($hasCoverField->value() === 'true') {
-				$this->settings['hasCover'] = true;
+				$this->hasCover = true;
 			} else {
-				$this->settings['hasCover'] = false;
+				$this->hasCover = false;
 			}
+		} else {
+			$this->hasCover = $this.defaults['hasCover'];
 		}
 	}
 	
-	protected function getCoverFile($page){
-		
+	public function getCoverFile(){
+		return $this->coverFile;
+	}
+
+	protected function setCoverFile(Page $page) {
+
 		$coverFile = null;
 
 		$coverImageField = $page->epubCoverImageFile();
@@ -482,23 +521,29 @@ class EpubBuilder {
 			$coverFile = $coverImageField->toFiles()->first();
 		}
 
-		return $coverFile;
+		$this->coverFile = $coverFile;
 	}
 
-	protected function getEpubLang() {
-		return $this->settings['epubLang'];
+	public function getEpubLang() {
+		return $this->epubLang;
 	}
 
-	protected function setEpubLang($page) {
-		
+	public function setEpubLang(Page $page) {
+
 		$epubLanguageField = $page->epubLanguage();
 		if($epubLanguageField->exists() && $epubLanguageField->isNotEmpty()) {
 			$epubLang = $epubLanguageField->value();
-			$this->settings['epubLang'] = $epubLang;
-		} 
+			$this->epubLang = $epubLang;
+		} else {
+			$this->epubLang = $this->defaults['epubLang'];
+		}
 	}
 
-	protected function getMetadataTitle($page) {
+	public function getMetadataTitle() {
+		return $this->metadataTitle;
+	}
+
+	protected function setMetadataTitle(Page $page) {
 
 		$metadataTitle = '';
 
@@ -511,35 +556,63 @@ class EpubBuilder {
 			$metadataTitle = $page->title();
 		}
 
-		return $metadataTitle;
+		$this->metadataTitle = $metadataTitle;
 	}
 
-	protected function getMetadataID($page) {
-		return $page->metadataID()->value();
+	public function getMetadataID() {
+		return $this->metadataID;
 	}
 
-	protected function getMetadataCreator($page) {
-		return $page->metadataCreator()->value();
+	protected function setMetadataID(Page $page) {
+		$this->metadataID = $page->metadataID()->value();
 	}
 
-	protected function getMetadataIDType($page) {
-		return $page->metadataIDType()->value();
+	public function getMetadataCreator() {
+		return $this->metadataCreator;
 	}
 
-	protected function getMetadataRights($page) {
-		return $page->metadataRights()->value();
+	protected function setMetadataCreator(Page $page) {
+		$this->metadataCreator = $page->metadataCreator()->value();
 	}
 
-	protected function getMetadataContributor($page) {
-		return $page->metadataContributor()->value();
+	public function getMetadataIDType() {
+		return $this->metadataIDType;
 	}
 
-	protected function getMetadataDate($page) {
-		return $page->metadataDate()->value();
+	protected function setMetadataIDType(Page $page) {
+		$this->metadataIDType = $page->metadataIDType()->value();
 	}
 
-	protected function getMedadataDescription($page) {
-		return $page->medadataDescription()->value();
+	public function getMetadataRights() {
+		return $this->metadataRights;
+	}
+
+	protected function setMetadataRights(Page $page) {
+		$this->metadataRights = $page->metadataRights()->value();
+	}
+
+	public function getMetadataContributor() {
+		return $this->metadataContributor;
+	}
+
+	protected function setMetadataContributor(Page $page) {
+		$this->metadataContributor = $page->metadataContributor()->value();
+	}
+
+	public function getMetadataDate() {
+		return $this->metadataDate;
+	}
+
+	protected function setMetadataDate(Page $page) {
+		$this->metadataDate = $page->metadataDate()->value();
+	}
+
+	public function getMedadataDescription() {
+		return $this->medadataDescription;
+	}
+
+	protected function setMedadataDescription(Page $page) {
+		$this->medadataDescription = $page->medadataDescription()->value();
 	}
 
 
@@ -555,13 +628,12 @@ class EpubBuilder {
 	public function createEpub() {
 
 		$this->setProjectDate();
-		$this->projectDate = $this->getProjectDate();
 
 		$epubFileName = $this->getEpubFileName();
 		$projectPage = $this->projectPage;
 
 		/* Check: Delete existing ePub? */
-		$doOverwrite = $this->getOverwrite();
+		$doOverwrite = $this->overwrite;
 		if($doOverwrite === true) {
 			$epubFile = $projectPage->file($epubFileName);
 			if($epubFile !== null && $epubFile->exists()) {
@@ -572,7 +644,7 @@ class EpubBuilder {
 				}
 			}
 		} else { 
-			$epubFileName = $this->getEpubName() . '_' . $this->getTimestamp() . '.epub';
+			$epubFileName = $this->epubName . '_' . $this->getTimestamp() . '.epub';
 		}
 		
 		/* Create ePub (based on template) */
@@ -639,7 +711,7 @@ class EpubBuilder {
 			$epub->addFromString($contentOpfArchivePath, $xmlString);
 
 			/* Cover */
-			if($this->getHasCover()) {
+			if($this->hasCover) {
 				$coverFile = $this->coverFile;
 				if(empty($coverFile)) {
 					array_push($this->errors, "Cover file does not exists");
@@ -657,7 +729,7 @@ class EpubBuilder {
 					}
 					/* cover.jpg */
 					$coverFileName = $coverFile->filename();
-					$resizedCover = $coverFile->resize($this->getCoverMaxWidth(), $this->getCoverMaxHeight(), $this->getCoverQuality());
+					$resizedCover = $coverFile->resize($this->coverMaxWidth, $this->coverMaxHeight, $this->coverQuality);
 					$coverRealPath = $resizedCover->realpath();
 					$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFileName, 'ops');
 					$epub->addFile($coverRealPath, $coverArchivePath);
@@ -699,7 +771,7 @@ class EpubBuilder {
 				/* Graphic Files */
 				$graphicFiles = $page->files()->template('blocks/image');
 				foreach($graphicFiles as $graphic) {
-					$resizedGraphic = $graphic->resize($this->getImageMaxWidth(), $this->getImageMaxHeight(), $this->getImageQuality());
+					$resizedGraphic = $graphic->resize($this->imageMaxWidth, $this->imageMaxHeight, $this->imageQuality);
 					$graphicRealPath = $resizedGraphic->realpath();
 					$graphicFileName = $graphic->filename();
 					$graphicArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $graphicFileName, 'ops');
@@ -725,7 +797,6 @@ class EpubBuilder {
 
 			/* ePub URL */
 			$this->setEpubUrl($epubFile);
-			$this->epubUrl = $this->getEpubUrl();
 
 		} catch(Error $error) {
 
@@ -858,7 +929,7 @@ class EpubBuilder {
 		$doc = $dom->createDocument(null, 'html');
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = $this->getFormatOutput();
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
 		$doc->strictErrorChecking = true;
 
@@ -867,7 +938,7 @@ class EpubBuilder {
 
 		/* HTML Element */
 		$rootElement = $doc->documentElement;
-		$epubLang = $this->getEpubLang();
+		$epubLang = $this->epubLang;
 		$this->addAttribute($rootElement, 'xml:lang', $epubLang, 'attr');
 		$this->addAttribute($rootElement, 'lang', $epubLang, 'attr');
 
@@ -914,12 +985,12 @@ class EpubBuilder {
 		$doc = new DOMDocument();
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = $this->getFormatOutput();
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
 		$doc->strictErrorChecking = true;
 
 		/* Root Element */
-		$epubVersion = $this->getEpubVersion();
+		$epubVersion = $this->epubVersion;
 		$rootElement = $this->addElement($doc, ['http://www.idpf.org/2007/opf', 'package'], $doc, [['unique-identifier','bookid','sec'], ['version',$epubVersion,'attr']]);
 		$this->addAttribute($rootElement, 'xmlns:dc', 'http://purl.org/dc/elements/1.1/', 'sec');
 
@@ -930,7 +1001,7 @@ class EpubBuilder {
 		$metadataElement = $this->addElement($doc, 'metadata', $rootElement);
 		$dcTitleElement = $this->addElement($doc, 'dc:title', $metadataElement, [['id','opf_title','sec']], $this->metadataTitle);
 		$dcIdentifierElement = $this->addElement($doc, 'dc:identifier', $metadataElement, [['id','bookid','sec']], $this->metadataID);
-		$dcLanguageElement = $this->addElement($doc, 'dc:language', $metadataElement, [], $this->getEpubLang());
+		$dcLanguageElement = $this->addElement($doc, 'dc:language', $metadataElement, [], $this->epubLang);
 		
 		/* Meta Elements (required) */
 		if($this->checkVersion(3)) {
@@ -943,11 +1014,11 @@ class EpubBuilder {
 					$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['refines','#bookid','sec'],['property','identifier-type','sec'],['scheme',$identifier, 'sec']], $typeCode);
 				}
 			}
-			$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['property','dcterms:modified','sec']], $this->getProjectDate());
+			$metaModifiedElement = $this->addElement($doc, 'meta', $metadataElement, [['property','dcterms:modified','sec']], $this->projectDate);
 		}
 
 		/* Meta Element Cover */
-		if($this->checkVersion(3) && $this->getHasCover() && !empty($this->coverFile)) {
+		if($this->checkVersion(3) && $this->hasCover && !empty($this->coverFile)) {
 			$metaCoverElement = $this->addElement($doc, 'meta', $metadataElement, [['name','cover','sec'], ['content','cover-image','sec']]);
 		}
 		
@@ -1003,13 +1074,17 @@ class EpubBuilder {
 		};
 
 		/* Cover */
-		if($this->getHasCover() && !empty($this->coverFile)) {
+		if($this->hasCover && !empty($this->coverFile)) {
 			/* cover.jpg */
 			$coverFile = $this->coverFile;
 			$coverHashID = $coverFile->hashID();
 			$coverArchivePath = $this->buildFilePath(self::GRAPHIC_FOLDER_PATH, $coverFile->filename(), 'manifest');
 			$coverMimeType = $this->getMimeType($coverFile->realpath()) ?? '';
-			$this->addElement($doc, 'item', $manifestElement, [['id','cover-image','sec'],['href',$coverArchivePath,'href'],['media-type',$coverMimeType,'sec'],['properties','cover-image','sec']]);
+			$coverAttrArray = [['id','cover-image','sec'],['href',$coverArchivePath,'href'],['media-type',$coverMimeType,'sec']];
+			if($this->checkVersion(3)) {
+				array_push($coverAttrArray, ['properties','cover-image','sec']);
+			}
+			$this->addElement($doc, 'item', $manifestElement, $coverAttrArray);
 			/* cover.xhtml */
 			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
 			$this->addElement($doc, 'item', $manifestElement, [['id','cover','sec'],['href',$coverHrefValue,'href'],['media-type','application/xhtml+xml','sec']]);
@@ -1036,7 +1111,7 @@ class EpubBuilder {
 		$spineElement = $this->addElement($doc, 'spine', $rootElement, [['toc','ncx','sec']]);
 
 		/* Cover */
-		if($this->getHasCover() && !empty($this->coverFile)) {
+		if($this->hasCover && !empty($this->coverFile)) {
 			$this->addElement($doc, 'itemref', $spineElement, [['idref','cover','sec']]);
 		}
 
@@ -1057,7 +1132,7 @@ class EpubBuilder {
 		if($this->checkVersion(2)) {
 			$guideElement = $this->addElement($doc, 'guide', $rootElement);
 			/* Cover */
-			if($this->getHasCover() && !empty($this->coverFile)) {
+			if($this->hasCover && !empty($this->coverFile)) {
 				$coverArchivePath = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'guide');
 				$this->addElement($doc, 'reference', $guideElement, [['type','cover','sec'],['title','Cover','sec'],['href',$coverArchivePath,'href']]);
 			}
@@ -1089,7 +1164,7 @@ class EpubBuilder {
 		$doc = $dom->createDocument(null, 'html');
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = $this->getFormatOutput();
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
 		$doc->strictErrorChecking = true;
 
@@ -1101,7 +1176,7 @@ class EpubBuilder {
 
 		/* HTML Element */
 		$rootElement = $doc->documentElement;
-		$epubLang = $this->getEpubLang();
+		$epubLang = $this->epubLang;
 		$this->addAttribute($rootElement, 'xml:lang', $epubLang, 'attr');
 		$this->addAttribute($rootElement, 'lang', $epubLang, 'attr');
 
@@ -1191,7 +1266,7 @@ class EpubBuilder {
 		$landmarkNav->appendChild($landmarkOl);
 		
 		/* Cover */
-		if($this->getHasCover() && !empty($this->coverFile)) {
+		if($this->hasCover && !empty($this->coverFile)) {
 			$coverHrefValue = $this->buildFilePath(self::CONTENT_FOLDER_PATH, self::COVER_DOCUMENT_NAME, 'manifest');
 			$textContent = t('Cover', 'Cover');
 			$liElement = $this->createLandmarkListItem($doc, 'li', 'cover', $coverHrefValue, $textContent);
@@ -1273,7 +1348,7 @@ class EpubBuilder {
 		$doc = $dom->createDocument(null, 'ncx');
 		$doc->xmlVersion = '1.0';
 		$doc->encoding = 'UTF-8';
-		$doc->formatOutput = $this->getFormatOutput();
+		$doc->formatOutput = $this->formatOutput;
 		$doc->preserveWhiteSpace = true;
 		$doc->strictErrorChecking = true;
 
@@ -1284,7 +1359,7 @@ class EpubBuilder {
 
 		/* Root Element */
 		$rootElement = $doc->documentElement;
-		$this->addAttribute($rootElement, 'xml:lang', $this->getEpubLang(), 'attr');
+		$this->addAttribute($rootElement, 'xml:lang', $this->epubLang, 'attr');
 		$this->addAttribute($rootElement, 'dir', 'ltr', 'sec');
 		$this->addAttribute($rootElement, 'version', '2005-1', 'sec');
 
@@ -1436,7 +1511,11 @@ class EpubBuilder {
 
 	protected function checkVersion($versionNumber) {
 		
-		$epubVersion = $this->getEpubVersion();
+		if(!isset($this->epubVersion)) {
+			throw new Exception('ePub verion is not set');
+		}
+
+		$epubVersion = $this->epubVersion;
 		if(intval($epubVersion) === $versionNumber) {
 			return true;
 		}
