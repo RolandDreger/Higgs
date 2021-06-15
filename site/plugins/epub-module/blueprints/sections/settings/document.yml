@@ -5,19 +5,19 @@ fields:
     label: 
       en: "Status"
       de: "Status"
-    default: 'edit'
+    default: "edit"
     required: false
     options: 
-      'edit': 
+      "edit": 
         en: "Edit"
         de: "Bearbeiten"
-      'review': 
+      "review": 
         en: "Review"
         de: "Überprüfen"
-      'release':
+      "release":
         en: "Release"
         de: "Freigeben"
-      'publish': 
+      "publish": 
         en: "Publish"
         de: "Publizieren"
   documentLevel:
@@ -25,15 +25,15 @@ fields:
     label: 
       en: "Level"
       de: "Ebene"
-    default: 'level-1'
+    default: "level-1"
     required: false
     options: 
-      'level-1': 1
-      'level-2': 2
-      'level-3': 3
+      "level-1": 1
+      "level-2": 2
+      "level-3": 3
     help: 
-      en: Level in Table of Contents
-      de: Ebene im Inhaltsverzeichnis
+      en: "Level in Table of Contents"
+      de: "Ebene im Inhaltsverzeichnis"
 
   documentIsTitleVisible:
     type: toggle
@@ -53,7 +53,7 @@ fields:
     label: 
       en: "Part"
       de: "Teil"
-    default: 'bodymatter'
+    default: "bodymatter"
     required: true
     options: query
     query: 
@@ -61,50 +61,50 @@ fields:
       value: "{{ arrayItem.value }}"
       text: "{{ arrayItem.value.translate() }}"
     help: 
-      en: e.g. for parsX export
-      de: z.B. für parsX-Export
+      en: "e.g. for parsX export"
+      de: "z.B. für parsX-Export"
 
   documentLandmark:
     # Translations from languages files
     type: select
     label: 
-      en: Landmark
-      de: Landmark
+      en: "Landmark"
+      de: "Landmark"
     options: query
     query: 
       fetch: site.siteDocumentLandmarks.split
       value: "{{ arrayItem.value }}"
       text: "{{ arrayItem.value.translate() }}"
     help: 
-      en: e.g. for landmarks in ePubs
-      de: z.B. für Landmarks in ePubs
+      en: "e.g. for landmarks in ePubs"
+      de: "z.B. für Landmarks in ePubs"
 
   documentType:
     # Translations from languages files
     type: multiselect
     label: 
-      en: Type
-      de: Typ
+      en: "Type"
+      de: "Typ"
     options: query
     query: 
       fetch: site.siteDocumentTypes.split
       value: "{{ arrayItem.value }}"
       text: "{{ arrayItem.value.translate() }}"
     help: 
-      en: e.g. for epub:type attribute in ePubs
-      de: z.B. für epub:type-Attribut in ePubs
+      en: "e.g. for epub:type attribute in ePubs"
+      de: "z.B. für epub:type-Attribut in ePubs"
       
   documentRole:
     # Translations from languages files
     type: select
     label: 
-      en: Role
-      de: Rolle
+      en: "Role"
+      de: "Rolle"
     options: query
     query: 
       fetch: site.siteDocumentRoles.split
       value: "{{ arrayItem.value }}"
       text: "{{ arrayItem.value }}"
     help: 
-      en: e.g. for role attribute in ePubs
-      de: z.B. für role-Atribite in ePubs
+      en: "e.g. for role attribute in ePubs"
+      de: "z.B. für role-Atribite in ePubs"
