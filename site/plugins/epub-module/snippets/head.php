@@ -3,31 +3,23 @@
 	<title><?= $page->title(); ?></title>
 	<?php
 		
-		$cssFiles = new Collection([]);
+		$cssFiles = new Files([]);
 
-		/* CSS files of page */
+		/* CSS files of document page */
 		if($cssFilesField = $page->epubCSSFiles()) {
-			if($cssFilesField->exists()) {
-				if($cssFilesField->isNotEmpty()) {
-					$cssFiles->add($cssFilesField->toFiles());
-				}
+			if($cssFilesField->isNotEmpty()) {
+				$cssFiles->add($cssFilesField->toFiles());
 			}
 		}
 		
 		/* CSS files of project page */
-		$parentPages = $page->parents();
-			
-		foreach($parentPages as $parentPage) {
-			if($parentPage->intendedTemplate()->name() !== 'project') {
+		foreach($page->parents() as $parentPage) {
+			$cssFilesField = $parentPage->epubCSSFiles();
+			if(!$cssFilesField->exists()) {
 				continue;
 			}
-			if($cssFilesField = $parentPage->epubCSSFiles()) {
-				if($cssFilesField->exists()) {
-					if($cssFilesField->isNotEmpty()) {
-						$cssFiles->add($cssFilesField->toFiles());
-						break;
-					}
-				}
+			if($cssFilesField->isNotEmpty()) {
+				$cssFiles->add($cssFilesField->toFiles());
 			}
 		}
 		
