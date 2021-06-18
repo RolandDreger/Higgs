@@ -662,14 +662,19 @@ class EpubBuilder {
 		/* Create ePub (based on template) */
 		$epubFile = $projectPage->file($epubFileName);
 		if(!$epubFile || !$epubFile->exists()) {
-			$templateFilePath = $this->templateFilePath;
-			$epubFile = File::create([
-				'source' => $templateFilePath,
-				'parent' => $projectPage,
-				'filename' => $epubFileName,
-				'template' => 'epub',
-				'content' => []
-			]);
+			try {
+				$templateFilePath = $this->templateFilePath;
+				$epubFile = File::create([
+					'source' => $templateFilePath,
+					'parent' => $projectPage,
+					'filename' => $epubFileName,
+					'template' => 'epub',
+					'content' => []
+				]);
+			} catch(Error $error) {
+				array_push($this->errors, $error->getMessage());
+				return $this;
+			}
 			if(!$epubFile->exists()) {
 				array_push($this->errors, "File could not be created: {$epubFileName}");
 				return $this;
