@@ -6,12 +6,15 @@ columns:
   - width: 2/3
     fields: 
       epubDesc:
-        type: textarea
         label:
           en: "Description"
           de: "Beschreibung"
-      alt:
-        type: text
+        type: textarea
+      date:
         label:
-          en: "Alternative Text"
-          de: "Alternativtext"
+          en: "Created on"
+          de: "Erstellt am"
+        type: date
+        display: MM-DD-YYYY
+        time: true
+        default: today

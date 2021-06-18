@@ -669,7 +669,9 @@ class EpubBuilder {
 					'parent' => $projectPage,
 					'filename' => $epubFileName,
 					'template' => 'epub',
-					'content' => []
+					'content' => [
+						'date' => strftime('%d.%m.%Y %X')
+					]
 				]);
 			} catch(Error $error) {
 				array_push($this->errors, $error->getMessage());
