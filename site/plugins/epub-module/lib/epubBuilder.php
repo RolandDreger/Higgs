@@ -164,10 +164,10 @@ class EpubBuilder {
 		$this->setEpubName('', $projectPage);
 		
 		/* Overwrite existing ePub */
-		$this->setOverwrite($options['overwrite']);
+		$this->setOverwrite($options);
 
 		/* Output format */
-		$this->setFormatOutput($options['formatOutput']);
+		$this->setFormatOutput($options);
 
 		/* CSS Files */
 		$this->setCssFiles($projectPage);
@@ -341,8 +341,11 @@ class EpubBuilder {
 		return $this->overwrite;
 	}
 
-	public function setOverwrite(bool $overwrite) {
-		$this->overwrite = $overwrite;
+	public function setOverwrite(array $options = []) {
+		
+		if(isset($options['overwrite']) === true) {
+			$this->overwrite = $options['overwrite'];
+		}
 	}
 
 	public function getFormatOutput() {
@@ -354,8 +357,11 @@ class EpubBuilder {
 		return $this->formatOutput;
 	}
 
-	public function setFormatOutput(bool $formatOutput) {
-		$this->formatOutput = $formatOutput;
+	public function setFormatOutput(array $options = []) {
+
+		if(isset($options['formatOutput']) === true) {
+			$this->formatOutput = $options['formatOutput'];
+		}
 	}
 
 	public function getProjectDate() {
