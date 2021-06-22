@@ -48,12 +48,22 @@ Kirby::plugin('higgs/epub-module', [
 	],
 
 	'fields' => [
-		'epubExport' => __DIR__ . '/fields/epubExportField.php',
-		'epubFileName' => __DIR__ . '/fields/epubFileNameField.php'
+		'epubExport' => include __DIR__ . '/fields/epubExportField.php',
+		'epubFileName' => include __DIR__ . '/fields/epubFileNameField.php'
 	],
 
-	'fieldMethods' => include __DIR__ . '/extensions/fieldMethods.php',
-	'pageMethods' => include __DIR__ . '/extensions/pageMethods.php',
-	'fileMethods' => include __DIR__ . '/extensions/fileMethods.php'
+	'fieldMethods' => [
+		'toXhtml' => include __DIR__ . '/extensions/fieldMethods/toXhtml.php',
+		'translate' => include __DIR__ . '/extensions/fieldMethods/translate.php'
+	],
+	
+	'pageMethods' => [
+		'hashID' => include __DIR__ . '/extensions/pageMethods/hashID.php',
+		'statusIcon' => include __DIR__ . '/extensions/pageMethods/statusIcon.php'
+	],
+	
+	'fileMethods' => [
+		'hashID' => include __DIR__ . '/extensions/fileMethods/hashID.php'
+	]
 
 ]);
