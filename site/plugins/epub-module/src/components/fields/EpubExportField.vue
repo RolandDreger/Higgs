@@ -52,7 +52,7 @@ export default {
 				'page': parentPagePath
 			};
 			
-			const apiUrl = this.endpoints.field + `/export/epub`;
+			const apiUrl = this.endpoints.field + '/export/epub';
 			
 			this.$api.post(apiUrl, postObj)
 			.then(resObj => {

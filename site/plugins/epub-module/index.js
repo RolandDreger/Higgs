@@ -8989,7 +8989,7 @@ var _default = {
       var postObj = {
         'page': parentPagePath
       };
-      var apiUrl = this.endpoints.field + "/export/epub";
+      var apiUrl = this.endpoints.field + '/export/epub';
       this.$api.post(apiUrl, postObj).then(function (resObj) {
         var errorArray = resObj['data']['errors'];
 
