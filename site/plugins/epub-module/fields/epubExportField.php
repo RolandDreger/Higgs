@@ -8,19 +8,13 @@ return [
 		},
 		'tooltip' => function($tooltip) {
 			return I18n::translate($tooltip, $tooltip);
-		},
-		'apiPrefix' => function() {
-			return option('higgs.epub-module.apiPrefix', 'higgs');
 		}
 	],
 
 	'api' => function () {
-		
-		$apiPrefix = option('higgs.epub-module.apiPrefix', 'higgs');
-		
 		return [
 			[
-				'pattern' => "/{$apiPrefix}/export/epub",
+				'pattern' => "/export/epub",
 				'method' => 'POST',
 				'action' => function() {
 					

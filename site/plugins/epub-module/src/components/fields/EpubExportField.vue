@@ -29,7 +29,6 @@ export default {
 		tooltip: String,
 		disabled: Boolean,
 		required: Boolean,
-		apiPrefix: String,
 		icon: String,
 		endpoints: Object
 	},
@@ -53,9 +52,8 @@ export default {
 				'page': parentPagePath
 			};
 			
-			const apiPrefix = this.apiPrefix;
-			const apiUrl = this.endpoints.field + `/${apiPrefix}/export/epub`;
-
+			const apiUrl = this.endpoints.field + `/export/epub`;
+			
 			this.$api.post(apiUrl, postObj)
 			.then(resObj => {
 				

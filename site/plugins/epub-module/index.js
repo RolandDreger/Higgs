@@ -469,7 +469,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 /*!
- * Vue.js v2.6.13
+ * Vue.js v2.6.14
  * (c) 2014-2021 Evan You
  * Released under the MIT License.
  */
@@ -3093,7 +3093,7 @@ function normalizeScopedSlot(normalSlots, key, fn) {
     res = res && typeof res === 'object' && !Array.isArray(res) ? [res] // single vnode
     : normalizeChildren(res);
     var vnode = res && res[0];
-    return res && (!vnode || vnode.isComment && !isAsyncPlaceholder(vnode) // #9658, #10391
+    return res && (!vnode || res.length === 1 && vnode.isComment && !isAsyncPlaceholder(vnode) // #9658, #10391
     ) ? undefined : res;
   }; // this is a slot using the new v-slot syntax without scope. although it is
   // compiled as a scoped slot, render fn users would expect it to be present
@@ -5948,7 +5948,7 @@ Object.defineProperty(Vue.prototype, '$ssrContext', {
 Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
-Vue.version = '2.6.13';
+Vue.version = '2.6.14';
 /*  */
 // these are reserved for web because they are directly compiled away
 // during template compilation
@@ -8966,7 +8966,6 @@ var _default = {
     tooltip: String,
     disabled: Boolean,
     required: Boolean,
-    apiPrefix: String,
     icon: String,
     endpoints: Object
   },
@@ -8990,8 +8989,7 @@ var _default = {
       var postObj = {
         'page': parentPagePath
       };
-      var apiPrefix = this.apiPrefix;
-      var apiUrl = this.endpoints.field + "/".concat(apiPrefix, "/export/epub");
+      var apiUrl = this.endpoints.field + "/export/epub";
       this.$api.post(apiUrl, postObj).then(function (resObj) {
         var errorArray = resObj['data']['errors'];
 
@@ -9358,7 +9356,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55363" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54099" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
