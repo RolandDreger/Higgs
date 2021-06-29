@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '/../vendor/autoload.php';
+include dirname(__DIR__, 1) . '/vendor/autoload.php';
 
 $kirby = new Kirby([
 	'roots' => [
