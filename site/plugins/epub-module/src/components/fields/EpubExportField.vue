@@ -55,33 +55,33 @@ export default {
 			const apiUrl = this.endpoints.field + '/export/epub';
 			
 			this.$api.post(apiUrl, postObj)
-			.then(resObj => {
-				
-				const errorArray = resObj['data']['errors'];
-				if(errorArray.length === 0) {
-					/* Success */
-					const epubUrl = resObj['data']['url'];
-					const epubFileName = resObj['data']['fileName'];
-					this.$store.dispatch('notification/success', 'ePub exported to content folder');
-					this.help = `Download: <a href="${epubUrl}" type="application/epub+zip" download="${epubFileName}">ePub</a>`;
-				} else {
-					/* Error */
-					this.$store.dispatch('notification/error', 'Export failed');
-					this.help = '';
-					for(let err of errorArray) {
-						console.error(err);
+				.then(resObj => {
+					
+					const errorArray = resObj['data']['errors'];
+					if(errorArray.length === 0) {
+						/* Success */
+						const epubUrl = resObj['data']['url'];
+						const epubFileName = resObj['data']['fileName'];
+						this.$store.dispatch('notification/success', 'ePub exported to content folder');
+						this.help = `Download: <a href="${epubUrl}" type="application/epub+zip" download="${epubFileName}">ePub</a>`;
+					} else {
+						/* Error */
+						this.$store.dispatch('notification/error', 'Export failed');
+						this.help = '';
+						for(let err of errorArray) {
+							console.error(err);
+						}
 					}
-				}
-				
-				this.disabled = false;
-				
-				setTimeout(() => { 
-					this.help = this.userHelp; 
-				}, 4000);
-			})
-			.catch(err => {
-					console.error(err);
-			});
+					
+					this.disabled = false;
+					
+					setTimeout(() => { 
+						this.help = this.userHelp; 
+					}, 4000);
+				})
+				.catch(err => {
+						console.error(err);
+				});
 		}
 	}
 };
