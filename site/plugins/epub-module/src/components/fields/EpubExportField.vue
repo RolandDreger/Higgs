@@ -38,9 +38,9 @@ export default {
 	methods: {
 		exportEpub(event) {
 			
-			const parentPagePath = this.$route.params.path;
-			if(!parentPagePath) {
-				console.error('Page could not found: ' + parentPagePath);
+			const pageID = this.$route.params.path;
+			if(!pageID) {
+				console.error('Page could not found: ' + pageID);
 				return false;
 			}
 			
@@ -49,7 +49,7 @@ export default {
 			this.disabled = true;
 			
 			const postObj = { 
-				'page': parentPagePath
+				'page': pageID
 			};
 			
 			const apiUrl = this.endpoints.field + '/export/epub';

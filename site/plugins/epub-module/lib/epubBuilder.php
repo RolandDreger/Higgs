@@ -30,7 +30,7 @@ use Kirby\Exception\InvalidArgumentException;
  * 
  * Usage example:
  * $options = ['formatOutput' => false];
- * $epubBuilder = new Higgs\Epub\EpubBuilder($projectPage, null, $options);
+ * $epubBuilder = new Higgs\Epub\EpubBuilder($sourcePage, null, $options);
  * $epubBuilder->createEpub();
  * $errors = $epubBuilder->errors;
  * 
@@ -82,8 +82,8 @@ class EpubBuilder {
 		'coverQuality' => null		
 	];
 	
-	protected $projectPage;
-	protected $parentPage;
+	protected $sourcePage;
+	protected $destinationPage;
 	protected $phpVersionID;
 	protected $coverFile;
 	protected $templateFilePath;
@@ -92,7 +92,7 @@ class EpubBuilder {
 	protected $tocPages;
 	protected $cssFiles;
 	protected $fontFiles;
-	protected $parentPageID;
+	protected $destinationPageID;
 	protected $epubName;
 	protected $epubFileName;
 	protected $epubUrl;
@@ -126,42 +126,42 @@ class EpubBuilder {
 	/**
 	 * EpubBuilder constructor
 	 * 
-	 * @param {Kirby\Cms\Page} $projectPage	Source Page. Descendent pages are the content documents of generated ePub.
-	 * @param {Kirby\Cms\Page} $parentPage Destination Page. Location for created ePub file (default projectPage).
+	 * @param {Kirby\Cms\Page} $sourcePage	Source Page. Descendent pages are the content documents of generated ePub.
+	 * @param {Kirby\Cms\Page} $destinationPage Destination Page. Location for created ePub file (default sourcePage).
 	 * @param {Array} $options 
 	 */
-	public function __construct(Page $projectPage, Page $parentPage = null, array $options = []) {
+	public function __construct(Page $sourcePage, Page $destinationPage = null, array $options = []) {
 
-		/* 1. Project Page (Source) */
-		$this->projectPage = $projectPage;
+		/* 1. Source Page */
+		$this->sourcePage = $sourcePage;
 
-		/* 2. Parent Page (Destination) */
-		$this->parentPage = $parentPage ?? $projectPage;
-		$this->setParentPageID($this->parentPage);
+		/* 2. Destination Page */
+		$this->destinationPage = $destinationPage ?? $sourcePage;
+		$this->setDestinationPageID($this->destinationPage);
 		
 		/* 3. ePub Version */
-		$this->setEpubVersion('', $projectPage);
+		$this->setEpubVersion('', $sourcePage);
 
 		/* 4. PHP Version */
 		$this->phpVersionID = $this->getPhpVersionID();
 		
 		/* Template Path */
-		$this->templateFilePath = $this->getTemplateFilePath($projectPage);
+		$this->templateFilePath = $this->getTemplateFilePath($sourcePage);
 		
 		/* XSL Path */
-		$this->xslFilePath = $this->getXslFilePath($projectPage);
+		$this->xslFilePath = $this->getXslFilePath($sourcePage);
 		
 		/* Content Pages (all descendants) */
-		$this->docPages = $this->getDocPages($projectPage); 
+		$this->docPages = $this->getDocPages($sourcePage); 
 
 		/* Table of Contents pages */
-		$this->tocPages = $this->getTocPages($projectPage);
+		$this->tocPages = $this->getTocPages($sourcePage);
 
 		/* ePub Language */
-		$this->setEpubLang('', $projectPage);
+		$this->setEpubLang('', $sourcePage);
 
 		/* ePub Name */
-		$this->setEpubName('', $projectPage);
+		$this->setEpubName('', $sourcePage);
 		
 		/* Overwrite existing ePub */
 		$this->setOverwrite($options);
@@ -170,42 +170,42 @@ class EpubBuilder {
 		$this->setFormatOutput($options);
 
 		/* CSS Files */
-		$this->setCssFiles($projectPage);
+		$this->setCssFiles($sourcePage);
 
 		/* Font Files */
-		$this->setFontFiles($projectPage);
+		$this->setFontFiles($sourcePage);
 
 		/* Cover Image Settings */
-		$this->setCoverMaxWidth($projectPage);
-		$this->setCoverMaxHeight($projectPage);
-		$this->setCoverQuality($projectPage);
+		$this->setCoverMaxWidth($sourcePage);
+		$this->setCoverMaxHeight($sourcePage);
+		$this->setCoverQuality($sourcePage);
 		
 		/* Content Image Settings */
-		$this->setImageMaxWidth($projectPage);
-		$this->setImageMaxHeight($projectPage);
-		$this->setImageQuality($projectPage);
+		$this->setImageMaxWidth($sourcePage);
+		$this->setImageMaxHeight($sourcePage);
+		$this->setImageQuality($sourcePage);
 		
 		/* Cover File */
-		$this->setHasCover($projectPage);
-		$this->setCoverFile($projectPage);
+		$this->setHasCover($sourcePage);
+		$this->setCoverFile($sourcePage);
 		
 		/* Metadata */
-		$this->setMetadataTitle($projectPage);
-		$this->setMetadataID($projectPage);
-		$this->setMetadataCreator($projectPage);
-		$this->setMetadataIDType($projectPage);
-		$this->setMetadataRights($projectPage);
-		$this->setMetadataContributor($projectPage);
-		$this->setMetadataDate($projectPage);
-		$this->setMedadataDescription($projectPage);
+		$this->setMetadataTitle($sourcePage);
+		$this->setMetadataID($sourcePage);
+		$this->setMetadataCreator($sourcePage);
+		$this->setMetadataIDType($sourcePage);
+		$this->setMetadataRights($sourcePage);
+		$this->setMetadataContributor($sourcePage);
+		$this->setMetadataDate($sourcePage);
+		$this->setMedadataDescription($sourcePage);
 	}
 
-	public function getParentPageID() {
-		return $this->parentPageID;
+	public function getDestinationPageID() {
+		return $this->destinationPageID;
 	}
 
-	protected function setParentPageID(Page $page) {
-		$this->parentPageID = $page->id();
+	protected function setDestinationPageID(Page $page) {
+		$this->destinationPageID = $page->id();
 	}
 	
 	protected function getPhpVersionID() {
@@ -648,12 +648,12 @@ class EpubBuilder {
 		$this->setProjectDate();
 
 		$epubFileName = $this->getEpubFileName();
-		$projectPage = $this->projectPage;
+		$sourcePage = $this->sourcePage;
 
 		/* Check: Delete existing ePub? */
 		$doOverwrite = $this->getOverwrite();
 		if($doOverwrite === true) {
-			$epubFile = $projectPage->file($epubFileName);
+			$epubFile = $sourcePage->file($epubFileName);
 			if($epubFile !== null && $epubFile->exists()) {
 				$isDeleted = $epubFile->delete();
 				if(!$isDeleted) {
@@ -666,13 +666,13 @@ class EpubBuilder {
 		}
 		
 		/* Create ePub (based on template) */
-		$epubFile = $projectPage->file($epubFileName);
+		$epubFile = $sourcePage->file($epubFileName);
 		if(!$epubFile || !$epubFile->exists()) {
 			try {
 				$templateFilePath = $this->templateFilePath;
 				$epubFile = File::create([
 					'source' => $templateFilePath,
-					'parent' => $projectPage,
+					'parent' => $sourcePage,
 					'filename' => $epubFileName,
 					'template' => 'epub',
 					'content' => [
@@ -1478,7 +1478,7 @@ class EpubBuilder {
 				return 0;
 			}
 		} else {
-			$depth = $page->depth() - $this->projectPage->depth();
+			$depth = $page->depth() - $this->sourcePage->depth();
 			if($depth > 0) {
 				return $depth;
 			}
@@ -1500,11 +1500,11 @@ class EpubBuilder {
 
 	protected function getDocumentName($childPage) {
 		
-		$projectPagePathArray = explode('/', $this->projectPage->uri());
+		$sourcePagePathArray = explode('/', $this->sourcePage->uri());
 		$childPagePathArray = explode('/', $childPage->uri());
 		
-		$projectPageLevel = count($projectPagePathArray);
-		$leveledChildPagePathArray = array_slice($childPagePathArray, $projectPageLevel);
+		$sourcePageLevel = count($sourcePagePathArray);
+		$leveledChildPagePathArray = array_slice($childPagePathArray, $sourcePageLevel);
 		
 		$documentName = implode('+', $leveledChildPagePathArray) . '.xhtml';
 		

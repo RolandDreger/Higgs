@@ -18,13 +18,13 @@ return [
 				'method' => 'POST',
 				'action' => function() {
 					
-					$pageID = get('page');
+					$sourcePageID = get('page');
 												
-					/* Get parent page */
-					$parentPage = $this->page($pageID);
-					if(!$parentPage) {
+					/* Get source page */
+					$sourcePage = $this->page($sourcePageID);
+					if(!$sourcePage) {
 						return ['data' => [
-							'errors' => ["Page could not found: {$pageID}"]
+							'errors' => ["Page could not found: {$sourcePageID}"]
 						]];
 					}
 
@@ -34,7 +34,7 @@ return [
 						'overwrite' => true
 					];
 
-					$epubBuilder = new Higgs\Epub\EpubBuilder($parentPage, null, $options);
+					$epubBuilder = new Higgs\Epub\EpubBuilder($sourcePage, null, $options);
 					$epubBuilder->createEpub();
 					
 					$epubFileName = $epubBuilder->getEpubFileName();

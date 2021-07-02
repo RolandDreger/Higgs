@@ -8976,10 +8976,10 @@ var _default = {
     exportEpub: function exportEpub(event) {
       var _this = this;
 
-      var parentPagePath = this.$route.params.path;
+      var pageID = this.$route.params.path;
 
-      if (!parentPagePath) {
-        console.error('Page could not found: ' + parentPagePath);
+      if (!pageID) {
+        console.error('Page could not found: ' + pageID);
         return false;
       }
 
@@ -8987,7 +8987,7 @@ var _default = {
       this.help = 'Export processing ...';
       this.disabled = true;
       var postObj = {
-        'page': parentPagePath
+        'page': pageID
       };
       var apiUrl = this.endpoints.field + '/export/epub';
       this.$api.post(apiUrl, postObj).then(function (resObj) {
